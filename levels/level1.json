@@ -21,7 +21,7 @@
   ],
   "counts": {
     "birds": 4,
-    "blocks": 38
+    "blocks": 37
   },
   "id": "pack1/Level6.lua",
   "scoreEagle": 65900,
@@ -52,12 +52,6 @@
       "id": "BIRD_RED",
       "x": 0,
       "y": -1.139
-    },
-    "block_1": {
-      "angle": 4.513,
-      "id": "PIG_BASIC_MEDIUM",
-      "x": 82.461,
-      "y": -1.918
     },
     "block_10": {
       "angle": 92.197,
@@ -239,7 +233,7 @@
       "x": 84.791,
       "y": -17.471
     },
-    "block_38": {
+    "block_1": {
       "angle": 2.733,
       "id": "WOOD_BLOCK_4X1",
       "x": 79.623,
