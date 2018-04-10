@@ -138,7 +138,7 @@ public class BasicLevel {
 	}
 
 	public int getRandomXInt () {
-		int min = 5;
+		int min = 15;
 		int max = 100;
 
 		// nextInt is normally exclusive of the top value,
@@ -147,11 +147,11 @@ public class BasicLevel {
 	}
 
 	public int getRandomYInt () {
-		int min = -3; // -25
+		int min = -2; // -25
 		int max = -1;
 
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
-		return (ThreadLocalRandom.current().nextInt(min, max + 1));
+		return (ThreadLocalRandom.current().nextInt(min, max));
 	}
 }
