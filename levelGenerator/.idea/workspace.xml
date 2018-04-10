@@ -23,11 +23,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-454">
-                  <caret line="86" column="29" selection-start-line="86" selection-start-column="29" selection-end-line="86" selection-end-column="29" />
+                <state relative-caret-position="401">
+                  <caret line="143" column="19" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="19" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="imports" expanded="true" />
@@ -37,11 +37,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Level1-3.json" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Level1-3.json" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+                <state relative-caret-position="-114">
+                  <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -98,7 +98,7 @@
           <file leaf-file-name="exampleLevel.json" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/exampleLevel.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
+                <state relative-caret-position="-680">
                   <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
                   <folding />
                 </state>
@@ -131,8 +131,8 @@
         <option value="$PROJECT_DIR$/generatedLevels/testLevel1.json" />
         <option value="$PROJECT_DIR$/src/Blocks.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
-        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-3.json" />
+        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
       </list>
     </option>
   </component>
@@ -628,23 +628,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-114">
+          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-454">
-          <caret line="86" column="29" selection-start-line="86" selection-start-column="29" selection-end-line="86" selection-end-column="29" />
+        <state relative-caret-position="401">
+          <caret line="143" column="19" selection-start-line="143" selection-start-column="19" selection-end-line="143" selection-end-column="19" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#3186#3195#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
