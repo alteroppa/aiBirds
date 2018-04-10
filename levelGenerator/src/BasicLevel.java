@@ -141,8 +141,8 @@ public class BasicLevel {
 	}
 
 	public int getRandomYInt () {
-		int min = -20; // -25
-		int max = 0;
+		int min = -3; // -25
+		int max = -1;
 
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
