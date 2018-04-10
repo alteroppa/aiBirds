@@ -21,7 +21,7 @@
   ],
   "counts": {
     "birds": 4,
-    "blocks": 38
+    "blocks": 33
   },
   "id": "pack1/Level6.lua",
   "scoreEagle": 65900,
@@ -52,12 +52,6 @@
       "id": "BIRD_RED",
       "x": 0,
       "y": -1.139
-    },
-    "block_1": {
-      "angle": 4.513,
-      "id": "PIG_BASIC_MEDIUM",
-      "x": 82.461,
-      "y": -1.918
     },
     "block_10": {
       "angle": 92.197,
@@ -119,35 +113,11 @@
       "x": 81.43,
       "y": -24.11
     },
-    "block_2": {
-      "angle": 356.74,
-      "id": "PIG_BASIC_MEDIUM",
-      "x": 81.696,
-      "y": -5.49
-    },
     "block_20": {
       "angle": 90.15,
       "id": "ICE_BLOCK_2X1",
       "x": 86.182,
       "y": -24.11
-    },
-    "block_21": {
-      "angle": 357.319,
-      "id": "PIG_BASIC_SMALL",
-      "x": 81.741,
-      "y": -13.238
-    },
-    "block_22": {
-      "angle": 15.93,
-      "id": "PIG_BASIC_SMALL",
-      "x": 82.795,
-      "y": -11.422
-    },
-    "block_23": {
-      "angle": 350.23,
-      "id": "PIG_BASIC_SMALL",
-      "x": 82.392,
-      "y": -9.361
     },
     "block_24": {
       "angle": 359.988,
@@ -227,19 +197,19 @@
       "x": 78.749,
       "y": -20.032
     },
-    "block_36": {
+    "block_2": {
       "angle": 88.777,
       "id": "ICE_BLOCK_4X1",
       "x": 86.033,
       "y": -20.03
     },
-    "block_37": {
+    "block_23": {
       "angle": 357.668,
       "id": "WOOD_BLOCK_4X1",
       "x": 84.791,
       "y": -17.471
     },
-    "block_38": {
+    "block_1": {
       "angle": 2.733,
       "id": "WOOD_BLOCK_4X1",
       "x": 79.623,
@@ -281,13 +251,13 @@
       "x": 70.689,
       "y": -3.26
     },
-    "block_39": {
+    "block_22": {
       "angle": 136.081,
       "id": "STONE_BLOCK_8X1",
       "x": 10.689,
       "y": -3.26
     },
-    "block_40": {
+    "block_21": {
       "angle": 138.081,
       "id": "STONE_BLOCK_8X1",
       "x": 30.689,
