@@ -1,0 +1,59 @@
+- einen Screenshot pro gespieltem Level vom java-Programm speichern  --> nur ohne Pigs möglich, sonst können level evtl nicht geschafft werden, dann bleibt der Screenshot-Generator hängen
+- oder: levels in einen online-generator eingeben und screenshots davon crawlen
+
+- ggf. automatisiert/randomisiert level erstellen lassen (levelXY.json --> java/python, egal)
+- generalisierbare Regel finden für eine bestimmte Struktur, dann nach dieser Regel levels gestalten
+- 40% ohne enthaltene Struktur, 30% mit einer Struktur, 30% mit mehreren gleichen Strukturen
+- von den levels Screenshots machen
+- screenshot mit deep learning analysieren (python)
+
+- zunächst eine Struktur, dann nacheinander andere: Beginn mit Stapel (Stack), dann Domino, dann Bunker
+
+Problem: schießen lassen, um zu verifizieren:
+	- sind die Blocks nach dem Schuss zerstört?
+	- welche Blocks liegen da: sind das noch die gleichen wie vor dem Schuss, oder andere? - schwer zu erkennen nur mit Vorher-Nachher-Screenshots
+	- liegen die Blocks schräg auf anderen Blocks, dann ist die y-Koordinaten-Analyse schwierig
+	- level-injection in das Spiel schwierig, da es nur als Chrome Application Cache existiert (eigentliche Website/Extension wurde abgeschaltet) --> ist aber auch nötig fürs Erstellen der Screenshots, und kann ich
+		==> dieses Feature wird später evtl eingebaut
+
+Analyse Domino:
+	- gleiche y-koordinaten der in der Struktur enthaltenen Blocks
+	- nicht weiter voneinander entfernt als weniger als die Differenz zwischen den y-Koordinaten
+
+Analyse Stack:
+	- obere y-koordinate des ersten ist untere y-koordinate des nächsten Blocks
+	- mindestens zwei der gleichen Materialien
+	- ggf. sogar nur gleich groß UND gleiche Materialien
+
+Leveldesign:
+	- randomisiert noise - d.h. anderes Zeug, aber:
+	- noise nicht innerhalb der Struktur?
+	- auch mit mehreren Strukturen innerhalb des gleichen Levels versuchen
+	- Strukturen-Grenzkoordinaten als Box definieren, damit der Agent später weiß, wo sich die Struktur befindet und wo er hinschießen muss
+	- nach dem Lernen mit den generierten Levels den Klassifikator auch an den klassischen Levels testen, damit erkannt wird, ob Schweine die Erkennung beeinträchtigen (sollten sie nicht)
+
+
+
+
+
+
+HOWTO
+- zum bauen der .jar im root-VZ:
+	ant compile
+	ant jar
+
+- zum runnen:
+in chrome: http://chrome.angrybirds.com/
+	- bis zum level 1 vorklicken
+	java -jar ABServer.jar
+	- und dann in neuem Terminal:
+	java -jar ABSoftware.jar -nasc
+
+- TODO:
+	- redirect mit queryParam ==> redirector in den credits erwähnen!
+	- naiive agent umschreiben:
+		- gleich nach dem Laden des Levels: agent.fullyZoomOut(); danach: agent.doScreenshot();
+	- nicht nur auf der ebenen Fläche die Strukturen generieren lassen, sondern auch auf z.B. anderen Gegenständen (randomisierten "Fundamenten")
+	- die Strukturen müssen Stabil sein und dürfen nicht am Anfang schon umfallen, d. h. die y-punkte müssen immer übereinander sein
+	- naming convention: Levelx-x.json
+	- image recognition in python: https://becominghuman.ai/building-an-image-classifier-using-deep-learning-in-python-totally-from-a-beginners-perspective-be8dbaf22dd8
