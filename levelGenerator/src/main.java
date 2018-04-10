@@ -3,6 +3,9 @@
  */
 public class main {
     public static void main(String[] args){
-        BasicLevel basicLevel = new BasicLevel("testLevel1", 10);
+        BasicLevel basicLevel = new BasicLevel();
+        basicLevel.createManyLevels(10);
     }
+
+
 }

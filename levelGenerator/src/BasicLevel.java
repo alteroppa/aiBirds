@@ -10,8 +10,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class BasicLevel {
-	public BasicLevel (String levelName, int blocks) {
-		createLevel(levelName, blocks);
+	public void createManyLevels (int numberOfLevels){
+		for (int i = 0; i < numberOfLevels; i++){
+			createLevel("Level1" + "-" + (i+1), 10);
+		}
 	}
 
     public void createLevel(String levelName, int blocks){
