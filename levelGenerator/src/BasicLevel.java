@@ -25,66 +25,66 @@ public class BasicLevel {
 
 			JSONObject camera1 = new JSONObject();
 
-			camera1.put("bottom", "14.338");
+			camera1.put("bottom", 14.338);
 			camera1.put("id", "Slingshot");
-			camera1.put("left", "-39.913");
-			camera1.put("right", "33.515");
-			camera1.put("top", "-40.733");
-			camera1.put("x", "29.894");
-			camera1.put("y", "-13.198");
+			camera1.put("left", -39.913);
+			camera1.put("right", 33.515);
+			camera1.put("top", -40.733);
+			camera1.put("x", 29.894);
+			camera1.put("y", -13.198);
 
 		cameraArray.add(camera1);
 
 		JSONObject camera2 = new JSONObject();
 
-			camera2.put("bottom", "11.728");
+			camera2.put("bottom", 11.728);
 			camera2.put("id", "Castle");
-			camera2.put("left", "13.039");
-			camera2.put("right", "77.257");
-			camera2.put("top", "-36.435");
-			camera2.put("x", "78.241");
-			camera2.put("y", "-12.354");
+			camera2.put("left", 13.039);
+			camera2.put("right", 77.257);
+			camera2.put("top", -36.435);
+			camera2.put("x", 78.241);
+			camera2.put("y", -12.354);
 
 		cameraArray.add(camera2);
 
 		wholeLevel.put("camera", cameraArray);
 
 		JSONObject counts = new JSONObject();
-			counts.put("birds", "4");
+			counts.put("birds", 4);
 			counts.put("blocks", blocks);
 
 		wholeLevel.put("counts", counts);
 		wholeLevel.put("id", "pack1/Level6.lua");
-		wholeLevel.put("scoreEagle", "65900");
-		wholeLevel.put("scoreGold", "64000");
-		wholeLevel.put("scoreSilver", "51000");
+		wholeLevel.put("scoreEagle", 65900);
+		wholeLevel.put("scoreGold", 64000);
+		wholeLevel.put("scoreSilver", 51000);
 		wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
 
 		JSONObject world = new JSONObject();
 
 		JSONObject bird1 = new JSONObject();
-		bird1.put("angle", "0");
+		bird1.put("angle", 0);
 		bird1.put("id", "BIRD_RED");
-		bird1.put("x", "10.153");
-		bird1.put("y", "-0.944");
+		bird1.put("x", 10.153);
+		bird1.put("y", -0.944);
 
 		JSONObject bird2 = new JSONObject();
-		bird2.put("angle", "0");
+		bird2.put("angle", 0);
 		bird2.put("id", "BIRD_RED");
-		bird2.put("x", "6.113");
-		bird2.put("y", "-1.142");
+		bird2.put("x", 6.113);
+		bird2.put("y", -1.142);
 
 		JSONObject bird3 = new JSONObject();
-		bird3.put("angle", "0");
+		bird3.put("angle", 0);
 		bird3.put("id", "BIRD_RED");
-		bird3.put("x", "2.878");
-		bird3.put("y", "-1.143");
+		bird3.put("x", 2.878);
+		bird3.put("y", -1.143);
 
 		JSONObject bird4 = new JSONObject();
-		bird4.put("angle", "0");
+		bird4.put("angle", 0);
 		bird4.put("id", "BIRD_RED");
-		bird4.put("x", "0");
-		bird4.put("y", "-1.139");
+		bird4.put("x", 0);
+		bird4.put("y", -1.139);
 
 		world.put("bird_1", bird1);
 		world.put("bird_2", bird2);
