@@ -93,8 +93,13 @@ public class BasicLevel {
 
 
 		// add randomized blocks
-		for (int i = 0; i < blocks; i++){
+		for (int i = 0; i < (blocks - 3); i++){
 			world.put("block_"+(i+1), createRandomJSONBlock());
+		}
+
+		ArrayList<JSONObject> dominoStructure = DominoStructure.createDominoStructure();
+		for (int i = 0; i < dominoStructure.size(); i++){
+			world.put("block_" + (blocks - (i+1)), dominoStructure.get(i));
 		}
 
 		wholeLevel.put("world", world);
