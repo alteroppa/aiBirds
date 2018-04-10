@@ -99,7 +99,8 @@ public class BasicLevel {
 
 		ArrayList<JSONObject> dominoStructure = DominoStructure.createDominoStructure();
 		for (int i = 0; i < dominoStructure.size(); i++){
-			world.put("block_" + (blocks - (i+1)), dominoStructure.get(i));
+			world.put("block_" + (blocks - (i)), dominoStructure.get(i));
+			System.out.println(dominoStructure.get(i).toString() + " " + (blocks-(i)));
 		}
 
 		wholeLevel.put("world", world);
