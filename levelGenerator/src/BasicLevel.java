@@ -123,7 +123,7 @@ public class BasicLevel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("new level:\n"  + wholeLevel + "\n");
+		System.out.println(levelName+":\n"  + wholeLevel + "\n");
 	}
 
 	public JSONObject createRandomJSONBlock () {
