@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 public class BasicLevel {
 	public void createManyLevels (int numberOfLevels){
 		for (int i = 0; i < numberOfLevels; i++){
-			createLevel("Level1" + "-" + (i+1), 10);
+			createLevel("Level2" + "-" + (i+1), 10);
 		}
 	}
 
@@ -30,7 +30,7 @@ public class BasicLevel {
 			camera1.put("left", -39.913);
 			camera1.put("right", 33.515);
 			camera1.put("top", -40.733);
-			camera1.put("x", 29.894);
+			camera1.put("x", 49.894);
 			camera1.put("y", -13.198);
 
 		cameraArray.add(camera1);
