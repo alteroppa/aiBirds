@@ -57,3 +57,9 @@ in chrome: http://chrome.angrybirds.com/
 	- die Strukturen müssen Stabil sein und dürfen nicht am Anfang schon umfallen, d. h. die y-punkte müssen immer übereinander sein
 	- naming convention: Levelx-x.json
 	- image recognition in python: https://becominghuman.ai/building-an-image-classifier-using-deep-learning-in-python-totally-from-a-beginners-perspective-be8dbaf22dd8
+
+
+
+
+BLOCKS enum vervollständigen (1x1, 1x2, 1x4, 1x8, 2x1, 2x2, 2x4, 2x8, 4x1, ...)
+DOMINOBLOCKS enum erstellen, das nur aufrecht stehende blocks beinhaltet, und daraus dann die Dominostruktur erstellen

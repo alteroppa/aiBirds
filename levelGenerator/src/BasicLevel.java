@@ -97,7 +97,7 @@ public class BasicLevel {
 			world.put("block_"+(i+1), createRandomJSONBlock());
 		}
 
-		ArrayList<JSONObject> dominoStructure = DominoStructure.createDominoStructure();
+		ArrayList<JSONObject> dominoStructure = DominoStructure.createDominoStructure(ThreadLocalRandom.current().nextInt(14, 50 + 1));
 		for (int i = 0; i < dominoStructure.size(); i++){
 			world.put("block_" + (blocks - (i)), dominoStructure.get(i));
 			System.out.println(dominoStructure.get(i).toString() + " " + (blocks-(i)));
