@@ -16,7 +16,7 @@ public class DominoStructure {
         }
 
         // String randomBlock = VERTICALBLOCK.randomBlock().toString();
-        String randomBlock = VERTICALBLOCK.ICE_BLOCK_1X8.toString();
+        String randomBlock = VERTICALBLOCK.ICE_BLOCK_1X4.toString();
 
         // extracts the height of the block (= value on the last char of the enum)
         int blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 1)));
