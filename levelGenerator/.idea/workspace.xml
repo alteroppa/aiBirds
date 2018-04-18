@@ -23,11 +23,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.6721079">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+                <state relative-caret-position="300">
+                  <caret line="113" column="13" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="imports" expanded="true" />
@@ -36,7 +36,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DominoStructure.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="DominoStructure.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="160">
@@ -122,8 +122,8 @@
         <option value="$PROJECT_DIR$/generatedLevels/Level1-3.json" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-1.json" />
         <option value="$PROJECT_DIR$/src/VERTICALBLOCK.java" />
-        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
         <option value="$PROJECT_DIR$/src/DominoStructure.java" />
+        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
       </list>
     </option>
   </component>
@@ -210,6 +210,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="FullScreen" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -647,6 +648,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1140#1152#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -657,22 +669,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="113" column="13" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1140#1152#0" expanded="true" />
           </folding>
         </state>
       </provider>

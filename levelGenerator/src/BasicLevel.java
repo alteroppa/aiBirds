@@ -106,15 +106,24 @@ public class BasicLevel {
 
 		wholeLevel.put("world", world);
 
-		// writing the JSONObject into a file(info.json)
+		// writing the JSONObjects into files (info.json)
+		saveLevelsToFiles(levelName, wholeLevel);
+	}
+
+	private void saveLevelsToFiles(String levelName, JSONObject wholeLevel) {
 		try {
-        FileWriter fileWriter = new FileWriter("generatedLevels/" + levelName + ".json");
-        fileWriter.write(wholeLevel.toJSONString());
-        fileWriter.flush();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-		System.out.println(wholeLevel);
+			FileWriter fileWriterGit = new FileWriter("generatedLevels/" + levelName + ".json");
+			fileWriterGit.write(wholeLevel.toJSONString());
+			fileWriterGit.flush();
+
+			FileWriter fileWriterCrackedGame = new FileWriter("/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/" + levelName + ".json");
+			fileWriterCrackedGame.write(wholeLevel.toJSONString());
+			fileWriterCrackedGame.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("new level:\n"  + wholeLevel + "\n");
 	}
 
 	public JSONObject createRandomJSONBlock () {
