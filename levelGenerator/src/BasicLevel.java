@@ -149,7 +149,7 @@ public class BasicLevel {
 
 	public int getRandomXInt () {
 		int min = 15;
-		int max = 100;
+		int max = 50;
 
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
