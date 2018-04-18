@@ -15,7 +15,8 @@ public class DominoStructure {
             xValueToUse = xValue;
         }
 
-        String randomBlock = VERTICALBLOCK.randomBlock().toString();
+        // String randomBlock = VERTICALBLOCK.randomBlock().toString();
+        String randomBlock = VERTICALBLOCK.ICE_BLOCK_1X8.toString();
 
         // extracts the height of the block (= value on the last char of the enum)
         int blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 1)));
@@ -31,19 +32,19 @@ public class DominoStructure {
         part1DominoStructure.put("angle", 0);
         part1DominoStructure.put("id", randomBlock);
         part1DominoStructure.put("x", xValueToUse);
-        part1DominoStructure.put("y", -1);
+        part1DominoStructure.put("y", -2);
 
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 0);
         part2DominoStructure.put("id", randomBlock);
         part2DominoStructure.put("x", xValueToUse + distance);
-        part2DominoStructure.put("y", -1);
+        part2DominoStructure.put("y", -2);
 
         JSONObject part3DominoStructure = new JSONObject();
         part3DominoStructure.put("angle", 0);
         part3DominoStructure.put("id", randomBlock);
         part3DominoStructure.put("x", xValueToUse + (2 * distance));
-        part3DominoStructure.put("y", -1);
+        part3DominoStructure.put("y", -2);
 
         dominoStructure.add(part1DominoStructure);
         dominoStructure.add(part2DominoStructure);
