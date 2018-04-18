@@ -20,8 +20,10 @@ public class DominoStructure {
         // extracts the height of the block (= value on the last char of the enum)
         int blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 1)));
 
-        // sets the distance between the three blocks randomly, but not further away than the block height
-        int distance = ThreadLocalRandom.current().nextInt(1, blockHeight + 1);
+        // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
+        // nextInt doesn't go until maxvalue but stops one before
+        System.out.println(blockHeight);
+        int distance = ThreadLocalRandom.current().nextInt(1, blockHeight);
 
         ArrayList<JSONObject> dominoStructure = new ArrayList<JSONObject>();
 
