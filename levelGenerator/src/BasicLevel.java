@@ -4,15 +4,20 @@
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class BasicLevel {
+	private int numberOfLevels = 10;
+	private List<Integer> usedXvalues = new ArrayList<>();
+
+
 	public void createManyLevels (int numberOfLevels){
 		for (int i = 0; i < numberOfLevels; i++){
-			createLevel("Level1" + "-" + (i+1), 10);
+			createLevel("Level1" + "-" + (i+1), numberOfLevels);
 		}
 	}
 
@@ -149,11 +154,18 @@ public class BasicLevel {
 
 	public int getRandomXInt () {
 		int min = 15;
-		int max = 50;
+		int max = 100;
 
 		// nextInt is normally exclusive of the top value,
 		// so add 1 to make it inclusive
-		return (ThreadLocalRandom.current().nextInt(min, max + 1));
+		// then check if xValue is already used so no blocks are at the same x-position
+		int randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+		while (usedXvalues.contains(randomXvalue)) {
+			randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+		}
+		usedXvalues.add(randomXvalue);
+		System.out.println(randomXvalue);
+		return randomXvalue;
 	}
 
 	public int getRandomYInt () {
