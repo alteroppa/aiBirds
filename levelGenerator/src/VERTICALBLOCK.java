@@ -7,9 +7,9 @@ import java.util.Random;
  * Created by felix on 10.04.18.
  */
 public enum VERTICALBLOCK {
-    STONE_BLOCK_1X2, STONE_BLOCK_1X4, STONE_BLOCK_1X8,
-    WOOD_BLOCK_1X2, WOOD_BLOCK_1X4, WOOD_BLOCK_1X8,
-    ICE_BLOCK_1X2, ICE_BLOCK_1X4, ICE_BLOCK_1X8;
+    STONE_BLOCK_2X1, STONE_BLOCK_4X1, STONE_BLOCK_8X1,
+    WOOD_BLOCK_2X1, WOOD_BLOCK_4X1, WOOD_BLOCK_8X1,
+    ICE_BLOCK_2X1, ICE_BLOCK_4X1, ICE_BLOCK_8X1;
 
     private static final List<VERTICALBLOCK> ALLBLOCKS =
             Collections.unmodifiableList(Arrays.asList(values()));

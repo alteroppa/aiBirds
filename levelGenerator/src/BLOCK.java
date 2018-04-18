@@ -18,8 +18,8 @@ public enum BLOCK {
     private static final Random RANDOM = new Random();
 
     public static BLOCK randomBlock()  {
-        //return ALLBLOCKS.get(RANDOM.nextInt(SIZE));
-        return BLOCK.ICE_BLOCK_2X1;
+        return ALLBLOCKS.get(RANDOM.nextInt(SIZE));
+        //return BLOCK.ICE_BLOCK_2X1;
     }
 
 
