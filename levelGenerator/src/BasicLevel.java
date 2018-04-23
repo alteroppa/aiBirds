@@ -13,8 +13,9 @@ public class BasicLevel {
     JSONObject level = new JSONObject();
     List<Integer> usedXvalues = new ArrayList<>();
 
-    public void createSingleLevel(int blocks, ArrayList<JSONObject> dominoStructureList){
+    public void createSingleLevel(int blocksToCreate, ArrayList<JSONObject> dominoStructureList){
         System.out.println("Generating a new level...");
+        int blocks = blocksToCreate;
         if (dominoStructureList.size() > 0){
             // check for xValues of dominoStructureList
             int dominoStructureStartingXValue = 200;
@@ -36,6 +37,22 @@ public class BasicLevel {
         // create foundation of level
         JSONObject wholeLevel = new JSONObject();
         JSONObject world = new JSONObject();
+
+        // add randomized terrain
+        int coinFlip = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+        int numberOfTerrainBlocks = 0;
+        if (coinFlip <= 5) {
+            System.out.println("adding terrain block...");
+            numberOfTerrainBlocks = 1;
+            blocks += 1;
+            JSONObject terrainBlock = new JSONObject();
+            terrainBlock.put("angle", 0);
+            terrainBlock.put("id", TERRAIN.randomBlock().toString());
+            terrainBlock.put("x", getRandomXInt());
+            terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
+            System.out.println(terrainBlock.toString());
+            world.put("block_" + blocks, terrainBlock); // add block with last block number
+        }
 
         // create and add camera array
         JSONArray cameraArray = new JSONArray();
@@ -97,17 +114,19 @@ public class BasicLevel {
         world.put("bird_3", bird3);
         world.put("bird_4", bird4);
 
+
+
         // add domino structure
         System.out.println("adding dominoStructure...");
         for (int i = 0; i < dominoStructureList.size(); i++) {
             System.out.println("domino: " + dominoStructureList.get(i).toString());
-            world.put("block_" + (blocks - (i)), dominoStructureList.get(i));
+            world.put("block_" + (blocks - i - numberOfTerrainBlocks), dominoStructureList.get(i));
             System.out.println(dominoStructureList.get(i).toString() + " " + (blocks - (i)));
         }
 
         // add randomized blocks
         System.out.println("adding randomized blocks...");
-        for (int i = 0; i < (blocks - dominoStructureList.size()); i++){
+        for (int i = 0; i < (blocks - dominoStructureList.size() - numberOfTerrainBlocks); i++){
             System.out.println("creating block " + i + "...");
             world.put("block_"+(i+1), createRandomJSONBlock());
         }
