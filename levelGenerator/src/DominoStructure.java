@@ -7,26 +7,31 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by felix on 10.04.18.
  */
 public class DominoStructure {
-    public static ArrayList<JSONObject> createDominoStructure (int xValue) {
+    private int startingXValue = 0;
+    private int endXValue = 0;
+
+    public ArrayList<JSONObject> createDominoStructure (int xValue) {
 
         // makes sure the xValueToUse for the blocks is far enough away from the sling
         int xValueToUse = 14;
         if (xValue > 14) {
             xValueToUse = xValue;
         }
+        startingXValue = xValueToUse;
 
-        // String randomBlock = VERTICALBLOCK.randomBlock().toString();
-        String randomBlock = VERTICALBLOCK.STONE_BLOCK_8X1.toString();
+        String randomBlock = VERTICALBLOCK.randomBlock().toString();
+        // String randomBlock = VERTICALBLOCK.STONE_BLOCK_8X1.toString();
 
         // extracts the height of the block (= value on the last char of the enum)
         int blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 3)));
 
         // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
         // nextInt doesn't go until maxvalue but stops one before
-        System.out.println(blockHeight);
+        System.out.println("dominoStructure blockheight: " + blockHeight);
         int distance = ThreadLocalRandom.current().nextInt(1, blockHeight);
+        endXValue = startingXValue + (distance * 2);
 
-        ArrayList<JSONObject> dominoStructure = new ArrayList<JSONObject>();
+        ArrayList<JSONObject> dominoStructureArrayList = new ArrayList<JSONObject>();
 
         JSONObject part1DominoStructure = new JSONObject();
         part1DominoStructure.put("angle", 90);
@@ -46,10 +51,17 @@ public class DominoStructure {
         part3DominoStructure.put("x", xValueToUse + (2 * distance));
         part3DominoStructure.put("y", -2);
 
-        dominoStructure.add(part1DominoStructure);
-        dominoStructure.add(part2DominoStructure);
-        dominoStructure.add(part3DominoStructure);
+        dominoStructureArrayList.add(part1DominoStructure);
+        dominoStructureArrayList.add(part2DominoStructure);
+        dominoStructureArrayList.add(part3DominoStructure);
 
-        return dominoStructure;
+        return dominoStructureArrayList;
+    }
+
+    public int getStartingXValue() {
+        return startingXValue;
+    }
+    public int getEndXValue() {
+        return endXValue;
     }
 }

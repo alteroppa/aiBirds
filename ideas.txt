@@ -33,8 +33,40 @@ Leveldesign:
 	- nach dem Lernen mit den generierten Levels den Klassifikator auch an den klassischen Levels testen, damit erkannt wird, ob Schweine die Erkennung beeinträchtigen (sollten sie nicht)
 
 
+- Problemstellung wenn Möglich als Frage stellen!
+- "Annahme dieser Arbeit ist, dass ..." in der Einleitung bzw. Abstract reinbringen
+- levelscreenshots runterskalieren auf weniger pixel
+- automatisiert verschiedene Strukturen erstellen, automatisiert testen lassen, ob die generierten Strukturen auch wirklich [domino] sind
+- ist die STruktur nach dem Schuss um z.b. 30% höhenreduziert
+- Strukturerkennung von Vögeln abhängig machen
+- bitmapausgabe mit markierten erkannten strukturen
+- vergleich beim Lernen zwischen vorher bearbeiteten SW-Screenshots (ggf mit farblich markierten bounding boxes) und regulären screenshots
+- code der anderen Agenten auf Strukturerkennung untersuchen
 
 
+-- Gliederung --
+Abstract
+1. Einleitung 
+1.1 Motivation
+1.2 Problemstellung (Fachsprache, simpel und ohne unnöt. Fachbegr.)
+1.3 Aufbau und ggf. Kernergebnisse
+2. Related Work (wie erkennen andere AIB Agenten Strukturen?), Basisbegriffe von Deep Learning
+4. Strukturerkennung durch Deep Learning (Objektiv schreiben!)
+4.1 Einleitung/generelles Vorgehen
+4.2 (automatisiertes) Erzeugen von Trainingsdaten (in Java)
+4.1.2 Erstellen von Stapelstrukturen
+4.1.3 Erstellen von Dominostrukturen 
+4.1.4 ggf: Erstellen von Bunkerstrukturen (oder anderen, falls mir etwas Besseres einfällt)
+4.2 Erstellen von Screenshots 
+(Einspielen der Levels in das Spiel, Nutzen der bereits vorhandenen Screenshotfunktion aus dem zur Verfügung gestellten AIBirds-Code)
+4.3 Traning des Modells (CNN in Python) (ggf. in 5 verschieben)
+5. Evaluation der Klassifizierung (Objektiv schreiben!)
+zuerst: was soll gemessen werden? gewünschte Kriterien am Anfang benennen, und danach die Ergebnisse vergleichen!
+welche Parameter werden evaluiert?
+6. Zusammenfassung
+7. Ausblick (Implementierung in einen AIBirds-Agenten)
+Literaturverzeichnis
+Glossar
 
 
 HOWTO
