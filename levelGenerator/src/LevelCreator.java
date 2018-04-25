@@ -44,11 +44,12 @@ public class LevelCreator {
 				fileWriterGit.flush();
 
 				// also save levels to wolter's cracked game
+				/**
 				FileWriter fileWriterCrackedGame = new FileWriter(
 						"/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/Level"
 								+ levelNumber + "-" + levelNumber + ".json");
 				fileWriterCrackedGame.write(levels.get(i).toJSONString());
-				fileWriterCrackedGame.flush();
+				fileWriterCrackedGame.flush(); **/
 
 			} catch (Exception e) {
 				e.printStackTrace();
