@@ -37,19 +37,19 @@ public class DominoStructure {
         part1DominoStructure.put("angle", 90);
         part1DominoStructure.put("id", randomBlock);
         part1DominoStructure.put("x", xValueToUse);
-        part1DominoStructure.put("y", -2);
+        part1DominoStructure.put("y", -4);
 
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 90);
         part2DominoStructure.put("id", randomBlock);
         part2DominoStructure.put("x", xValueToUse + distance);
-        part2DominoStructure.put("y", -2);
+        part2DominoStructure.put("y", -4);
 
         JSONObject part3DominoStructure = new JSONObject();
         part3DominoStructure.put("angle", 90);
         part3DominoStructure.put("id", randomBlock);
         part3DominoStructure.put("x", xValueToUse + (2 * distance));
-        part3DominoStructure.put("y", -2);
+        part3DominoStructure.put("y", -4);
 
         dominoStructureArrayList.add(part1DominoStructure);
         dominoStructureArrayList.add(part2DominoStructure);
