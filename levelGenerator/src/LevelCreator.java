@@ -39,22 +39,22 @@ public class LevelCreator {
 		for (int i = 0; i < numberOfLevels; i++) {
 			int levelNumber = i+1;
 			try {
-				FileWriter fileWriterGit = new FileWriter("generatedLevels/Level" + levelNumber + "-" + levelNumber + ".json");
+				FileWriter fileWriterGit = new FileWriter("generatedLevels/Level1" + "-" + levelNumber + ".json");
 				fileWriterGit.write(levels.get(i).toJSONString());
 				fileWriterGit.flush();
 
 				// also save levels to wolter's cracked game
-				/**
+
 				FileWriter fileWriterCrackedGame = new FileWriter(
-						"/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/Level"
-								+ levelNumber + "-" + levelNumber + ".json");
+						"/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/Level1"
+								+ "-" + levelNumber + ".json");
 				fileWriterCrackedGame.write(levels.get(i).toJSONString());
-				fileWriterCrackedGame.flush(); **/
+				fileWriterCrackedGame.flush();
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("Level" + levelNumber + "-" + levelNumber + ":\n" + levels.get(i) + "\n");
+			System.out.println("Level1" + "-" + levelNumber + ":\n" + levels.get(i) + "\n");
 		}
 	}
 
