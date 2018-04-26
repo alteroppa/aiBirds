@@ -152,6 +152,8 @@ public class BasicLevel {
         }
         usedXvalues.add(randomXvalue);
         System.out.println("random xValue: "+randomXvalue);
+        System.out.println("used xValues: " + usedXvalues);
+
         return randomXvalue;
     }
 
@@ -159,8 +161,10 @@ public class BasicLevel {
         // check for xValues of dominoStructureList
         int dominoStructureStartingXValue = dominoStructure.getStartingXValue();
         int dominoStructureEndingXValue = dominoStructure.getEndXValue();
+        System.out.println("dominoStructureStartingValue: " + dominoStructureStartingXValue);
+        System.out.println("dominoStructureEndingValue: " + dominoStructureEndingXValue);
 
-        for (int i = dominoStructureStartingXValue; i == dominoStructureEndingXValue; i++){
+        for (int i = dominoStructureStartingXValue + 1; i <= dominoStructureEndingXValue; i++){ //first value is already added in generateRandomXValue()
             usedXvalues.add(i);
         }
 
