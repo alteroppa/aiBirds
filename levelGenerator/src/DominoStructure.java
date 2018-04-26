@@ -28,7 +28,7 @@ public class DominoStructure {
         // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
         // nextInt doesn't go until maxvalue but stops one before
         System.out.println("dominoStructure blockheight: " + blockHeight);
-        int distance = ThreadLocalRandom.current().nextInt(1, blockHeight);
+        int distance = ThreadLocalRandom.current().nextInt(2, blockHeight); // distance should be at least 2
         endXValue = startingXValue + (distance * 2);
 
         ArrayList<JSONObject> dominoStructureArrayList = new ArrayList<JSONObject>();

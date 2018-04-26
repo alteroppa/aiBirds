@@ -16,23 +16,6 @@ public class BasicLevel {
     public void createSingleLevel(int blocksToCreate, ArrayList<JSONObject> dominoStructureList){
         System.out.println("Generating a new level...");
         int blocks = blocksToCreate;
-        if (dominoStructureList.size() > 0){
-            // check for xValues of dominoStructureList
-            int dominoStructureStartingXValue = 200;
-            int dominoStructureEndingXValue = 0;
-            for (JSONObject block : dominoStructureList){
-                int xVal = Integer.parseInt(block.get("x").toString());
-                if (xVal < dominoStructureStartingXValue){
-                    dominoStructureStartingXValue = xVal;
-                }
-                if (xVal > dominoStructureEndingXValue){
-                    dominoStructureEndingXValue = xVal;
-                }
-            }
-            for (int i = dominoStructureStartingXValue; i == dominoStructureEndingXValue; i++){
-                usedXvalues.add(i);
-            }
-        }
 
         // create foundation of level
         JSONObject wholeLevel = new JSONObject();
@@ -170,6 +153,17 @@ public class BasicLevel {
         usedXvalues.add(randomXvalue);
         System.out.println("random xValue: "+randomXvalue);
         return randomXvalue;
+    }
+
+    public void addDominoXValuesToList (DominoStructure dominoStructure) {
+        // check for xValues of dominoStructureList
+        int dominoStructureStartingXValue = dominoStructure.getStartingXValue();
+        int dominoStructureEndingXValue = dominoStructure.getEndXValue();
+
+        for (int i = dominoStructureStartingXValue; i == dominoStructureEndingXValue; i++){
+            usedXvalues.add(i);
+        }
+
     }
 
 

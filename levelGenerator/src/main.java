@@ -4,7 +4,7 @@
 public class main {
     public static void main(String[] args){
         LevelCreator levelCreator = new LevelCreator();
-        levelCreator.createManyDominoLevels(10);
+        levelCreator.createManyDominoLevels(40);
         levelCreator.exportLevelsToFiles(levelCreator.getDominoLevelList());
     }
 
