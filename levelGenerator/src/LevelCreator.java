@@ -20,7 +20,7 @@ public class LevelCreator {
 			DominoStructure dominoStructure = new DominoStructure();
 			BasicLevel basicLevel = new BasicLevel();
 			ArrayList<JSONObject> dominoStructureList = dominoStructure.createDominoStructure();
-			basicLevel.addDominoXValuesToList(dominoStructure); // adds the xValues of the created dominoStructure to the list
+			basicLevel.addToUsedXValues(dominoStructure.getStartingXValue(), (dominoStructure.getEndXValue() - dominoStructure.getStartingXValue())); // adds the xValues of the created dominoStructure to the list
 			basicLevel.createSingleLevel(10, dominoStructureList);
 			dominoLevelList.add(basicLevel.getLevel());
 		}

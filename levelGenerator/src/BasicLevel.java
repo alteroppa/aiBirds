@@ -15,7 +15,8 @@ public class BasicLevel {
     List<Integer> usedXvalues = new ArrayList<>();
 
     public void createSingleLevel(int blocksToCreate, ArrayList<JSONObject> dominoStructureList){
-        System.out.println("Generating a new level...");
+        System.out.println("Generating a new level..." + "\n" + usedXvalues);
+
         int blocks = blocksToCreate;
 
         // create foundation of level
@@ -23,8 +24,10 @@ public class BasicLevel {
         JSONObject world = new JSONObject();
 
         // add randomized terrain
+
         int coinFlip = ThreadLocalRandom.current().nextInt(0, 10 + 1);
         int numberOfTerrainBlocks = 0;
+        /**
         if (coinFlip <= 5) {
             System.out.println("adding terrain block...");
             numberOfTerrainBlocks = 1;
@@ -39,6 +42,7 @@ public class BasicLevel {
             System.out.println(terrainBlock.toString());
             world.put("block_" + blocks, terrainBlock); // add block with last block number
         }
+         **/
 
         // create and add camera array
         JSONArray cameraArray = new JSONArray();
@@ -108,9 +112,9 @@ public class BasicLevel {
             System.out.println("domino: " + dominoStructureList.get(i).toString());
             world.put("block_" + (blocks - i - numberOfTerrainBlocks), dominoStructureList.get(i));
             System.out.println(dominoStructureList.get(i).toString() + " " + (blocks - (i)));
-            int startingXVal = (Integer) dominoStructureList.get(0).get("x");
-            int endXVal = (Integer) dominoStructureList.get(dominoStructureList.size() - 1).get("x") - startingXVal;
-            addToUsedXValues(startingXVal, endXVal);
+//            int startingXVal = (Integer) dominoStructureList.get(0).get("x");
+//            int endXVal = (Integer) dominoStructureList.get(dominoStructureList.size() - 1).get("x") - startingXVal;
+//            addToUsedXValues(startingXVal, endXVal);
         }
 
         // add randomized blocks
@@ -180,23 +184,12 @@ public class BasicLevel {
     }
 
     public void addToUsedXValues (int valueToAdd, int endingValOfBlock) {
-        for (int i = valueToAdd; i <= valueToAdd + endingValOfBlock; i++) {
+        System.out.println("adding values to usedvaluesList: " + valueToAdd + " " + (endingValOfBlock+valueToAdd));
+        for (int i = valueToAdd - 1; i <= valueToAdd + endingValOfBlock + 1; i++) {
             usedXvalues.add(i);
         }
     }
 
-    public void addDominoXValuesToList (DominoStructure dominoStructure) {
-        // check for xValues of dominoStructureList
-        int dominoStructureStartingXValue = dominoStructure.getStartingXValue();
-        int dominoStructureEndingXValue = dominoStructure.getEndXValue();
-        System.out.println("dominoStructureStartingValue: " + dominoStructureStartingXValue);
-        System.out.println("dominoStructureEndingValue: " + dominoStructureEndingXValue);
-
-        for (int i = dominoStructureStartingXValue + 1; i <= dominoStructureEndingXValue; i++){ //first value is already added in generateRandomXValue()
-            usedXvalues.add(i);
-        }
-
-    }
 
 
     public JSONObject getLevel () {
