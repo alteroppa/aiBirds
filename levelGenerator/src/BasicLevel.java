@@ -79,6 +79,7 @@ public class BasicLevel {
         wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
 
         // add one pig at the end of the level
+        /**
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
@@ -86,6 +87,7 @@ public class BasicLevel {
         pig.put("y", -1);
         world.put("block_1", pig);
         addToUsedXValues(130, 130);
+         **/
 
         // add birds
         JSONObject bird1 = new JSONObject();
@@ -131,7 +133,7 @@ public class BasicLevel {
         for (int i = 0; i < (blocks - dominoStructureList.size() - numberOfTerrainBlocks); i++){
             System.out.println("creating block " + (i + 1) + "...");
             JSONObject randomBlock = createRandomJSONBlock();
-            world.put("block_"+(i+2), randomBlock); // since the first block is the pig
+            world.put("block_"+(i+1), randomBlock); // since the first block is the pig
             System.out.println(randomBlock);
         }
 
