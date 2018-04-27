@@ -30,9 +30,11 @@ public class BasicLevel {
             numberOfTerrainBlocks = 1;
             blocks += 1;
             JSONObject terrainBlock = new JSONObject();
+            String terrainBlockString = TERRAIN.randomBlock().toString();
+            int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
             terrainBlock.put("angle", 0);
-            terrainBlock.put("id", TERRAIN.randomBlock().toString());
-            terrainBlock.put("x", getRandomXInt(false));
+            terrainBlock.put("id", terrainBlockString);
+            terrainBlock.put("x", getRandomXInt(false, xVal));
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
             world.put("block_" + blocks, terrainBlock); // add block with last block number
@@ -56,7 +58,7 @@ public class BasicLevel {
         camera2.put("left", 13.039);
         camera2.put("right", 77.257);
         camera2.put("top", -36.435);
-        camera2.put("x", 78.241);
+        camera2.put("x", 120.241);
         camera2.put("y", -12.354);
         cameraArray.add(camera2);
         wholeLevel.put("camera", cameraArray);
@@ -106,6 +108,9 @@ public class BasicLevel {
             System.out.println("domino: " + dominoStructureList.get(i).toString());
             world.put("block_" + (blocks - i - numberOfTerrainBlocks), dominoStructureList.get(i));
             System.out.println(dominoStructureList.get(i).toString() + " " + (blocks - (i)));
+            int startingXVal = (Integer) dominoStructureList.get(0).get("x");
+            int endXVal = (Integer) dominoStructureList.get(dominoStructureList.size() - 1).get("x") - startingXVal;
+            addToUsedXValues(startingXVal, endXVal);
         }
 
         // add randomized blocks
@@ -136,9 +141,9 @@ public class BasicLevel {
             endingXVal = secondVal;
         }
         jsonBlock.put("id", randomBlockString);
-        int randomXval = getRandomXInt(false);
+        int randomXval = getRandomXInt(false, endingXVal);
         jsonBlock.put("x", randomXval);
-        jsonBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
+        jsonBlock.put("y", -2); // y should always be -1 or -2 (for terrain), else blocks will be created in mid air
         System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
         addToUsedXValues(randomXval, endingXVal);
         return jsonBlock;
@@ -154,22 +159,28 @@ public class BasicLevel {
         return (angleList.get(0));
     }
 
-    public int getRandomXInt (boolean ignoreUsedXVals) {
+    public int getRandomXInt (boolean ignoreUsedXVals, int blockEndXVal) {
         int min = 15;
-        int max = 100;
+        int max = 130;
+        System.out.println("blockEndXVal: " + blockEndXVal);
 
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         // then check if xValue is already used so no blocks are at the same x-position
         int randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
-        while (usedXvalues.contains(randomXvalue) && !ignoreUsedXVals) {
-            randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+        int randomXValueBuffer = randomXvalue;
+        System.out.println("randomxVal: " + randomXvalue);
+        for (int i = randomXValueBuffer; i <= randomXValueBuffer + blockEndXVal; i++) {
+            while (usedXvalues.contains(randomXvalue) && !ignoreUsedXVals) {
+                randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+            }
         }
+        System.out.println("usedValues: " + usedXvalues);
         return randomXvalue;
     }
 
     public void addToUsedXValues (int valueToAdd, int endingValOfBlock) {
-        for (int i = valueToAdd; i <= endingValOfBlock; i++) {
+        for (int i = valueToAdd; i <= valueToAdd + endingValOfBlock; i++) {
             usedXvalues.add(i);
         }
     }

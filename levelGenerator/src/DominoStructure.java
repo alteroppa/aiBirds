@@ -10,14 +10,10 @@ public class DominoStructure {
     private int startingXValue = 0;
     private int endXValue = 0;
 
-    public ArrayList<JSONObject> createDominoStructure (int xValue) {
+    public ArrayList<JSONObject> createDominoStructure () {
 
         // makes sure the xValueToUse for the blocks is far enough away from the sling
-        int xValueToUse = 14;
-        if (xValue > 14) {
-            xValueToUse = xValue;
-        }
-        startingXValue = xValueToUse;
+        startingXValue = ThreadLocalRandom.current().nextInt(14, 99 + 1);
 
         String randomBlock = VERTICALDOMINOBLOCK.randomBlock().toString();
         // String randomBlock = VERTICALDOMINOBLOCK.STONE_BLOCK_8X1.toString();
@@ -36,7 +32,7 @@ public class DominoStructure {
         JSONObject part1DominoStructure = new JSONObject();
         part1DominoStructure.put("angle", 90);
         part1DominoStructure.put("id", randomBlock);
-        part1DominoStructure.put("x", xValueToUse);
+        part1DominoStructure.put("x", startingXValue);
         part1DominoStructure.put("y", -4);
 
         // if (distance < 4) { dominoStructureArrayList.add(createConcreteBlock(xValueToUse)); }
@@ -44,13 +40,13 @@ public class DominoStructure {
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 90);
         part2DominoStructure.put("id", randomBlock);
-        part2DominoStructure.put("x", xValueToUse + distance);
+        part2DominoStructure.put("x", startingXValue + distance);
         part2DominoStructure.put("y", -4);
 
         JSONObject part3DominoStructure = new JSONObject();
         part3DominoStructure.put("angle", 90);
         part3DominoStructure.put("id", randomBlock);
-        part3DominoStructure.put("x", xValueToUse + (2 * distance));
+        part3DominoStructure.put("x", startingXValue + (2 * distance));
         part3DominoStructure.put("y", -4);
 
         dominoStructureArrayList.add(part1DominoStructure);

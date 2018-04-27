@@ -23,35 +23,35 @@
     <splitter split-orientation="horizontal" split-proportion="0.65809524">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="LevelCreator.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="LevelCreator.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/LevelCreator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="326">
-                  <caret line="53" column="60" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+                <state relative-caret-position="315">
+                  <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="imports" expanded="true" />
                     <element signature="e#358#370#0" expanded="true" />
                     <element signature="e#436#448#0" expanded="true" />
-                    <element signature="e#1167#1179#0" expanded="true" />
-                    <element signature="e#2481#2482#0" expanded="true" />
-                    <element signature="e#2510#2511#0" expanded="true" />
-                    <element signature="e#2564#2565#0" expanded="true" />
-                    <element signature="e#2593#2594#0" expanded="true" />
+                    <element signature="e#1136#1148#0" expanded="true" />
+                    <element signature="e#2450#2451#0" expanded="true" />
+                    <element signature="e#2479#2480#0" expanded="true" />
+                    <element signature="e#2533#2534#0" expanded="true" />
+                    <element signature="e#2562#2563#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="488">
-                  <caret line="116" column="44" selection-start-line="116" selection-start-column="44" selection-end-line="116" selection-end-column="44" />
+                <state relative-caret-position="326">
+                  <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#7479#7480#0" expanded="true" />
-                    <element signature="e#7507#7508#0" expanded="true" />
+                    <element signature="e#8334#8335#0" expanded="true" />
+                    <element signature="e#8362#8363#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -60,8 +60,8 @@
           <file leaf-file-name="DominoStructure.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="145">
-                  <caret line="25" column="107" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="107" />
+                <state relative-caret-position="720">
+                  <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -168,10 +168,10 @@
         <option value="$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-12.json" />
-        <option value="$PROJECT_DIR$/src/DominoStructure.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-1.json" />
-        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
         <option value="$PROJECT_DIR$/src/LevelCreator.java" />
+        <option value="$PROJECT_DIR$/src/DominoStructure.java" />
+        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
       </list>
     </option>
   </component>
@@ -628,11 +628,11 @@
             <element signature="imports" expanded="true" />
             <element signature="e#358#370#0" expanded="true" />
             <element signature="e#436#448#0" expanded="true" />
-            <element signature="e#1167#1179#0" expanded="true" />
-            <element signature="e#2481#2482#0" expanded="true" />
-            <element signature="e#2510#2511#0" expanded="true" />
-            <element signature="e#2564#2565#0" expanded="true" />
-            <element signature="e#2593#2594#0" expanded="true" />
+            <element signature="e#1136#1148#0" expanded="true" />
+            <element signature="e#2450#2451#0" expanded="true" />
+            <element signature="e#2479#2480#0" expanded="true" />
+            <element signature="e#2533#2534#0" expanded="true" />
+            <element signature="e#2562#2563#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -672,11 +672,11 @@
             <element signature="imports" expanded="true" />
             <element signature="e#358#370#0" expanded="true" />
             <element signature="e#436#448#0" expanded="true" />
-            <element signature="e#1167#1179#0" expanded="true" />
-            <element signature="e#2481#2482#0" expanded="true" />
-            <element signature="e#2510#2511#0" expanded="true" />
-            <element signature="e#2564#2565#0" expanded="true" />
-            <element signature="e#2593#2594#0" expanded="true" />
+            <element signature="e#1136#1148#0" expanded="true" />
+            <element signature="e#2450#2451#0" expanded="true" />
+            <element signature="e#2479#2480#0" expanded="true" />
+            <element signature="e#2533#2534#0" expanded="true" />
+            <element signature="e#2562#2563#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -769,13 +769,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-1.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="25" column="107" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -787,40 +785,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="116" column="44" selection-start-line="116" selection-start-column="44" selection-end-line="116" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7479#7480#0" expanded="true" />
-            <element signature="e#7507#7508#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LevelCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="53" column="60" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+        <state relative-caret-position="315">
+          <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#358#370#0" expanded="true" />
             <element signature="e#436#448#0" expanded="true" />
-            <element signature="e#1167#1179#0" expanded="true" />
-            <element signature="e#2481#2482#0" expanded="true" />
-            <element signature="e#2510#2511#0" expanded="true" />
-            <element signature="e#2564#2565#0" expanded="true" />
-            <element signature="e#2593#2594#0" expanded="true" />
+            <element signature="e#1136#1148#0" expanded="true" />
+            <element signature="e#2450#2451#0" expanded="true" />
+            <element signature="e#2479#2480#0" expanded="true" />
+            <element signature="e#2533#2534#0" expanded="true" />
+            <element signature="e#2562#2563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8334#8335#0" expanded="true" />
+            <element signature="e#8362#8363#0" expanded="true" />
           </folding>
         </state>
       </provider>
