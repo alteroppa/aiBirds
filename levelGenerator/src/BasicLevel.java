@@ -70,13 +70,22 @@ public class BasicLevel {
         // add basic necessary stuff
         JSONObject counts = new JSONObject();
         counts.put("birds", 4);
-        counts.put("blocks", blocks);
+        counts.put("blocks", blocks + 1); // since one pig block is to be added anyway
         wholeLevel.put("counts", counts);
         wholeLevel.put("id", "pack1/Level6.lua");
         wholeLevel.put("scoreEagle", 65900);
         wholeLevel.put("scoreGold", 64000);
         wholeLevel.put("scoreSilver", 51000);
         wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
+
+        // add one pig at the end of the level
+        JSONObject pig = new JSONObject();
+        pig.put("angle", 0);
+        pig.put("id", "PIG_BASIC_MEDIUM");
+        pig.put("x", 130);
+        pig.put("y", -1);
+        world.put("block_1", pig);
+        addToUsedXValues(130, 130);
 
         // add birds
         JSONObject bird1 = new JSONObject();
@@ -122,7 +131,7 @@ public class BasicLevel {
         for (int i = 0; i < (blocks - dominoStructureList.size() - numberOfTerrainBlocks); i++){
             System.out.println("creating block " + (i + 1) + "...");
             JSONObject randomBlock = createRandomJSONBlock();
-            world.put("block_"+(i+1), randomBlock);
+            world.put("block_"+(i+2), randomBlock); // since the first block is the pig
             System.out.println(randomBlock);
         }
 
