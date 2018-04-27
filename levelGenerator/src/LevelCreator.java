@@ -37,26 +37,31 @@ public class LevelCreator {
 
 	public void exportLevelsToFiles(ArrayList<JSONObject> levels) {
 		System.out.println("Exporting " + levels.size() + " levels...");
-		int numberOfLevels = levels.size();
-		for (int i = 0; i < numberOfLevels; i++) {
-			int levelNumber = i+1;
+		int levelNumber = 1;
+		int iterationCounter = 1;
+		for (JSONObject level : levels) {
+			if (levelNumber > 21) {
+				iterationCounter += 1;
+				levelNumber = 1;
+			}
+
+			String levelName = "Level" + iterationCounter + "-" + levelNumber + ".json";
 			try {
-				FileWriter fileWriterGit = new FileWriter("/Users/felix/Documents/git/aiBirds/levelGenerator/generatedLevels/Level" + "-" + levelNumber + ".json");
-				fileWriterGit.write(levels.get(i).toJSONString());
+				FileWriter fileWriterGit = new FileWriter("/Users/felix/Documents/git/aiBirds/levelGenerator/generatedLevels/" + levelName);
+				fileWriterGit.write(level.toJSONString());
 				fileWriterGit.flush();
 
 				// also save levels to wolter's cracked game
-
 				FileWriter fileWriterCrackedGame = new FileWriter(
-						"/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/Level1"
-								+ "-" + levelNumber + ".json");
-				fileWriterCrackedGame.write(levels.get(i).toJSONString());
+						"/Users/felix/Downloads/BamBird_2017-master-a3781e3a9491cf5e6cffc84c8ea48bb96ac13455/game/slingshot/cors/fowl/json/" + levelName);
+				fileWriterCrackedGame.write(level.toJSONString());
 				fileWriterCrackedGame.flush();
 
+				levelNumber++;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("Level1" + "-" + levelNumber + ":\n" + levels.get(i) + "\n");
+			System.out.println(levelName + ":\n" + level.toJSONString() + "\n");
 		}
 	}
 
