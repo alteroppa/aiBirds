@@ -19,7 +19,7 @@ public class LevelCreator {
 		for (int i = 0; i < numberOfLevels; i++){
 			DominoStructure dominoStructure = new DominoStructure();
 			BasicLevel basicLevel = new BasicLevel();
-			ArrayList<JSONObject> dominoStructureList = dominoStructure.createDominoStructure(basicLevel.getRandomXInt());
+			ArrayList<JSONObject> dominoStructureList = dominoStructure.createDominoStructure(basicLevel.getRandomXInt(false));
 			basicLevel.addDominoXValuesToList(dominoStructure); // adds the xValues of the created dominoStructure to the list
 			basicLevel.createSingleLevel(10, dominoStructureList);
 			dominoLevelList.add(basicLevel.getLevel());
@@ -41,7 +41,7 @@ public class LevelCreator {
 		for (int i = 0; i < numberOfLevels; i++) {
 			int levelNumber = i+1;
 			try {
-				FileWriter fileWriterGit = new FileWriter("generatedLevels/Level1" + "-" + levelNumber + ".json");
+				FileWriter fileWriterGit = new FileWriter("/Users/felix/Documents/git/aiBirds/levelGenerator/generatedLevels/Level" + "-" + levelNumber + ".json");
 				fileWriterGit.write(levels.get(i).toJSONString());
 				fileWriterGit.flush();
 

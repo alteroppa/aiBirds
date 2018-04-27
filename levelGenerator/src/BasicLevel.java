@@ -1,3 +1,4 @@
+import com.sun.org.apache.regexp.internal.CharacterArrayCharacterIterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -31,7 +32,7 @@ public class BasicLevel {
             JSONObject terrainBlock = new JSONObject();
             terrainBlock.put("angle", 0);
             terrainBlock.put("id", TERRAIN.randomBlock().toString());
-            terrainBlock.put("x", getRandomXInt());
+            terrainBlock.put("x", getRandomXInt(false));
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
             world.put("block_" + blocks, terrainBlock); // add block with last block number
@@ -110,8 +111,10 @@ public class BasicLevel {
         // add randomized blocks
         System.out.println("adding randomized blocks...");
         for (int i = 0; i < (blocks - dominoStructureList.size() - numberOfTerrainBlocks); i++){
-            System.out.println("creating block " + i + "...");
-            world.put("block_"+(i+1), createRandomJSONBlock());
+            System.out.println("creating block " + (i + 1) + "...");
+            JSONObject randomBlock = createRandomJSONBlock();
+            world.put("block_"+(i+1), randomBlock);
+            System.out.println(randomBlock);
         }
 
         wholeLevel.put("world", world);
@@ -120,12 +123,24 @@ public class BasicLevel {
 
     public JSONObject createRandomJSONBlock () {
         JSONObject jsonBlock = new JSONObject();
+        int angle = getRandomAngle();
+        jsonBlock.put("angle", angle);
+        String randomBlockString = BLOCK.randomBlock().toString();
+        int endingXVal = 0;
+        int secondVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") + 1).charAt(0)));
+        int firstVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") - 1).charAt(0)));
 
-        jsonBlock.put("angle", getRandomAngle());
-        jsonBlock.put("id", BLOCK.randomBlock().toString());
-        jsonBlock.put("x", getRandomXInt());
+        if (angle == 0 || angle == 180) {
+            endingXVal = firstVal;
+        } else {
+            endingXVal = secondVal;
+        }
+        jsonBlock.put("id", randomBlockString);
+        int randomXval = getRandomXInt(false);
+        jsonBlock.put("x", randomXval);
         jsonBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
-
+        System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
+        addToUsedXValues(randomXval, endingXVal);
         return jsonBlock;
     }
 
@@ -139,7 +154,7 @@ public class BasicLevel {
         return (angleList.get(0));
     }
 
-    public int getRandomXInt () {
+    public int getRandomXInt (boolean ignoreUsedXVals) {
         int min = 15;
         int max = 100;
 
@@ -147,14 +162,16 @@ public class BasicLevel {
         // so add 1 to make it inclusive
         // then check if xValue is already used so no blocks are at the same x-position
         int randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
-        while (usedXvalues.contains(randomXvalue)) {
+        while (usedXvalues.contains(randomXvalue) && !ignoreUsedXVals) {
             randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
         }
-        usedXvalues.add(randomXvalue);
-        System.out.println("random xValue: "+randomXvalue);
-        System.out.println("used xValues: " + usedXvalues);
-
         return randomXvalue;
+    }
+
+    public void addToUsedXValues (int valueToAdd, int endingValOfBlock) {
+        for (int i = valueToAdd; i <= endingValOfBlock; i++) {
+            usedXvalues.add(i);
+        }
     }
 
     public void addDominoXValuesToList (DominoStructure dominoStructure) {

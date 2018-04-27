@@ -39,6 +39,8 @@ public class DominoStructure {
         part1DominoStructure.put("x", xValueToUse);
         part1DominoStructure.put("y", -4);
 
+        // if (distance < 4) { dominoStructureArrayList.add(createConcreteBlock(xValueToUse)); }
+
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 90);
         part2DominoStructure.put("id", randomBlock);
@@ -56,6 +58,14 @@ public class DominoStructure {
         dominoStructureArrayList.add(part3DominoStructure);
 
         return dominoStructureArrayList;
+    }
+
+    public JSONObject createConcreteBlock(int startingXValue){
+        JSONObject concreteBlock = new JSONObject();
+        concreteBlock.put("angle", 0);
+        concreteBlock.put("id", BLOCK.STONE_BLOCK_4X4_HOLLOW);
+        concreteBlock.put("x", startingXValue + 1);
+        return concreteBlock;
     }
 
     public int getStartingXValue() {
