@@ -17,7 +17,7 @@ public class BasicLevel {
     public void createSingleLevel(int blocksToCreate, ArrayList<JSONObject> dominoStructureList){
         System.out.println("Generating a new level..." + "\n" + usedXvalues);
 
-        int blocks = blocksToCreate;
+        //int blocks = blocksToCreate;
 
         // create foundation of level
         JSONObject wholeLevel = new JSONObject();
@@ -70,7 +70,7 @@ public class BasicLevel {
         // add basic necessary stuff
         JSONObject counts = new JSONObject();
         counts.put("birds", 4);
-        counts.put("blocks", blocks + 1); // since one pig block is to be added anyway
+        counts.put("blocks", blocksToCreate + 1); // since one pig block is to be added anyway
         wholeLevel.put("counts", counts);
         wholeLevel.put("id", "pack1/Level6.lua");
         wholeLevel.put("scoreEagle", 65900);
@@ -121,8 +121,8 @@ public class BasicLevel {
         System.out.println("adding dominoStructure...");
         for (int i = 0; i < dominoStructureList.size(); i++) {
             System.out.println("domino: " + dominoStructureList.get(i).toString());
-            world.put("block_" + (blocks - i - numberOfTerrainBlocks), dominoStructureList.get(i));
-            System.out.println(dominoStructureList.get(i).toString() + " " + (blocks - (i)));
+            world.put("block_" + (blocksToCreate - i - numberOfTerrainBlocks), dominoStructureList.get(i));
+            System.out.println(dominoStructureList.get(i).toString() + " " + (blocksToCreate - (i)));
 //            int startingXVal = (Integer) dominoStructureList.get(0).get("x");
 //            int endXVal = (Integer) dominoStructureList.get(dominoStructureList.size() - 1).get("x") - startingXVal;
 //            addToUsedXValues(startingXVal, endXVal);
@@ -130,7 +130,7 @@ public class BasicLevel {
 
         // add randomized blocks
         System.out.println("adding randomized blocks...");
-        for (int i = 0; i < (blocks - dominoStructureList.size() - numberOfTerrainBlocks); i++){
+        for (int i = 0; i < (blocksToCreate - dominoStructureList.size() - numberOfTerrainBlocks); i++){
             System.out.println("creating block " + (i + 1) + "...");
             JSONObject randomBlock = createRandomJSONBlock();
             world.put("block_"+(i+1), randomBlock); // since the first block is the pig
