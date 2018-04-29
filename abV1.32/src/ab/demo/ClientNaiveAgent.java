@@ -241,11 +241,105 @@ public class ClientNaiveAgent implements Runnable {
 		
 		 // get all the pigs
  		List<ABObject> pigs = vision.findPigsMBR();
-		List<ABObject> blockShapes = vision.findBlocksRealShape();
+		// get all the blocks
+		List<ABObject> blockList = vision.findBlocksMBR();
  		
 		GameState state = ar.checkState();
 		// if there is a sling, then play, otherwise skip.
 		if (sling != null) {
+
+			// fange hier an, auf Dominoblocks zu schießen
+			if (!blockList.isEmpty()){
+				Point releasePoint = null;
+
+				//check if blockList contains three times the same block
+				ABObject dominoBlock = null;
+				for (int i = 0; i < blockList.size(); i++){
+					int counter = 1;
+					for (ABObject block : blockList){
+						if (blockList.get(i).getSize() == block.getSize() && blockList.get(i).getY() == block.getY()) {
+							counter++;
+							if (counter >= 3) {
+								dominoBlock = block;
+								break;
+							}
+						}
+					}
+				}
+				Point _tpt = dominoBlock.getCenter();
+				prevTarget = new Point(_tpt.x, _tpt.y);
+				// estimate the trajectory
+				ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
+				if (pts.size() == 1)
+					releasePoint = pts.get(0);
+				else
+				if(pts.size() == 2)
+				{
+					// System.out.println("first shot " + firstShot);
+					// randomly choose between the trajectories, with a 1 in
+					// 6 chance of choosing the high one
+					if (randomGenerator.nextInt(6) == 0)
+						releasePoint = pts.get(1);
+					else
+						releasePoint = pts.get(0);
+				}
+				Point refPoint = tp.getReferencePoint(sling);
+
+				// Get the release point from the trajectory prediction module
+				int tapTime = 0;
+				if (releasePoint != null) {
+					double releaseAngle = tp.getReleaseAngle(sling,
+							releasePoint);
+					System.out.println("Release Point: " + releasePoint);
+					System.out.println("Release Angle: "
+							+ Math.toDegrees(releaseAngle));
+					int tapInterval = 0;
+					tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
+
+				} else
+				{
+					System.err.println("No Release Point Found");
+					return ar.checkState();
+				}
+
+
+				// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
+				ar.fullyZoomOut();
+				screenshot = ar.doScreenShot();
+				vision = new Vision(screenshot);
+				Rectangle _sling = vision.findSlingshotMBR();
+				if(_sling != null)
+				{
+					double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
+					if(scale_diff < 25)
+					{
+						int dx = (int) releasePoint.getX() - refPoint.x;
+						int dy = (int) releasePoint.getY() - refPoint.y;
+						if(dx < 0)
+						{
+							long timer = System.currentTimeMillis();
+							ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
+							System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
+							state = ar.checkState();
+							if ( state == GameState.PLAYING )
+							{
+								screenshot = ar.doScreenShot();
+								vision = new Vision(screenshot);
+								List<Point> traj = vision.findTrajPoints();
+								tp.adjustTrajectory(traj, sling, releasePoint);
+								//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
+							}
+						}
+					}
+					else
+						System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
+				}
+				else
+					System.out.println("no sling detected, can not execute the shot, will re-segement the image");
+
+			}
+
+
 			
 			
 			//If there are pigs, we pick up a pig randomly and shoot it. 

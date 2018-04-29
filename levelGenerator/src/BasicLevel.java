@@ -25,7 +25,7 @@ public class BasicLevel {
 
         // add randomized terrain
 
-        int coinFlip = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+        int coinFlip = ThreadLocalRandom.current().nextInt(0, 11);
         int numberOfTerrainBlocks = 0;
         /**
         if (coinFlip <= 5) {
@@ -79,15 +79,15 @@ public class BasicLevel {
         wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
 
         // add one pig at the end of the level
-        /**
+
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
         pig.put("x", 130);
         pig.put("y", -1);
-        world.put("block_1", pig);
+        world.put("block_"+ (blocksToCreate + 1), pig);
         addToUsedXValues(130, 130);
-         **/
+
 
         // add birds
         JSONObject bird1 = new JSONObject();
