@@ -7,11 +7,11 @@ import java.util.Random;
  * Created by felix on 10.04.18.
  */
 public enum VERTICALDOMINOBLOCK {
-    STONE_BLOCK_4X1,
+    //STONE_BLOCK_4X1,
     STONE_BLOCK_8X1,
-    WOOD_BLOCK_4X1,
+    //WOOD_BLOCK_4X1,
     WOOD_BLOCK_8X1,
-    ICE_BLOCK_4X1,
+    //ICE_BLOCK_4X1,
     ICE_BLOCK_8X1;
 
     private static final List<VERTICALDOMINOBLOCK> ALLBLOCKS =

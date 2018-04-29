@@ -43,7 +43,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="1980">
@@ -122,11 +122,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="VERTICALDOMINOBLOCK.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="VERTICALDOMINOBLOCK.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+                <state relative-caret-position="150">
+                  <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
                   <folding />
                 </state>
               </provider>
@@ -185,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/VERTICALBLOCK.java" />
         <option value="$PROJECT_DIR$/src/BLOCK.java" />
         <option value="$PROJECT_DIR$/src/TERRAIN.java" />
-        <option value="$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-1.json" />
         <option value="$PROJECT_DIR$/src/DominoStructure.java" />
@@ -193,6 +192,7 @@
         <option value="$PROJECT_DIR$/src/LevelCreator.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-2.json" />
         <option value="$PROJECT_DIR$/src/BasicLevel.java" />
+        <option value="$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java" />
       </list>
     </option>
   </component>
@@ -262,20 +262,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="levelGenerator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="levelGenerator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generatedLevels" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -773,14 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TERRAIN.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -877,6 +855,14 @@
             <element signature="e#8268#8269#0" expanded="true" />
             <element signature="e#8296#8297#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
