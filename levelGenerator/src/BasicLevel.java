@@ -27,11 +27,11 @@ public class BasicLevel {
 
         int coinFlip = ThreadLocalRandom.current().nextInt(0, 11);
         int numberOfTerrainBlocks = 0;
-        /**
+
         if (coinFlip <= 5) {
             System.out.println("adding terrain block...");
             numberOfTerrainBlocks = 1;
-            blocks += 1;
+            blocksToCreate += 1;
             JSONObject terrainBlock = new JSONObject();
             String terrainBlockString = TERRAIN.randomBlock().toString();
             int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
@@ -40,9 +40,9 @@ public class BasicLevel {
             terrainBlock.put("x", getRandomXInt(false, xVal));
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
-            world.put("block_" + blocks, terrainBlock); // add block with last block number
+            world.put("block_" + blocksToCreate, terrainBlock); // add block with last block number
         }
-         **/
+
 
         // create and add camera array
         JSONArray cameraArray = new JSONArray();
@@ -79,14 +79,13 @@ public class BasicLevel {
         wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
 
         // add one pig at the end of the level
-
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
-        pig.put("x", 120);
+        pig.put("x", 118);
         pig.put("y", -1);
-        world.put("block_"+ (blocksToCreate + 1), pig);
-        addToUsedXValues(120, 120);
+        world.put("block_"+ (blocksToCreate + 1), pig); // add pig with number of blocks to create plus one as last block
+        addToUsedXValues(118, 118);
 
 
         // add birds
