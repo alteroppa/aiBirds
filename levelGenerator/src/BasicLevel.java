@@ -83,10 +83,10 @@ public class BasicLevel {
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
-        pig.put("x", 130);
+        pig.put("x", 120);
         pig.put("y", -1);
         world.put("block_"+ (blocksToCreate + 1), pig);
-        addToUsedXValues(130, 130);
+        addToUsedXValues(120, 120);
 
 
         // add birds
@@ -175,7 +175,7 @@ public class BasicLevel {
     }
 
     public int getRandomXInt (boolean ignoreUsedXVals, int blockEndXVal) {
-        int min = 15;
+        int min = 25;
         int max = 130;
         System.out.println("blockEndXVal: " + blockEndXVal);
 
