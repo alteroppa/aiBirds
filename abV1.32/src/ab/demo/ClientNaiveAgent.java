@@ -13,9 +13,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import ab.demo.other.ClientActionRobot;
 import ab.demo.other.ClientActionRobotJava;
@@ -40,6 +42,7 @@ public class ClientNaiveAgent implements Runnable {
 	private boolean firstShot;
 	private Point prevTarget;
 	private Random randomGenerator;
+	private boolean alreadyShotOnDomino = false;
 	/**
 	 * Constructor using the default IP
 	 * */
@@ -113,7 +116,7 @@ public class ClientNaiveAgent implements Runnable {
 			level ++;
 		}
 	}
-	public void run() {	
+	public void run() {
 		byte[] info = ar.configure(ClientActionRobot.intToByteArray(id));
 		solved = new int[info[2]];
 		
@@ -127,12 +130,13 @@ public class ClientNaiveAgent implements Runnable {
 		GameState state;
 		int levelcounter = 1;
 		while (true) {
-			
+			System.out.println("while true: running level " + currentLevel);
+
 			state = solve(levelcounter);
 			levelcounter++;
 			//If the level is solved , go to the next level
 			if (state == GameState.WON) {
-							
+				alreadyShotOnDomino = false;
 				///System.out.println(" loading the level " + (currentLevel + 1) );
 				checkMyScore();
 				System.out.println();
@@ -199,23 +203,10 @@ public class ClientNaiveAgent implements Runnable {
 	   * @return GameState: the game state after shots.
      */
 	public GameState solve(int levelcounter)
-
 	{
 
 		// capture Image
 		BufferedImage screenshot = ar.doScreenShot();
-
-		// screenshot machen und speichern
-		String levelcounterString = Integer.toString(levelcounter);
-		String filename = "level" + levelcounterString + ".jpg";
-		File outputfile = new File("screenshots/" + filename);
-		try {
-			ImageIO.write(screenshot, "jpg", outputfile);
-			System.out.println("Screenshot gespeichert als " + filename);
-		} catch (IOException e) {
-			System.out.println("Screenshot konnte nicht gespeichert werden.");
-			e.printStackTrace();
-		}
 
 		// process image
 		Vision vision = new Vision(screenshot);
@@ -243,33 +234,229 @@ public class ClientNaiveAgent implements Runnable {
  		List<ABObject> pigs = vision.findPigsMBR();
 		// get all the blocks
 		List<ABObject> blockList = vision.findBlocksMBR();
- 		
+		for (ABObject block : blockList){
+			System.out.println(block + "\n");
+			System.out.println("height(): " + block.getHeight());
+			System.out.println("centerY(): " + block.getCenterY());
+			System.out.println("size(): " + block.getSize());
+			System.out.println("class(): " + block.getClass());
+			System.out.println("frame(): " + block.getFrame());
+
+
+		}
+
+
+
 		GameState state = ar.checkState();
 		// if there is a sling, then play, otherwise skip.
 		if (sling != null) {
-
-			// fange hier an, auf Dominoblocks zu schießen
-			if (!blockList.isEmpty()){
-				Point releasePoint = null;
-
-				//check if blockList contains three times the same block
-				ABObject dominoBlock = null;
+			System.out.println("already shot on dominoblocks in this level: " + alreadyShotOnDomino);
+			if (!alreadyShotOnDomino){
+				List<ABObject> dominoBlockList = null;
 				for (int i = 0; i < blockList.size(); i++){
-					int counter = 1;
-					for (ABObject block : blockList){
-						if (blockList.get(i).getSize() == block.getSize() && blockList.get(i).getY() == block.getY()) {
+					ABObject outerLoopBlock = blockList.get(i);
+					int counter = 0;
+					List<ABObject> tempDominoBlockList = new ArrayList<>();
+					for (int j = 0; j < blockList.size(); j++){
+						ABObject innerLoopBlock = blockList.get(j);
+
+						if ((equalsWithinMargin(innerLoopBlock.getY(), outerLoopBlock.getY(), 1)) && (outerLoopBlock.getType().equals(innerLoopBlock.getType()))) {
+							System.out.println("adding block: " + innerLoopBlock);
 							counter++;
+							tempDominoBlockList.add(innerLoopBlock);
 							if (counter >= 3) {
-								dominoBlock = block;
-								break;
+								System.out.println("counter > 3");
+								dominoBlockList = tempDominoBlockList;
 							}
 						}
 					}
 				}
-				Point _tpt = dominoBlock.getCenter();
+				// remove blocks that look like, but aren't part of the domino structure
+				List<ABObject> realDominoBlocks = new ArrayList<>();
+				System.out.println("dominoblocks before: " + dominoBlockList);
+				for (int i = 0; i < dominoBlockList.size(); i++){
+					ABObject blockToCheck = dominoBlockList.get(i);
+					double distance;
+					if (i == 0){
+						distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(1).getX());
+					} else {
+						distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(i-1).getX());
+					}
+
+
+
+					// hier liegt der Hund begraben
+					if (!(distance >= blockToCheck.getHeight())){
+						realDominoBlocks.add(blockToCheck);
+						System.out.println("adding block " + blockToCheck + " to realDominoBlocks");
+					}
+				}
+				if (realDominoBlocks.size() > 0){
+					dominoBlockList = realDominoBlocks;
+				}
+
+				// sort dominoBlockList ascending
+				Collections.sort(dominoBlockList, new Comparator<ABObject>() {
+					@Override
+					public int compare(ABObject o1, ABObject o2) {
+						int val1 = (int) o1.getX();
+						int val2 = (int) o2.getX();
+						return val1 < val2 ? 1 : val2 > val1 ? -1 : 0;
+					}
+				});
+
+				// fange hier an, auf Dominoblocks zu schießen
+				if ((dominoBlockList.size() > 0) && !alreadyShotOnDomino){
+					Point releasePoint = null;
+					ABObject firstDominoBlock = null;
+					//check if blockList contains three times the same block
+					ABObject dominoBlock = null;
+
+
+
+
+
+
+					System.out.println("hieraei");
+					dominoBlock = dominoBlockList.get(0);
+					System.out.println("dominoBlockList after:\n");
+					for (ABObject singleBlock : dominoBlockList){
+						System.out.println(singleBlock + "\n");
+					}
+					System.out.println("first dominoblock: " + dominoBlock);
+
+					Point _tpt = dominoBlock.getCenter();
+
+					prevTarget = new Point(_tpt.x, _tpt.y);
+
+					// estimate the trajectory
+					ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
+
+					if (pts.size() == 1)
+						releasePoint = pts.get(0);
+					else
+					if(pts.size() == 2)
+					{
+						// System.out.println("first shot " + firstShot);
+						// randomly choose between the trajectories, with a 1 in
+						// 6 chance of choosing the high one
+						if (randomGenerator.nextInt(6) == 0)
+							releasePoint = pts.get(1);
+						else
+							releasePoint = pts.get(0);
+					}
+					Point refPoint = tp.getReferencePoint(sling);
+
+					// Get the release point from the trajectory prediction module
+					int tapTime = 0;
+					if (releasePoint != null) {
+						double releaseAngle = tp.getReleaseAngle(sling,
+								releasePoint);
+						System.out.println("Release Point: " + releasePoint);
+						System.out.println("Release Angle: "
+								+ Math.toDegrees(releaseAngle));
+						int tapInterval = 0;
+						tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
+
+					} else
+					{
+						System.err.println("No Release Point Found");
+						return ar.checkState();
+					}
+
+
+					// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
+					ar.fullyZoomOut();
+					screenshot = ar.doScreenShot();
+					vision = new Vision(screenshot);
+					Rectangle _sling = vision.findSlingshotMBR();
+
+					// shoot
+					if(_sling != null)
+					{
+						double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
+						if(scale_diff < 25)
+						{
+							int dx = (int) releasePoint.getX() - refPoint.x;
+							int dy = (int) releasePoint.getY() - refPoint.y;
+							if(dx < 0)
+							{
+								long timer = System.currentTimeMillis();
+								ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
+								alreadyShotOnDomino = true;
+								System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
+
+								// check if domino structure is destroyed
+								if (!dominoBlockList.isEmpty()){
+									dominoBlockList = removeDestroyedBlocksFromDominoList(dominoBlockList);
+								}
+								System.out.println("new dominoBlocklist after shot: " + dominoBlockList);
+
+								if (dominoBlockList.size() == 0) {
+									System.out.println("Domino structure destroyed!");
+									try {
+										Files.write(Paths.get("levelsWithDestroyedStructures.txt"), ("destroyed structure in " + currentLevel + "\n").getBytes(), StandardOpenOption.APPEND);
+									}catch (IOException e) {
+										e.printStackTrace();
+									}
+								} else {
+									System.out.println("Domino structure NOT destroyed!");
+									if (vision.findBirdsMBR().size() > 2) {
+										alreadyShotOnDomino = false;
+									}
+								}
+
+
+
+								state = ar.checkState();
+								if ( state == GameState.PLAYING )
+								{
+									screenshot = ar.doScreenShot();
+									vision = new Vision(screenshot);
+									List<Point> traj = vision.findTrajPoints();
+									tp.adjustTrajectory(traj, sling, releasePoint);
+									//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
+								}
+							}
+						}
+						else
+							System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
+					}
+					else
+						System.out.println("no sling detected, can not execute the shot, will re-segement the image");
+				}
+
+			}
+
+
+			//If there are pigs, we pick up a pig randomly and shoot it. 
+			if (!pigs.isEmpty() && alreadyShotOnDomino) {
+				System.out.println("shooting on a pig...");
+				Point releasePoint = null;
+				// random pick up a pig
+				ABObject pig = pigs.get(randomGenerator.nextInt(pigs.size()));
+
+				Point _tpt = pig.getCenter();
+
+
+				// if the target is very close to before, randomly choose a
+				// point near it
+				if (prevTarget != null && distance(prevTarget, _tpt) < 10) {
+					double _angle = randomGenerator.nextDouble() * Math.PI * 2;
+					_tpt.x = _tpt.x + (int) (Math.cos(_angle) * 10);
+					_tpt.y = _tpt.y + (int) (Math.sin(_angle) * 10);
+					System.out.println("Randomly changing to " + _tpt);
+				}
+
 				prevTarget = new Point(_tpt.x, _tpt.y);
+
 				// estimate the trajectory
 				ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
+
+				// do a high shot when entering a level to find an accurate velocity
+				if (firstShot && pts.size() > 1) {
+					releasePoint = pts.get(1);
+				} else
 				if (pts.size() == 1)
 					releasePoint = pts.get(0);
 				else
@@ -294,15 +481,32 @@ public class ClientNaiveAgent implements Runnable {
 					System.out.println("Release Angle: "
 							+ Math.toDegrees(releaseAngle));
 					int tapInterval = 0;
+					switch (ar.getBirdTypeOnSling())
+					{
+
+						case RedBird:
+							tapInterval = 0; break;               // start of trajectory
+						case YellowBird:
+							tapInterval = 65 + randomGenerator.nextInt(25);break; // 65-90% of the way
+						case WhiteBird:
+							tapInterval =  50 + randomGenerator.nextInt(20);break; // 50-70% of the way
+						case BlackBird:
+							tapInterval =  0;break; // 70-90% of the way
+						case BlueBird:
+							tapInterval =  65 + randomGenerator.nextInt(20);break; // 65-85% of the way
+						default:
+							tapInterval =  60;
+					}
+
 					tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
 
 				} else
-				{
-					System.err.println("No Release Point Found");
-					return ar.checkState();
-				}
-
-
+					{
+						System.err.println("No Release Point Found");
+						return ar.checkState();
+					}
+				
+				
 				// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
 				ar.fullyZoomOut();
 				screenshot = ar.doScreenShot();
@@ -327,7 +531,7 @@ public class ClientNaiveAgent implements Runnable {
 								vision = new Vision(screenshot);
 								List<Point> traj = vision.findTrajPoints();
 								tp.adjustTrajectory(traj, sling, releasePoint);
-								//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
+								firstShot = false;
 							}
 						}
 					}
@@ -336,126 +540,23 @@ public class ClientNaiveAgent implements Runnable {
 				}
 				else
 					System.out.println("no sling detected, can not execute the shot, will re-segement the image");
-
-			}
-
-
-			
-			
-			//If there are pigs, we pick up a pig randomly and shoot it. 
-			if (!pigs.isEmpty()) {		
-				Point releasePoint = null;
-				// random pick up a pig
-					ABObject pig = pigs.get(randomGenerator.nextInt(pigs.size()));
-					
-					Point _tpt = pig.getCenter();
-
-					
-					// if the target is very close to before, randomly choose a
-					// point near it
-					if (prevTarget != null && distance(prevTarget, _tpt) < 10) {
-						double _angle = randomGenerator.nextDouble() * Math.PI * 2;
-						_tpt.x = _tpt.x + (int) (Math.cos(_angle) * 10);
-						_tpt.y = _tpt.y + (int) (Math.sin(_angle) * 10);
-						System.out.println("Randomly changing to " + _tpt);
-					}
-
-					prevTarget = new Point(_tpt.x, _tpt.y);
-
-					// estimate the trajectory
-					ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
-
-					// do a high shot when entering a level to find an accurate velocity
-					if (firstShot && pts.size() > 1) {
-						releasePoint = pts.get(1);
-					} else 
-						if (pts.size() == 1)
-							releasePoint = pts.get(0);
-						else 
-							if(pts.size() == 2)
-							{
-								// System.out.println("first shot " + firstShot);
-								// randomly choose between the trajectories, with a 1 in
-								// 6 chance of choosing the high one
-								if (randomGenerator.nextInt(6) == 0)
-									releasePoint = pts.get(1);
-								else
-								releasePoint = pts.get(0);
-							}
-							Point refPoint = tp.getReferencePoint(sling);
-
-					// Get the release point from the trajectory prediction module
-					int tapTime = 0;
-					if (releasePoint != null) {
-						double releaseAngle = tp.getReleaseAngle(sling,
-								releasePoint);
-						System.out.println("Release Point: " + releasePoint);
-						System.out.println("Release Angle: "
-								+ Math.toDegrees(releaseAngle));
-						int tapInterval = 0;
-						switch (ar.getBirdTypeOnSling()) 
-						{
-
-							case RedBird:
-								tapInterval = 0; break;               // start of trajectory
-							case YellowBird:
-								tapInterval = 65 + randomGenerator.nextInt(25);break; // 65-90% of the way
-							case WhiteBird:
-								tapInterval =  50 + randomGenerator.nextInt(20);break; // 50-70% of the way
-							case BlackBird:
-								tapInterval =  0;break; // 70-90% of the way
-							case BlueBird:
-								tapInterval =  65 + randomGenerator.nextInt(20);break; // 65-85% of the way
-							default:
-								tapInterval =  60;
-						}
-						
-						tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
-						
-					} else
-						{
-							System.err.println("No Release Point Found");
-							return ar.checkState();
-						}
-				
-				
-					// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
-					ar.fullyZoomOut();
-					screenshot = ar.doScreenShot();
-					vision = new Vision(screenshot);
-					Rectangle _sling = vision.findSlingshotMBR();
-					if(_sling != null)
-					{
-						double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
-						if(scale_diff < 25)
-						{
-							int dx = (int) releasePoint.getX() - refPoint.x;
-							int dy = (int) releasePoint.getY() - refPoint.y;
-							if(dx < 0)
-							{
-								long timer = System.currentTimeMillis();
-								ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
-								System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
-								state = ar.checkState();
-								if ( state == GameState.PLAYING )
-								{
-									screenshot = ar.doScreenShot();
-									vision = new Vision(screenshot);
-									List<Point> traj = vision.findTrajPoints();
-									tp.adjustTrajectory(traj, sling, releasePoint);
-									firstShot = false;
-								}
-							}
-						}
-						else
-							System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
-					}
-					else
-						System.out.println("no sling detected, can not execute the shot, will re-segement the image");
-				
 			}
 		}
 		return state;
+	}
+
+	private void saveScreenshot(int levelcounter, BufferedImage screenshot) {
+		// screenshot machen und speichern
+		String levelcounterString = Integer.toString(levelcounter);
+		String filename = "level" + levelcounterString + ".jpg";
+		File outputfile = new File("screenshots/" + filename);
+		try {
+			ImageIO.write(screenshot, "jpg", outputfile);
+			System.out.println("Screenshot gespeichert als " + filename);
+		} catch (IOException e) {
+			System.out.println("Screenshot konnte nicht gespeichert werden.");
+			e.printStackTrace();
+		}
 	}
 
 	private double distance(Point p1, Point p2) {
@@ -472,4 +573,29 @@ public class ClientNaiveAgent implements Runnable {
 		na.run();
 		
 	}
+
+	private boolean equalsWithinMargin (double firstVal, double secondVal, double margin){
+		return (Math.abs(firstVal - secondVal) <= margin);
+	}
+
+	private List<ABObject> removeDestroyedBlocksFromDominoList(List<ABObject> originalDominoBlockList){
+		BufferedImage newScreenshot = ar.doScreenShot();
+		Vision vision = new Vision(newScreenshot);
+		List<ABObject> dominoListAfter = new ArrayList<>();
+		List<ABObject> allBlocksAfter = vision.findBlocksMBR();
+		System.out.println("originalDominoBlockList.size(): " + originalDominoBlockList.size());
+		System.out.println("allBlocksAfter.size(): " + allBlocksAfter.size());
+		for (int i = 0; i < originalDominoBlockList.size(); i++){
+			for (ABObject block : allBlocksAfter) {
+				System.out.println("originalDominoBlockList.get(i).getX(): " + originalDominoBlockList.get(i).getX());
+				System.out.println("block.getX(): " + block.getX());
+				if (equalsWithinMargin(originalDominoBlockList.get(i).getX(), block.getX(), 1)) {
+					System.out.println("still untouched.\ndominoBlock.getX(): " + originalDominoBlockList.get(i).getX() + "\n" + "block.getX(): " + block.getX());
+					dominoListAfter.add(originalDominoBlockList.get(i));
+				}
+			}
+		}
+		return dominoListAfter;
+	}
+
 }

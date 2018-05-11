@@ -2,7 +2,7 @@
 *.class
 
 # ignore screenshots folder
-screenshots/*
+abV1.32/screenshots/
 
 # Log file
 *.log
