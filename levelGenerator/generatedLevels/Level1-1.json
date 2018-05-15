@@ -2,22 +2,22 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 81,
-      "angle": 90,
+      "x": 101,
+      "angle": 270,
       "y": -2,
-      "id": "STONE_TRIANGLE_4X4_HOLLOW"
+      "id": "SNOW_BLOCK_4X4"
     },
     "block_10": {
-      "x": 51,
+      "x": 64,
       "angle": 0,
       "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_2": {
-      "x": 31,
+      "x": 88,
       "angle": 90,
       "y": -2,
-      "id": "ICE_CIRCLE_4X4"
+      "id": "SNOW_BLOCK_4X4"
     },
     "bird_4": {
       "x": 0,
@@ -29,7 +29,7 @@
       "x": 126,
       "angle": 0,
       "y": -2,
-      "id": "STONE_TRIANGLE_4X4_HOLLOW"
+      "id": "SNOW_BLOCK_6X2"
     },
     "bird_3": {
       "x": 2.878,
@@ -38,10 +38,10 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 114,
-      "angle": 270,
+      "x": 84,
+      "angle": 180,
       "y": -2,
-      "id": "SNOW_CIRCLE_4X4"
+      "id": "WOOD_BLOCK_4X2"
     },
     "bird_2": {
       "x": 6.113,
@@ -50,10 +50,10 @@
       "id": "BIRD_RED"
     },
     "block_5": {
-      "x": 68,
+      "x": 37,
       "angle": 180,
       "y": -2,
-      "id": "WOOD_BLOCK_1X1"
+      "id": "WOOD_CIRCLE_2X2"
     },
     "bird_1": {
       "x": 10.153,
@@ -62,25 +62,25 @@
       "id": "BIRD_RED"
     },
     "block_6": {
-      "x": 95,
+      "x": 124,
       "angle": 0,
       "y": -2,
-      "id": "STONE_BLOCK_1X1"
+      "id": "ICE_TRIANGLE_4X4_HOLLOW"
     },
     "block_7": {
-      "x": 108,
-      "angle": 180,
+      "x": 35,
+      "angle": 90,
       "y": -2,
-      "id": "SNOW_TRIANGLE_4X4"
+      "id": "WOOD_BLOCK_2X1"
     },
     "block_8": {
-      "x": 60,
+      "x": 75,
       "angle": 90,
       "y": -1,
       "id": "PIG_BASIC_MEDIUM"
     },
     "block_9": {
-      "x": 60,
+      "x": 73,
       "angle": 0,
       "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
