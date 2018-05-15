@@ -2,28 +2,22 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 42,
-      "angle": 90,
+      "x": 125,
+      "angle": 270,
       "y": -2,
-      "id": "STONE_BLOCK_1X1"
-    },
-    "block_11": {
-      "x": 80,
-      "angle": 0,
-      "y": -1,
-      "id": "TERRAIN_TEXTURED_HILLS_5X2"
+      "id": "WOOD_TRIANGLE_4X4_HOLLOW"
     },
     "block_10": {
-      "x": 61,
+      "x": 73,
       "angle": 90,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_2": {
-      "x": 107,
+      "x": 121,
       "angle": 270,
       "y": -2,
-      "id": "ICE_BLOCK_4X4_HOLLOW"
+      "id": "ICE_BLOCK_4X2"
     },
     "bird_4": {
       "x": 0,
@@ -32,10 +26,10 @@
       "id": "BIRD_RED"
     },
     "block_3": {
-      "x": 117,
-      "angle": 90,
+      "x": 115,
+      "angle": 0,
       "y": -2,
-      "id": "SNOW_BLOCK_6X2"
+      "id": "SNOW_CIRCLE_4X4"
     },
     "bird_3": {
       "x": 2.878,
@@ -44,10 +38,10 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 33,
+      "x": 76,
       "angle": 90,
-      "y": -2,
-      "id": "ICE_TRIANGLE_4X4_HOLLOW"
+      "y": -1,
+      "id": "PIG_BASIC_SMALL"
     },
     "bird_2": {
       "x": 6.113,
@@ -55,45 +49,35 @@
       "y": -1.142,
       "id": "BIRD_RED"
     },
-    "block_5": {
-      "x": 40,
-      "angle": 0,
-      "y": -2,
-      "id": "STONE_TRIANGLE_4X4"
-    },
+    "block_5": {},
     "bird_1": {
       "x": 10.153,
       "angle": 0,
       "y": -0.944,
       "id": "BIRD_RED"
     },
-    "block_6": {
-      "x": 64,
-      "angle": 90,
-      "y": -1,
-      "id": "PIG_BASIC_SMALL"
-    },
+    "block_6": {},
     "block_7": {
-      "x": 72,
-      "angle": 90,
-      "y": -10,
+      "x": 79,
+      "angle": 135,
+      "y": -20,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_8": {
-      "x": 70,
+      "x": 79,
       "angle": 90,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_9": {
-      "x": 63,
+      "x": 73,
       "angle": 90,
       "y": -10,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     }
   },
   "counts": {
-    "blocks": 11,
+    "blocks": 10,
     "birds": 4
   },
   "scoreSilver": 51000,
