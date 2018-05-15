@@ -2,28 +2,28 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 112,
+      "x": 34,
       "angle": 90,
       "y": -2,
-      "id": "WOOD_TRIANGLE_4X4"
+      "id": "STONE_BLOCK_1X1"
     },
     "block_11": {
-      "x": 66,
+      "x": 41,
       "angle": 0,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_5X5"
     },
     "block_10": {
-      "x": 39,
+      "x": 55,
       "angle": 45,
       "y": -8,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_2": {
-      "x": 84,
-      "angle": 90,
+      "x": 89,
+      "angle": 0,
       "y": -2,
-      "id": "WOOD_CIRCLE_2X2"
+      "id": "STONE_BLOCK_2X1"
     },
     "bird_4": {
       "x": 0,
@@ -32,10 +32,10 @@
       "id": "BIRD_RED"
     },
     "block_3": {
-      "x": 70,
+      "x": 113,
       "angle": 0,
       "y": -2,
-      "id": "WOOD_CIRCLE_2X2"
+      "id": "ICE_CIRCLE_2X2"
     },
     "bird_3": {
       "x": 2.878,
@@ -44,10 +44,10 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 122,
+      "x": 109,
       "angle": 180,
       "y": -2,
-      "id": "SNOW_CIRCLE_4X4"
+      "id": "SNOW_BLOCK_4X4"
     },
     "bird_2": {
       "x": 6.113,
@@ -56,10 +56,10 @@
       "id": "BIRD_RED"
     },
     "block_5": {
-      "x": 106,
-      "angle": 90,
+      "x": 97,
+      "angle": 180,
       "y": -2,
-      "id": "STONE_BLOCK_1X1"
+      "id": "SNOW_TRIANGLE_2X2"
     },
     "bird_1": {
       "x": 10.153,
@@ -68,25 +68,25 @@
       "id": "BIRD_RED"
     },
     "block_6": {
-      "x": 56,
+      "x": 72,
       "angle": 90,
       "y": -1,
-      "id": "PIG_BASIC_SMALL"
+      "id": "PIG_BASIC_MEDIUM"
     },
     "block_7": {
-      "x": 55,
+      "x": 72,
       "angle": 0,
       "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_8": {
-      "x": 45,
+      "x": 63,
       "angle": 0,
       "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_9": {
-      "x": 39,
+      "x": 55,
       "angle": 45,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
