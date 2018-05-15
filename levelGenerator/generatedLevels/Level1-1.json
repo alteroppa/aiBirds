@@ -2,20 +2,26 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 125,
-      "angle": 270,
+      "x": 69,
+      "angle": 0,
       "y": -2,
-      "id": "WOOD_TRIANGLE_4X4_HOLLOW"
+      "id": "ICE_BLOCK_8X1"
+    },
+    "block_11": {
+      "x": 45,
+      "angle": 0,
+      "y": -1,
+      "id": "TERRAIN_TEXTURED_HILLS_5X5"
     },
     "block_10": {
-      "x": 73,
+      "x": 74,
       "angle": 90,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_2": {
-      "x": 121,
-      "angle": 270,
+      "x": 118,
+      "angle": 0,
       "y": -2,
       "id": "ICE_BLOCK_4X2"
     },
@@ -26,10 +32,10 @@
       "id": "BIRD_RED"
     },
     "block_3": {
-      "x": 115,
-      "angle": 0,
+      "x": 84,
+      "angle": 180,
       "y": -2,
-      "id": "SNOW_CIRCLE_4X4"
+      "id": "ICE_BLOCK_4X1"
     },
     "bird_3": {
       "x": 2.878,
@@ -38,7 +44,7 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 76,
+      "x": 77,
       "angle": 90,
       "y": -1,
       "id": "PIG_BASIC_SMALL"
@@ -49,35 +55,45 @@
       "y": -1.142,
       "id": "BIRD_RED"
     },
-    "block_5": {},
+    "block_5": {
+      "x": 80,
+      "angle": 135,
+      "y": -20,
+      "id": "TERRAIN_TEXTURED_HILLS_10X2"
+    },
     "bird_1": {
       "x": 10.153,
       "angle": 0,
       "y": -0.944,
       "id": "BIRD_RED"
     },
-    "block_6": {},
-    "block_7": {
-      "x": 79,
+    "block_6": {
+      "x": 74,
       "angle": 135,
       "y": -20,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
+    "block_7": {
+      "x": 80,
+      "angle": 90,
+      "y": -10,
+      "id": "TERRAIN_TEXTURED_HILLS_10X2"
+    },
     "block_8": {
-      "x": 79,
+      "x": 80,
       "angle": 90,
       "y": -1,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_9": {
-      "x": 73,
+      "x": 74,
       "angle": 90,
       "y": -10,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     }
   },
   "counts": {
-    "blocks": 10,
+    "blocks": 11,
     "birds": 4
   },
   "scoreSilver": 51000,
