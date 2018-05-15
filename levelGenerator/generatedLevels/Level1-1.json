@@ -2,28 +2,22 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 110,
-      "angle": 0,
-      "y": -2,
-      "id": "SNOW_BLOCK_6X2"
-    },
-    "block_11": {
       "x": 81,
-      "angle": 0,
-      "y": -1,
-      "id": "TERRAIN_TEXTURED_HILLS_10X2"
+      "angle": 90,
+      "y": -2,
+      "id": "STONE_TRIANGLE_4X4_HOLLOW"
     },
     "block_10": {
-      "x": 43,
-      "angle": 45,
-      "y": -1,
+      "x": 51,
+      "angle": 0,
+      "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     },
     "block_2": {
-      "x": 128,
-      "angle": 270,
+      "x": 31,
+      "angle": 90,
       "y": -2,
-      "id": "WOOD_BLOCK_2X1"
+      "id": "ICE_CIRCLE_4X4"
     },
     "bird_4": {
       "x": 0,
@@ -32,10 +26,10 @@
       "id": "BIRD_RED"
     },
     "block_3": {
-      "x": 72,
-      "angle": 180,
+      "x": 126,
+      "angle": 0,
       "y": -2,
-      "id": "STONE_BLOCK_8X1"
+      "id": "STONE_TRIANGLE_4X4_HOLLOW"
     },
     "bird_3": {
       "x": 2.878,
@@ -44,10 +38,10 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 125,
-      "angle": 90,
+      "x": 114,
+      "angle": 270,
       "y": -2,
-      "id": "WOOD_BLOCK_4X1"
+      "id": "SNOW_CIRCLE_4X4"
     },
     "bird_2": {
       "x": 6.113,
@@ -56,10 +50,10 @@
       "id": "BIRD_RED"
     },
     "block_5": {
-      "x": 66,
-      "angle": 270,
+      "x": 68,
+      "angle": 180,
       "y": -2,
-      "id": "WOOD_BLOCK_4X1"
+      "id": "WOOD_BLOCK_1X1"
     },
     "bird_1": {
       "x": 10.153,
@@ -68,32 +62,32 @@
       "id": "BIRD_RED"
     },
     "block_6": {
-      "x": 35,
-      "angle": 180,
+      "x": 95,
+      "angle": 0,
       "y": -2,
-      "id": "STONE_TRIANGLE_4X4"
+      "id": "STONE_BLOCK_1X1"
     },
     "block_7": {
-      "x": 61,
+      "x": 108,
+      "angle": 180,
+      "y": -2,
+      "id": "SNOW_TRIANGLE_4X4"
+    },
+    "block_8": {
+      "x": 60,
       "angle": 90,
       "y": -1,
       "id": "PIG_BASIC_MEDIUM"
     },
-    "block_8": {
-      "x": 62,
-      "angle": 0,
-      "y": -5,
-      "id": "TERRAIN_TEXTURED_HILLS_10X2"
-    },
     "block_9": {
-      "x": 53,
+      "x": 60,
       "angle": 0,
       "y": -5,
       "id": "TERRAIN_TEXTURED_HILLS_10X2"
     }
   },
   "counts": {
-    "blocks": 11,
+    "blocks": 10,
     "birds": 4
   },
   "scoreSilver": 51000,
