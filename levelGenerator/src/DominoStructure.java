@@ -66,7 +66,7 @@ public class DominoStructure {
             topBar.put("angle", 0);
             topBar.put("id", randomBlock);
             topBar.put("x", startingXValue + distance);
-            topBar.put("y", -40);
+            topBar.put("y", -80);
             dominoStructureArrayList.add(topBar);
         }
 
