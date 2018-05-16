@@ -59,8 +59,11 @@ public class DominoStructure {
         part3DominoStructure.put("x", startingXValue + (2 * distance));
         part3DominoStructure.put("y", -4);
 
-        boolean addTopBar = ThreadLocalRandom.current().nextBoolean();
+        dominoStructureArrayList.add(part1DominoStructure);
+        dominoStructureArrayList.add(part2DominoStructure);
+        dominoStructureArrayList.add(part3DominoStructure);
 
+        boolean addTopBar = ThreadLocalRandom.current().nextBoolean();
         if (addTopBar && (distance < 15)) { // if true, add top bar above structure
             JSONObject topBar = new JSONObject();
             topBar.put("angle", 0);
@@ -70,12 +73,14 @@ public class DominoStructure {
             dominoStructureArrayList.add(topBar);
         }
 
-        dominoStructureArrayList.add(part1DominoStructure);
-        dominoStructureArrayList.add(part2DominoStructure);
-        dominoStructureArrayList.add(part3DominoStructure);
-
-        if (addTopBar){
-            System.out.println("topbar added. Size of dominostructure: " + dominoStructureArrayList.size());
+        boolean addFourthBlock = ThreadLocalRandom.current().nextBoolean();
+        if (addFourthBlock) { // if true, add top bar above structure
+            JSONObject fourthBlock = new JSONObject();
+            fourthBlock.put("angle", 90);
+            fourthBlock.put("id", randomBlock);
+            fourthBlock.put("x", startingXValue + (3 * distance));
+            fourthBlock.put("y", -4);
+            dominoStructureArrayList.add(fourthBlock);
         }
 
         return dominoStructureArrayList;
