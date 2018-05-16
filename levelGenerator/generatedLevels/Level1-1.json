@@ -2,52 +2,58 @@
   "scoreEagle": 65900,
   "world": {
     "block_1": {
-      "x": 76,
-      "angle": 180,
+      "x": 94,
+      "angle": 90,
       "y": -2,
-      "id": "ICE_CIRCLE_4X4"
+      "id": "STONE_BLOCK_4X1"
     },
     "block_12": {
-      "x": 71,
-      "angle": 180,
+      "x": 122,
+      "angle": 0,
       "y": -2,
-      "id": "WOOD_BLOCK_2X2"
+      "id": "WOOD_BLOCK_4X2"
     },
     "block_11": {
-      "x": 127,
+      "x": 110,
+      "angle": 180,
+      "y": -2,
+      "id": "SNOW_TRIANGLE_2X2"
+    },
+    "block_10": {
+      "x": 124,
+      "angle": 90,
+      "y": -2,
+      "id": "WOOD_CIRCLE_2X2"
+    },
+    "block_16": {
+      "x": 68,
+      "angle": 90,
+      "y": -2,
+      "id": "SNOW_BLOCK_6X2"
+    },
+    "block_15": {
+      "x": 114,
+      "angle": 180,
+      "y": -2,
+      "id": "STONE_CIRCLE_4X4"
+    },
+    "block_14": {
+      "x": 92,
       "angle": 180,
       "y": -2,
       "id": "ICE_BLOCK_4X2"
     },
-    "block_10": {
-      "x": 115,
-      "angle": 270,
-      "y": -2,
-      "id": "ICE_TRIANGLE_4X4"
-    },
-    "block_15": {
-      "x": 62,
-      "angle": 270,
-      "y": -2,
-      "id": "ICE_CIRCLE_2X2"
-    },
-    "block_14": {
-      "x": 113,
-      "angle": 180,
-      "y": -2,
-      "id": "ICE_BLOCK_10X1"
-    },
     "block_13": {
-      "x": 83,
+      "x": 54,
       "angle": 90,
       "y": -2,
-      "id": "ICE_BLOCK_8X1"
+      "id": "SNOW_CIRCLE_4X4"
     },
     "block_2": {
-      "x": 117,
-      "angle": 0,
+      "x": 118,
+      "angle": 90,
       "y": -2,
-      "id": "ICE_BLOCK_8X1"
+      "id": "WOOD_BLOCK_8X1"
     },
     "bird_4": {
       "x": 0,
@@ -56,10 +62,10 @@
       "id": "BIRD_RED"
     },
     "block_3": {
-      "x": 109,
+      "x": 105,
       "angle": 90,
       "y": -2,
-      "id": "WOOD_BLOCK_4X1"
+      "id": "STONE_BLOCK_4X2"
     },
     "bird_3": {
       "x": 2.878,
@@ -68,10 +74,10 @@
       "id": "BIRD_RED"
     },
     "block_4": {
-      "x": 92,
-      "angle": 270,
+      "x": 126,
+      "angle": 90,
       "y": -2,
-      "id": "WOOD_BLOCK_4X2"
+      "id": "WOOD_TRIANGLE_4X4"
     },
     "bird_2": {
       "x": 6.113,
@@ -80,10 +86,10 @@
       "id": "BIRD_RED"
     },
     "block_5": {
-      "x": 59,
+      "x": 58,
       "angle": 270,
       "y": -2,
-      "id": "WOOD_BLOCK_1X1"
+      "id": "ICE_BLOCK_4X2"
     },
     "bird_1": {
       "x": 10.153,
@@ -92,32 +98,32 @@
       "id": "BIRD_RED"
     },
     "block_6": {
-      "x": 64,
+      "x": 84,
       "angle": 180,
       "y": -2,
-      "id": "STONE_BLOCK_4X4_HOLLOW"
+      "id": "WOOD_BLOCK_4X2"
     },
     "block_7": {
-      "x": 87,
-      "angle": 270,
+      "x": 73,
+      "angle": 90,
       "y": -2,
-      "id": "WOOD_CIRCLE_4X4"
+      "id": "ICE_CIRCLE_4X4"
     },
     "block_8": {
-      "x": 73,
-      "angle": 270,
+      "x": 63,
+      "angle": 180,
       "y": -2,
-      "id": "WOOD_BLOCK_2X2"
+      "id": "ICE_CIRCLE_2X2"
     },
     "block_9": {
-      "x": 54,
-      "angle": 270,
+      "x": 79,
+      "angle": 90,
       "y": -2,
-      "id": "WOOD_TRIANGLE_4X4_HOLLOW"
+      "id": "STONE_TRIANGLE_4X4_HOLLOW"
     }
   },
   "counts": {
-    "blocks": 15,
+    "blocks": 16,
     "birds": 4
   },
   "scoreSilver": 51000,
