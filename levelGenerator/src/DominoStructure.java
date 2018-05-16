@@ -61,12 +61,12 @@ public class DominoStructure {
 
         boolean addTopBar = ThreadLocalRandom.current().nextBoolean();
 
-        if (addTopBar && (distance < 30)) { // if true, add top bar above structure
+        if (addTopBar && (distance < 20)) { // if true, add top bar above structure
             JSONObject topBar = new JSONObject();
             topBar.put("angle", 0);
             topBar.put("id", randomBlock);
             topBar.put("x", startingXValue + distance);
-            topBar.put("y", -12);
+            topBar.put("y", -10);
             dominoStructureArrayList.add(topBar);
         }
 
