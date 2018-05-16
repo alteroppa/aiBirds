@@ -33,7 +33,7 @@ public class DominoStructure {
         // nextInt doesn't go until maxvalue but stops one before
         System.out.println("dominoStructure blockheight: " + blockHeight);
         int distance = ThreadLocalRandom.current().nextInt(4, blockHeight); // distance should be at least 4
-        endXValue = startingXValue + (distance * 2);
+        endXValue = startingXValue + (distance * 2) + 5;
 
         ArrayList<JSONObject> dominoStructureArrayList = new ArrayList<JSONObject>();
 

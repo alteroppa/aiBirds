@@ -74,7 +74,7 @@ public class BasicLevel {
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
             world.put("block_" + (blocksToCreate + numberOfPigs + numberOfTerrainBlocks), terrainBlock); // add block with last block number
-            addToUsedXValues(randomXInt, xVal);
+            addToUsedXValues(randomXInt, randomXInt+xVal);
         }
 
         // add domino structure
@@ -140,16 +140,16 @@ public class BasicLevel {
         int firstVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") - 1).charAt(0)));
 
         if (angle == 0 || angle == 180) {
-            endingXVal = firstVal;
+            endingXVal = firstVal + 2;
         } else {
-            endingXVal = secondVal;
+            endingXVal = secondVal + 2;
         }
         jsonBlock.put("id", randomBlockString);
         int randomXval = getRandomXInt(false, endingXVal);
         jsonBlock.put("x", randomXval);
         jsonBlock.put("y", -2); // y should always be -1 or -2 (for terrain), else blocks will be created in mid air
         System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
-        addToUsedXValues(randomXval, endingXVal);
+        addToUsedXValues(randomXval, randomXval+endingXVal);
         return jsonBlock;
     }
 
@@ -192,7 +192,7 @@ public class BasicLevel {
 
     public void addToUsedXValues (int valueToAdd, int endingValOfBlock) {
         System.out.println("adding values to usedvaluesList: " + valueToAdd + " " + (endingValOfBlock+valueToAdd));
-        for (int i = valueToAdd - 1; i <= valueToAdd + endingValOfBlock + 1; i++) {
+        for (int i = valueToAdd - 1; i <= endingValOfBlock + 1; i++) {
             usedXvalues.add(i);
         }
     }
