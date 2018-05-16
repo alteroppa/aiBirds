@@ -78,14 +78,14 @@ public class BasicLevel {
         wholeLevel.put("scoreSilver", 51000);
         wholeLevel.put("theme", "BACKGROUND_BLUE_GRASS");
 
-        // add one pig at the end of the level
+        // add one pig at the beginning of the level
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
-        pig.put("x", 118);
+        pig.put("x", 20);
         pig.put("y", -1);
         world.put("block_"+ (blocksToCreate + 1), pig); // add pig with number of blocks to create plus one as last block
-        addToUsedXValues(118, 118);
+        addToUsedXValues(18, 21);
 
 
         // add birds
