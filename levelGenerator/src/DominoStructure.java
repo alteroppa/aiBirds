@@ -63,16 +63,20 @@ public class DominoStructure {
 
         if (addTopBar) { // if true, add top bar above structure
             JSONObject topBar = new JSONObject();
-            part3DominoStructure.put("angle", 0);
-            part3DominoStructure.put("id", VERTICALDOMINOBLOCK.randomBlock().toString());
-            part3DominoStructure.put("x", startingXValue + distance);
-            part3DominoStructure.put("y", -40);
+            topBar.put("angle", 0);
+            topBar.put("id", randomBlock);
+            topBar.put("x", startingXValue + distance);
+            topBar.put("y", -40);
             dominoStructureArrayList.add(topBar);
         }
 
         dominoStructureArrayList.add(part1DominoStructure);
         dominoStructureArrayList.add(part2DominoStructure);
         dominoStructureArrayList.add(part3DominoStructure);
+
+        if (addTopBar){
+            System.out.println("topbar added. Size of dominostructure: " + dominoStructureArrayList.size());
+        }
 
         return dominoStructureArrayList;
     }
