@@ -23,25 +23,6 @@ public class BasicLevel {
         JSONObject wholeLevel = new JSONObject();
         JSONObject world = new JSONObject();
 
-        // add randomized terrain
-        int numberOfTerrainBlocks = 0;
-        if (ThreadLocalRandom.current().nextBoolean()) {
-            System.out.println("adding terrain block...");
-            numberOfTerrainBlocks = 1;
-            blocksToCreate += 1;
-            JSONObject terrainBlock = new JSONObject();
-            String terrainBlockString = TERRAIN.randomBlock().toString();
-            int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
-            int randomXInt = getRandomXInt(false, xVal);
-            terrainBlock.put("angle", 0);
-            terrainBlock.put("id", terrainBlockString);
-            terrainBlock.put("x", randomXInt);
-            terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
-            System.out.println(terrainBlock.toString());
-            world.put("block_" + (blocksToCreate+1 + numberOfTerrainBlocks), terrainBlock); // add block with last block number
-            addToUsedXValues(randomXInt, xVal);
-        }
-
         // add one pig at the beginning of the level
         int numberOfPigs = 1;
         JSONObject pig = new JSONObject();
@@ -49,9 +30,8 @@ public class BasicLevel {
         pig.put("id", "PIG_BASIC_MEDIUM");
         pig.put("x", 25);
         pig.put("y", -1);
-        world.put("block_"+ (blocksToCreate+1 + numberOfTerrainBlocks + numberOfPigs), pig); // add pig with number of blocks to create plus one as last block
+        world.put("block_"+ (blocksToCreate + numberOfPigs), pig); // add pig with number of blocks to create plus one as last block
         addToUsedXValues(20, 30);
-
 
         // add birds
         JSONObject bird1 = new JSONObject();
@@ -79,18 +59,35 @@ public class BasicLevel {
         world.put("bird_3", bird3);
         world.put("bird_4", bird4);
 
+        // add randomized terrain
+        int numberOfTerrainBlocks = 0;
+        if (ThreadLocalRandom.current().nextBoolean()) {
+            System.out.println("adding terrain block...");
+            numberOfTerrainBlocks = 1;
+            JSONObject terrainBlock = new JSONObject();
+            String terrainBlockString = TERRAIN.randomBlock().toString();
+            int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
+            int randomXInt = getRandomXInt(false, xVal);
+            terrainBlock.put("angle", 0);
+            terrainBlock.put("id", terrainBlockString);
+            terrainBlock.put("x", randomXInt);
+            terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
+            System.out.println(terrainBlock.toString());
+            world.put("block_" + (blocksToCreate + numberOfPigs + numberOfTerrainBlocks), terrainBlock); // add block with last block number
+            addToUsedXValues(randomXInt, xVal);
+        }
 
         // add domino structure
         System.out.println("adding dominoStructure...");
         for (int i = 0; i < dominoStructureList.size(); i++) {
             System.out.println("domino: " + dominoStructureList.get(i).toString());
-            world.put("block_" + (blocksToCreate+1 + numberOfTerrainBlocks + numberOfPigs + i), dominoStructureList.get(i));
+            world.put("block_" + (blocksToCreate + numberOfTerrainBlocks + numberOfPigs + i+1), dominoStructureList.get(i));
             System.out.println(dominoStructureList.get(i).toString() + " " + (blocksToCreate - (i)));
         }
 
         // add randomized blocks
         System.out.println("adding randomized blocks...");
-        for (int i = 0; i < (blocksToCreate + dominoStructureList.size() + numberOfTerrainBlocks + numberOfPigs); i++){
+        for (int i = 0; i < blocksToCreate; i++){
             System.out.println("creating block " + (i + 1) + "...");
             JSONObject randomBlock = createRandomJSONBlock();
             world.put("block_"+(i+1), randomBlock); // since the first block is the pig

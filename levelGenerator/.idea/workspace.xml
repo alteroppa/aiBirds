@@ -27,7 +27,7 @@
             <entry file="file://$PROJECT_DIR$/src/LevelCreator.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="345">
-                  <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+                  <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="imports" expanded="true" />
@@ -39,8 +39,8 @@
           <file leaf-file-name="BasicLevel.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="86" column="50" selection-start-line="86" selection-start-column="50" selection-end-line="86" selection-end-column="50" />
+                <state relative-caret-position="405">
+                  <caret line="89" column="49" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -51,8 +51,28 @@
           <file leaf-file-name="Level1-1.json" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-1.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-141">
-                  <caret line="0" column="33" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
+                <state relative-caret-position="-1562">
+                  <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Level1-3.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1445">
+                  <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Level1-4.json" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-4.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-195">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -61,18 +81,18 @@
           <file leaf-file-name="Level1-2.json" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-2.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+                <state relative-caret-position="345">
+                  <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DominoStructure.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="DominoStructure.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="358">
-                  <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+                <state relative-caret-position="373">
+                  <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -105,16 +125,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="225">
                   <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="exampleLevel.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/exampleLevel.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="45">
-                  <caret line="3" column="22" selection-start-line="2" selection-start-column="5" selection-end-line="3" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
@@ -159,18 +169,19 @@
         <option value="$PROJECT_DIR$/generatedLevels/testObject.json" />
         <option value="$PROJECT_DIR$/generatedLevels/testLevel1.json" />
         <option value="$PROJECT_DIR$/src/Blocks.java" />
-        <option value="$PROJECT_DIR$/generatedLevels/Level1-3.json" />
         <option value="$PROJECT_DIR$/src/VERTICALBLOCK.java" />
         <option value="$PROJECT_DIR$/src/TERRAIN.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
         <option value="$PROJECT_DIR$/generatedLevels/Level1-12.json" />
         <option value="$PROJECT_DIR$/src/LevelCreator.java" />
-        <option value="$PROJECT_DIR$/generatedLevels/Level1-2.json" />
-        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
-        <option value="$PROJECT_DIR$/generatedLevels/Level1-1.json" />
         <option value="$PROJECT_DIR$/src/BLOCK.java" />
         <option value="$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java" />
         <option value="$PROJECT_DIR$/src/DominoStructure.java" />
+        <option value="$PROJECT_DIR$/src/BasicLevel.java" />
+        <option value="$PROJECT_DIR$/generatedLevels/Level1-1.json" />
+        <option value="$PROJECT_DIR$/generatedLevels/Level1-2.json" />
+        <option value="$PROJECT_DIR$/generatedLevels/Level1-3.json" />
+        <option value="$PROJECT_DIR$/generatedLevels/Level1-4.json" />
       </list>
     </option>
   </component>
@@ -242,6 +253,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="levelGenerator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="levelGenerator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generatedLevels" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -553,7 +578,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -774,19 +799,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testObject.json" />
     <entry file="file://$PROJECT_DIR$/generatedLevels/testLevel1" />
     <entry file="file://$PROJECT_DIR$/generatedLevels/testLevel1.json" />
-    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generatedLevels/testObject.json" />
     <entry file="file://$PROJECT_DIR$/src/TERRAIN.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -807,45 +826,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/exampleLevel.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="22" selection-start-line="2" selection-start-column="5" selection-end-line="3" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-2.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LevelCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="86" column="50" selection-start-line="86" selection-start-column="50" selection-end-line="86" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-141">
-          <caret line="0" column="33" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
+        <state relative-caret-position="855">
+          <caret line="57" column="29" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -866,14 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/VERTICALDOMINOBLOCK.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -882,13 +856,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
+    <entry file="file://$PROJECT_DIR$/src/main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="90">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LevelCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BasicLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="89" column="49" selection-start-line="89" selection-start-column="49" selection-end-line="89" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1562">
+          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DominoStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-3.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1445">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generatedLevels/Level1-4.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-195">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
