@@ -12,7 +12,10 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class BasicLevel {
     JSONObject level = new JSONObject();
-    List<Integer> usedXvalues = new ArrayList<>();
+    ArrayList<Integer> usedXvalues = new ArrayList<>();
+    ArrayList<Integer> usedTerrainXvalues = new ArrayList<>();
+    int terrainBlockHeight = 0;
+
 
     public void createSingleLevel(int blocksToCreate, ArrayList<JSONObject> dominoStructureList){
         System.out.println("Generating a new level..." + "\n" + usedXvalues);
@@ -31,7 +34,7 @@ public class BasicLevel {
         pig.put("x", 25);
         pig.put("y", -1);
         world.put("block_"+ (blocksToCreate + numberOfPigs), pig); // add pig with number of blocks to create plus one as last block
-        addToUsedXValues(20, 30);
+        addToUsedXValues(20, 26);
 
         // add birds
         JSONObject bird1 = new JSONObject();
@@ -67,6 +70,19 @@ public class BasicLevel {
             JSONObject terrainBlock = new JSONObject();
             String terrainBlockString = TERRAIN.randomBlock().toString();
             int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
+            // extracts the height of the block (= value on the last char of the enum)
+            if (Character.toString(terrainBlockString.charAt(terrainBlockString.length() - 5)).equals("_")) {
+                String blockHeightSubstring = terrainBlockString.substring(terrainBlockString.length() - 4, terrainBlockString.length() - 2);
+                System.out.println(blockHeightSubstring);
+                terrainBlockHeight = Integer.parseInt(blockHeightSubstring);
+            } else if (Character.toString(terrainBlockString.charAt(terrainBlockString.length() - 6)).equals("_")) {
+                String blockHeightSubstring = terrainBlockString.substring(terrainBlockString.length() - 5, terrainBlockString.length() - 3);
+                System.out.println(blockHeightSubstring);
+                terrainBlockHeight = Integer.parseInt(blockHeightSubstring);
+            } else {
+                terrainBlockHeight = Integer.parseInt(Character.toString(terrainBlockString.charAt(terrainBlockString.length() - 3)));
+            }
+            System.out.println("terrainBlockHeight: " + terrainBlockHeight);
             int randomXInt = getRandomXInt(false, xVal);
             terrainBlock.put("angle", 0);
             terrainBlock.put("id", terrainBlockString);
@@ -74,7 +90,7 @@ public class BasicLevel {
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
             world.put("block_" + (blocksToCreate + numberOfPigs + numberOfTerrainBlocks), terrainBlock); // add block with last block number
-            addToUsedXValues(randomXInt, randomXInt+xVal);
+            addToUsedTerrainXValues(randomXInt, randomXInt+xVal);
         }
 
         // add domino structure
@@ -140,16 +156,16 @@ public class BasicLevel {
         int firstVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") - 1).charAt(0)));
 
         if (angle == 0 || angle == 180) {
-            endingXVal = firstVal + 2;
+            endingXVal = firstVal;
         } else {
-            endingXVal = secondVal + 2;
+            endingXVal = secondVal;
         }
         jsonBlock.put("id", randomBlockString);
         int randomXval = getRandomXInt(false, endingXVal);
         jsonBlock.put("x", randomXval);
         jsonBlock.put("y", -2); // y should always be -1 or -2 (for terrain), else blocks will be created in mid air
         System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
-        addToUsedXValues(randomXval, randomXval+endingXVal);
+        addToUsedXValues(randomXval, randomXval + endingXVal);
         return jsonBlock;
     }
 
@@ -172,28 +188,45 @@ public class BasicLevel {
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         // then check if xValue is already used so no blocks are at the same x-position
-        int randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
-        int randomXValueBuffer = randomXvalue;
-        System.out.println("randomxVal: " + randomXvalue);
-        for (int i = randomXValueBuffer; i <= randomXValueBuffer + blockEndXVal; i++) {
-            while (usedXvalues.contains(randomXvalue) && !ignoreUsedXVals) {
-                numberOfTries++;
-                if (numberOfTries > 5000) {
-                    randomXvalue = ThreadLocalRandom.current().nextInt(max, 180 + 1);;
-                    System.out.println("Warning!Number of tries for random int > 500! New randomXValue is " + randomXvalue);
-                } else {
-                    randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+        int randomXvalue = 0;
+        boolean valueAlreadyInUse = true;
+        while (valueAlreadyInUse && !ignoreUsedXVals){
+            numberOfTries++;
+            if (numberOfTries > 5000) {
+                max = 150;
+            }
+            valueAlreadyInUse = false;
+            randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
+            System.out.println("randomxVal: " + randomXvalue);
+            for (int i = randomXvalue; i <= randomXvalue + blockEndXVal; i++) {
+                if (usedXvalues.contains(i)) {
+                    valueAlreadyInUse = true;
                 }
             }
         }
+
         System.out.println("usedValues: " + usedXvalues);
         return randomXvalue;
     }
 
+    public boolean isOnTerrainXValues (int xValue) {
+        if (usedTerrainXvalues.contains(xValue)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void addToUsedXValues (int valueToAdd, int endingValOfBlock) {
-        System.out.println("adding values to usedvaluesList: " + valueToAdd + " " + (endingValOfBlock+valueToAdd));
-        for (int i = valueToAdd - 1; i <= endingValOfBlock + 1; i++) {
+        System.out.println("adding values to usedvaluesList: " + valueToAdd + " " + (endingValOfBlock));
+        for (int i = valueToAdd; i <= endingValOfBlock; i++) {
             usedXvalues.add(i);
+        }
+    }
+    public void addToUsedTerrainXValues (int valueToAdd, int endingValOfBlock) {
+        System.out.println("adding values to usedvaluesList: " + valueToAdd + " " + (endingValOfBlock));
+        for (int i = valueToAdd; i <= endingValOfBlock; i++) {
+            usedTerrainXvalues.add(i);
         }
     }
 
