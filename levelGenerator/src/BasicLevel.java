@@ -35,12 +35,14 @@ public class BasicLevel {
             JSONObject terrainBlock = new JSONObject();
             String terrainBlockString = TERRAIN.randomBlock().toString();
             int xVal = Integer.parseInt(Character.toString(terrainBlockString.substring(terrainBlockString.lastIndexOf("X") - 1).charAt(0)));
+            int randomXInt = getRandomXInt(false, xVal);
             terrainBlock.put("angle", 0);
             terrainBlock.put("id", terrainBlockString);
-            terrainBlock.put("x", getRandomXInt(false, xVal));
+            terrainBlock.put("x", randomXInt);
             terrainBlock.put("y", -1); // y should always be -1, else blocks will be created in mid air
             System.out.println(terrainBlock.toString());
             world.put("block_" + blocksToCreate, terrainBlock); // add block with last block number
+            addToUsedXValues(randomXInt, xVal);
         }
 
 
@@ -82,10 +84,10 @@ public class BasicLevel {
         JSONObject pig = new JSONObject();
         pig.put("angle", 0);
         pig.put("id", "PIG_BASIC_MEDIUM");
-        pig.put("x", 20);
+        pig.put("x", 25);
         pig.put("y", -1);
         world.put("block_"+ (blocksToCreate + 1), pig); // add pig with number of blocks to create plus one as last block
-        addToUsedXValues(18, 21);
+        addToUsedXValues(20, 30);
 
 
         // add birds
