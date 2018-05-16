@@ -20,7 +20,14 @@ public class DominoStructure {
         // String randomBlock = VERTICALDOMINOBLOCK.STONE_BLOCK_8X1.toString();
 
         // extracts the height of the block (= value on the last char of the enum)
-        int blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 3)));
+        int blockHeight = 0;
+        if (Character.toString(randomBlock.charAt(randomBlock.length() - 5)).equals("_")) {
+            String blockHeightSubstring = randomBlock.substring(randomBlock.length() - 4, randomBlock.length() - 2);
+            System.out.println(blockHeightSubstring);
+            blockHeight = Integer.parseInt(blockHeightSubstring);
+        } else {
+            blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 3)));
+        }
 
         // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
         // nextInt doesn't go until maxvalue but stops one before
