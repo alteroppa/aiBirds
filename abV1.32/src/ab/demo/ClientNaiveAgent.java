@@ -22,6 +22,7 @@ import ab.demo.other.ClientActionRobot;
 import ab.demo.other.ClientActionRobotJava;
 import ab.planner.TrajectoryPlanner;
 import ab.vision.ABObject;
+import ab.vision.ABType;
 import ab.vision.GameStateExtractor.GameState;
 import ab.vision.Vision;
 import javafx.collections.FXCollections;
@@ -43,6 +44,9 @@ public class ClientNaiveAgent implements Runnable {
 	private boolean dominoStructureDestroyed;
 	private Point prevTarget;
 	private Random randomGenerator;
+	boolean alreadyDoneInThisLevel = false;
+	private ArrayList<ABObject> dominoBlockList = null;
+
 	/**
 	 * Constructor using the default IP
 	 * */
@@ -143,6 +147,7 @@ public class ClientNaiveAgent implements Runnable {
 			state = solve();
 			//If the level is solved , go to the next level
 			if (state == GameState.WON) {
+				alreadyDoneInThisLevel = false;
 				dominoStructureDestroyed = false;
 				///System.out.println(" loading the level " + (currentLevel + 1) );
 				checkMyScore();
@@ -170,6 +175,7 @@ public class ClientNaiveAgent implements Runnable {
 				//If lost, then restart the level
 				if (state == GameState.LOST) {
 					dominoStructureDestroyed = false;
+					alreadyDoneInThisLevel = false;
 
 					failedCounter++;
 				if(failedCounter > 3)
@@ -182,6 +188,7 @@ public class ClientNaiveAgent implements Runnable {
 				}
 				else
 				{
+					alreadyDoneInThisLevel = false;
 					dominoStructureDestroyed = false;
 					System.out.println("restart");
 					ar.restartLevel();
@@ -189,12 +196,14 @@ public class ClientNaiveAgent implements Runnable {
 						
 			} else 
 				if (state == GameState.LEVEL_SELECTION) {
+					alreadyDoneInThisLevel = false;
 					dominoStructureDestroyed = false;
 
 					System.out.println("unexpected level selection page, go to the last current level : "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.MAIN_MENU) {
+					alreadyDoneInThisLevel = false;
 					dominoStructureDestroyed = false;
 
 					System.out
@@ -202,6 +211,7 @@ public class ClientNaiveAgent implements Runnable {
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.EPISODE_MENU) {
+					alreadyDoneInThisLevel = false;
 					dominoStructureDestroyed = false;
 
 					System.out.println("unexpected episode menu page, reload the level: "
@@ -265,7 +275,10 @@ public class ClientNaiveAgent implements Runnable {
 		// if there is a sling, then play, otherwise skip.
 		if (sling != null) {
 			System.out.println("domino structure in this level is destroyed: " + dominoStructureDestroyed);
-			ArrayList<ABObject> dominoBlockList = getDominoBlocks(allBlocksList);
+			if (!alreadyDoneInThisLevel) {
+				dominoBlockList = getDominoBlocks(allBlocksList);
+				alreadyDoneInThisLevel = true;
+			}
 
 			if (dominoBlockList.isEmpty()) {
 				dominoStructureDestroyed = true;
@@ -281,12 +294,12 @@ public class ClientNaiveAgent implements Runnable {
 
 				Point _tpt = dominoBlock.getCenter();
 
-				prevTarget = new Point(_tpt.x, (_tpt.y + 2)); // add 2 to y-value so it shoots on top half of block
+				prevTarget = new Point(_tpt.x, (_tpt.y + 4)); // add 2 to y-value so it shoots on top half of block
 
 				// estimate the trajectory
 				ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
 
-				if (pts.size() == 1)
+				/*if (pts.size() == 1)
 					releasePoint = pts.get(0);
 				else if (pts.size() == 2) {
 					// System.out.println("first shot " + firstShot);
@@ -296,7 +309,9 @@ public class ClientNaiveAgent implements Runnable {
 						releasePoint = pts.get(1);
 					else
 						releasePoint = pts.get(0);
-				}
+				}*/
+				releasePoint = pts.get(0);
+
 				Point refPoint = tp.getReferencePoint(sling);
 
 				// Get the release point from the trajectory prediction module
@@ -349,6 +364,7 @@ public class ClientNaiveAgent implements Runnable {
 								System.out.println("Domino structure NOT destroyed!");
 								dominoStructureDestroyed = false;
 								if (vision.findBirdsMBR().size() <= 2) {
+									System.out.println("less than 2 birds -- stopping to shoot at dominoStructure. Birds: " + vision.findBirdsMBR().size());
 									dominoStructureDestroyed = true;
 								}
 							}
@@ -360,7 +376,7 @@ public class ClientNaiveAgent implements Runnable {
 								vision = new Vision(screenshot);
 								List<Point> traj = vision.findTrajPoints();
 								tp.adjustTrajectory(traj, sling, releasePoint);
-								//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
+								firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
 							}
 						}
 					} else
@@ -485,15 +501,61 @@ public class ClientNaiveAgent implements Runnable {
 	}
 
 	private ArrayList<ABObject> getDominoBlocks(List<ABObject> blockList) {
+		sortBlocksByXValue(new ArrayList<>(blockList));
 		ArrayList<ABObject> dominoBlockList = new ArrayList<>();
 		for (int i = 0; i < blockList.size(); i++){
-            ABObject outerLoopBlock = blockList.get(i);
+            //ABObject outerLoopBlock = blockList.get(i);
             int counter = 0;
             ArrayList<ABObject> tempDominoBlockList = new ArrayList<>();
             for (int j = 0; j < blockList.size(); j++){
                 ABObject innerLoopBlock = blockList.get(j);
+				//boolean yValueHighEnough = equalsWithinMargin(innerLoopBlock.getY(), outerLoopBlock.getY(), 1);
+				boolean withinDistanceToNextBlock = false;
+				boolean withinDistanceToPrevBlock = false;
 
-                if ((equalsWithinMargin(innerLoopBlock.getY(), outerLoopBlock.getY(), 1)) && innerLoopBlock.getHeight() > 20) {
+				boolean materialStoneOrWood = false;
+				boolean highEnough = false;
+
+				if (j == 0) { // first block
+					ABObject nextBlock = blockList.get(j + 1);
+					if ((Math.abs(innerLoopBlock.getX() - nextBlock.getX()) < innerLoopBlock.getHeight()) &&
+							((innerLoopBlock.getHeight() >= nextBlock.getHeight()/3*2) && ((innerLoopBlock.getHeight() <= nextBlock.getHeight()/3*4)))) {
+						withinDistanceToNextBlock = true;
+					}
+
+				} else if (j < (blockList.size() - 1)) { // every other block except the last one
+					ABObject nextBlock = blockList.get(j + 1);
+					ABObject prevBlock = blockList.get(j - 1);
+					if ((Math.abs(innerLoopBlock.getX() - nextBlock.getX()) < innerLoopBlock.getHeight()) &&
+							((innerLoopBlock.getHeight() >= nextBlock.getHeight()/3*2) && ((innerLoopBlock.getHeight() <= nextBlock.getHeight()/3*4)))) {
+						withinDistanceToNextBlock = true;
+					}
+					if ((Math.abs(innerLoopBlock.getX() - prevBlock.getX()) < innerLoopBlock.getHeight()) &&
+							((innerLoopBlock.getHeight() >= prevBlock.getHeight()/3*2) && ((innerLoopBlock.getHeight() <= prevBlock.getHeight()/3*4)))) {
+						withinDistanceToPrevBlock = true;
+					}
+
+				} else if (j == (blockList.size() - 1)) { // last block
+					ABObject prevBlock = blockList.get(j - 1);
+					if ((Math.abs(innerLoopBlock.getX() - prevBlock.getX()) < innerLoopBlock.getHeight()) &&
+							((innerLoopBlock.getHeight() >= prevBlock.getHeight()/3*2) && ((innerLoopBlock.getHeight() <= prevBlock.getHeight()/3*4)))) {
+						withinDistanceToPrevBlock = true;
+					}
+				}
+
+
+				if (innerLoopBlock.getType() == ABType.Stone || innerLoopBlock.getType() == ABType.Wood) {
+					materialStoneOrWood = true;
+				}
+				if (innerLoopBlock.getHeight() >= 20) {
+					highEnough = true;
+				}
+				System.out.println("block: " + innerLoopBlock + "\nhigh enough: " + highEnough
+						+ "\nwithinDistanceToNextBlock: " + withinDistanceToNextBlock
+						+ "\n withinDistanceToPrevBlock: " + withinDistanceToPrevBlock
+						+ "\n materialStoneOrWood: " + materialStoneOrWood); // materialStoneOrWood can be added
+
+                if ((withinDistanceToPrevBlock || withinDistanceToNextBlock) && highEnough) {
                     //System.out.println("adding block: " + innerLoopBlock);
                     counter++;
                     tempDominoBlockList.add(innerLoopBlock);
@@ -591,7 +653,7 @@ public class ClientNaiveAgent implements Runnable {
 				System.out.println("xValue of block to compare is " + block.getX());
 				//System.out.println("originalDominoBlockList.get(i).getX(): " + originalDominoBlockList.get(i).getX());
 				//System.out.println("block.getX(): " + block.getX());
-				if (equalsWithinMargin(originalDominoBlockList.get(i).getX(), block.getX(), 1)) {
+				if (equalsWithinMargin(originalDominoBlockList.get(i).getX(), block.getX(), 1) && block.getHeight() >= originalDominoBlockList.get(i).getHeight()/5*4) {
 					System.out.println("still untouched block: " + originalDominoBlockList.get(i) + "\ndominoBlock.getX(): " + originalDominoBlockList.get(i).getX() + "\n" + "block.getX(): " + block.getX());
 					dominoListAfter.add(block);
 				}

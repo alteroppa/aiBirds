@@ -9,10 +9,14 @@ import java.util.Random;
 public enum VERTICALDOMINOBLOCK {
     //STONE_BLOCK_4X1,
     STONE_BLOCK_8X1,
+    STONE_BLOCK_8X2,
     //WOOD_BLOCK_4X1,
     WOOD_BLOCK_8X1,
+    WOOD_BLOCK_8X2,
     //ICE_BLOCK_4X1,
-    ICE_BLOCK_8X1;
+    ICE_BLOCK_8X1,
+    ICE_BLOCK_8X2;
+
 
     private static final List<VERTICALDOMINOBLOCK> ALLBLOCKS =
             Collections.unmodifiableList(Arrays.asList(values()));

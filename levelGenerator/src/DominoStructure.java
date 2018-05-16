@@ -1,4 +1,5 @@
 import org.json.simple.JSONObject;
+import sun.jvm.hotspot.runtime.Thread;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,7 +14,7 @@ public class DominoStructure {
     public ArrayList<JSONObject> createDominoStructure () {
 
         // makes sure the xValueToUse for the blocks is far enough away from the sling
-        startingXValue = ThreadLocalRandom.current().nextInt(35, 110 + 1);
+        startingXValue = ThreadLocalRandom.current().nextInt(35, 100 + 1); // 100 is max for the birds still to be able to reach the structure
 
         String randomBlock = VERTICALDOMINOBLOCK.randomBlock().toString();
         // String randomBlock = VERTICALDOMINOBLOCK.STONE_BLOCK_8X1.toString();
@@ -24,7 +25,7 @@ public class DominoStructure {
         // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
         // nextInt doesn't go until maxvalue but stops one before
         System.out.println("dominoStructure blockheight: " + blockHeight);
-        int distance = ThreadLocalRandom.current().nextInt(2, blockHeight); // distance should be at least 2
+        int distance = ThreadLocalRandom.current().nextInt(4, blockHeight); // distance should be at least 4
         endXValue = startingXValue + (distance * 2);
 
         ArrayList<JSONObject> dominoStructureArrayList = new ArrayList<JSONObject>();
@@ -37,6 +38,8 @@ public class DominoStructure {
 
         // if (distance < 4) { dominoStructureArrayList.add(createConcreteBlock(xValueToUse)); }
 
+
+
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 90);
         part2DominoStructure.put("id", randomBlock);
@@ -48,6 +51,17 @@ public class DominoStructure {
         part3DominoStructure.put("id", randomBlock);
         part3DominoStructure.put("x", startingXValue + (2 * distance));
         part3DominoStructure.put("y", -4);
+
+        boolean addTopBar = ThreadLocalRandom.current().nextBoolean();
+
+        if (addTopBar) { // if true, add top bar above structure
+            JSONObject topBar = new JSONObject();
+            part3DominoStructure.put("angle", 0);
+            part3DominoStructure.put("id", VERTICALDOMINOBLOCK.randomBlock().toString());
+            part3DominoStructure.put("x", startingXValue + distance);
+            part3DominoStructure.put("y", -40);
+            dominoStructureArrayList.add(topBar);
+        }
 
         dominoStructureArrayList.add(part1DominoStructure);
         dominoStructureArrayList.add(part2DominoStructure);
