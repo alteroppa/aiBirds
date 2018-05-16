@@ -17,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import ab.demo.other.ClientActionRobot;
 import ab.demo.other.ClientActionRobotJava;
@@ -40,6 +39,7 @@ public class ClientNaiveAgent implements Runnable {
 	TrajectoryPlanner tp; 
 	private int id = 28888;
 	private boolean firstShot;
+	private boolean dominoStructureDestroyed;
 	private Point prevTarget;
 	private Random randomGenerator;
 	private boolean alreadyShotOnDomino = false;
@@ -53,6 +53,8 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
+		dominoStructureDestroyed = false;
+
 
 	}
 	/**
@@ -64,6 +66,7 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
+		dominoStructureDestroyed = false;
 
 	}
 	public ClientNaiveAgent(String ip, int id)
@@ -73,6 +76,7 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
+		dominoStructureDestroyed = false;
 		this.id = id;
 	}
 	public int getNextLevel()
@@ -129,10 +133,18 @@ public class ClientNaiveAgent implements Runnable {
 		//ar.loadLevel((byte)9);
 		GameState state;
 		int levelcounter = 1;
+
+		// capture Image
+		BufferedImage screenshot = ar.doScreenShot();
+
+		// process image
+		Vision vision = new Vision(screenshot);
+
 		while (true) {
 			System.out.println("while true: running level " + currentLevel);
-
-			state = solve(levelcounter);
+			dominoStructureDestroyed = false;
+			ArrayList<ABObject> originalDominoBlockList = getDominoBlocks(vision.findBlocksMBR());
+			state = solve(levelcounter, originalDominoBlockList);
 			levelcounter++;
 			//If the level is solved , go to the next level
 			if (state == GameState.WON) {
@@ -162,7 +174,9 @@ public class ClientNaiveAgent implements Runnable {
 			} else 
 				//If lost, then restart the level
 				if (state == GameState.LOST) {
-				failedCounter++;
+					alreadyShotOnDomino = false;
+
+					failedCounter++;
 				if(failedCounter > 3)
 				{
 					failedCounter = 0;
@@ -172,23 +186,30 @@ public class ClientNaiveAgent implements Runnable {
 					//ar.loadLevel((byte)9);
 				}
 				else
-				{		
+				{
+					alreadyShotOnDomino = false;
 					System.out.println("restart");
 					ar.restartLevel();
 				}
 						
 			} else 
 				if (state == GameState.LEVEL_SELECTION) {
-				System.out.println("unexpected level selection page, go to the last current level : "
+					alreadyShotOnDomino = false;
+
+					System.out.println("unexpected level selection page, go to the last current level : "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.MAIN_MENU) {
-				System.out
+					alreadyShotOnDomino = false;
+
+					System.out
 						.println("unexpected main menu page, reload the level : "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.EPISODE_MENU) {
-				System.out.println("unexpected episode menu page, reload the level: "
+					alreadyShotOnDomino = false;
+
+					System.out.println("unexpected episode menu page, reload the level: "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			}
@@ -202,7 +223,7 @@ public class ClientNaiveAgent implements Runnable {
 	   * Solve a particular level by shooting birds directly to pigs
 	   * @return GameState: the game state after shots.
      */
-	public GameState solve(int levelcounter)
+	public GameState solve(int levelcounter, ArrayList<ABObject> originalDominoBlockList)
 	{
 
 		// capture Image
@@ -210,17 +231,17 @@ public class ClientNaiveAgent implements Runnable {
 
 		// process image
 		Vision vision = new Vision(screenshot);
-		
+
 		Rectangle sling = vision.findSlingshotMBR();
 
 		//If the level is loaded (in PLAYING　state)but no slingshot detected, then the agent will request to fully zoom out.
 		while (sling == null && ar.checkState() == GameState.PLAYING) {
 			System.out.println("no slingshot detected. Please remove pop up or zoom out");
-			
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				
+
 				e.printStackTrace();
 			}
 			ar.fullyZoomOut();
@@ -229,7 +250,7 @@ public class ClientNaiveAgent implements Runnable {
 			sling = vision.findSlingshotMBR();
 		}
 
-		
+
 		 // get all the pigs
  		List<ABObject> pigs = vision.findPigsMBR();
 		// get all the blocks
@@ -247,125 +268,126 @@ public class ClientNaiveAgent implements Runnable {
 		GameState state = ar.checkState();
 		// if there is a sling, then play, otherwise skip.
 		if (sling != null) {
-			System.out.println("already shot on dominoblocks in this level: " + alreadyShotOnDomino);
-			if (!alreadyShotOnDomino){
-				ArrayList<ABObject> dominoBlockList = getDominoBlocks(allBlocksList);
-				if (dominoBlockList.isEmpty()){
-					alreadyShotOnDomino = true;
-				}
+			System.out.println("domino structure in this level is destroyed: " + dominoStructureDestroyed);
+			ArrayList<ABObject> dominoBlockList = removeDestroyedBlocksFromDominoList(originalDominoBlockList);
 
-
-				// fange hier an, auf Dominoblocks zu schießen
-				if ((dominoBlockList.size() > 0) && !alreadyShotOnDomino){
-					Point releasePoint = null;
-					//check if allBlocksList contains three times the same block
-					ABObject dominoBlock = dominoBlockList.get(0);
-					System.out.println("first dominoblock: " + dominoBlock);
-
-					Point _tpt = dominoBlock.getCenter();
-
-					prevTarget = new Point(_tpt.x, _tpt.y);
-
-					// estimate the trajectory
-					ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
-
-					if (pts.size() == 1)
-						releasePoint = pts.get(0);
-					else
-					if(pts.size() == 2)
-					{
-						// System.out.println("first shot " + firstShot);
-						// randomly choose between the trajectories, with a 1 in
-						// 6 chance of choosing the high one
-						if (randomGenerator.nextInt(6) == 0)
-							releasePoint = pts.get(1);
-						else
-							releasePoint = pts.get(0);
-					}
-					Point refPoint = tp.getReferencePoint(sling);
-
-					// Get the release point from the trajectory prediction module
-					int tapTime = 0;
-					if (releasePoint != null) {
-						double releaseAngle = tp.getReleaseAngle(sling,
-								releasePoint);
-						System.out.println("Release Point: " + releasePoint);
-						System.out.println("Release Angle: "
-								+ Math.toDegrees(releaseAngle));
-						int tapInterval = 0;
-						tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
-
-					} else
-					{
-						System.err.println("No Release Point Found");
-						return ar.checkState();
-					}
-
-
-					// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
-					ar.fullyZoomOut();
-					screenshot = ar.doScreenShot();
-					vision = new Vision(screenshot);
-					Rectangle _sling = vision.findSlingshotMBR();
-
-					// shoot
-					if(_sling != null)
-					{
-						double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
-						if(scale_diff < 25)
-						{
-							int dx = (int) releasePoint.getX() - refPoint.x;
-							int dy = (int) releasePoint.getY() - refPoint.y;
-							if(dx < 0)
-							{
-								long timer = System.currentTimeMillis();
-								ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
-								alreadyShotOnDomino = true;
-								System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
-
-								// check if domino structure is destroyed
-								dominoBlockList = removeDestroyedBlocksFromDominoList(dominoBlockList);
-								System.out.println("new dominoBlocklist after shot: " + dominoBlockList);
-
-								if (dominoBlockList.isEmpty()) {
-									System.out.println("Domino structure destroyed!");
-									try {
-										Files.write(Paths.get("levelsWithDestroyedStructures.txt"), ("destroyed structure in " + currentLevel + "\n").getBytes(), StandardOpenOption.APPEND);
-									}catch (IOException e) {
-										e.printStackTrace();
-									}
-								} else {
-									System.out.println("Domino structure NOT destroyed!");
-									if (vision.findBirdsMBR().size() > 2) {
-										alreadyShotOnDomino = false;
-									}
-								}
-
-
-
-								state = ar.checkState();
-								if ( state == GameState.PLAYING )
-								{
-									screenshot = ar.doScreenShot();
-									vision = new Vision(screenshot);
-									List<Point> traj = vision.findTrajPoints();
-									tp.adjustTrajectory(traj, sling, releasePoint);
-									//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
-								}
-							}
-						}
-						else
-							System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
-					}
-					else
-						System.out.println("no sling detected, can not execute the shot, will re-segement the image");
-				}
-
+			if (dominoBlockList.isEmpty()){
+				alreadyShotOnDomino = true;
+				dominoStructureDestroyed = true;
 			}
 
+			if (!dominoStructureDestroyed){
+				// fange hier an, auf Dominoblocks zu schießen
+				Point releasePoint = null;
+				//check if allBlocksList contains three times the same block
+				ABObject dominoBlock = dominoBlockList.get(0);
+				System.out.println("first dominoblock: " + dominoBlock);
 
-			//If there are pigs, we pick up a pig randomly and shoot it. 
-			if (!pigs.isEmpty() && alreadyShotOnDomino) {
+				Point _tpt = dominoBlock.getCenter();
+
+				prevTarget = new Point(_tpt.x, _tpt.y);
+
+				// estimate the trajectory
+				ArrayList<Point> pts = tp.estimateLaunchPoint(sling, _tpt);
+
+				if (pts.size() == 1)
+					releasePoint = pts.get(0);
+				else
+				if(pts.size() == 2)
+				{
+					// System.out.println("first shot " + firstShot);
+					// randomly choose between the trajectories, with a 1 in
+					// 6 chance of choosing the high one
+					if (randomGenerator.nextInt(6) == 0)
+						releasePoint = pts.get(1);
+					else
+						releasePoint = pts.get(0);
+				}
+				Point refPoint = tp.getReferencePoint(sling);
+
+				// Get the release point from the trajectory prediction module
+				int tapTime = 0;
+				if (releasePoint != null) {
+					double releaseAngle = tp.getReleaseAngle(sling,
+							releasePoint);
+					System.out.println("Release Point: " + releasePoint);
+					System.out.println("Release Angle: "
+							+ Math.toDegrees(releaseAngle));
+					int tapInterval = 0;
+					tapTime = tp.getTapTime(sling, releasePoint, _tpt, tapInterval);
+
+				} else
+				{
+					System.err.println("No Release Point Found");
+					return ar.checkState();
+				}
+
+
+				// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
+				ar.fullyZoomOut();
+				screenshot = ar.doScreenShot();
+				vision = new Vision(screenshot);
+				Rectangle _sling = vision.findSlingshotMBR();
+
+				// shoot
+				if(_sling != null)
+				{
+					double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
+					if(scale_diff < 25)
+					{
+						int dx = (int) releasePoint.getX() - refPoint.x;
+						int dy = (int) releasePoint.getY() - refPoint.y;
+						if(dx < 0)
+						{
+							long timer = System.currentTimeMillis();
+							ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
+							System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
+
+							// check if domino structure is destroyed
+							dominoBlockList = removeDestroyedBlocksFromDominoList(dominoBlockList);
+							System.out.println("new dominoBlocklist after shot: " + dominoBlockList);
+
+							if (dominoBlockList.isEmpty()) {
+								System.out.println("Domino structure destroyed!");
+								dominoStructureDestroyed = true;
+								try {
+									Files.write(Paths.get("levelsWithDestroyedStructures.txt"), ("destroyed structure in " + currentLevel + "\n").getBytes(), StandardOpenOption.APPEND);
+								}catch (IOException e) {
+									e.printStackTrace();
+								}
+							} else {
+								System.out.println("Domino structure NOT destroyed!");
+								dominoStructureDestroyed = false;
+								if (vision.findBirdsMBR().size() <= 2) {
+									dominoStructureDestroyed = true;
+								}
+							}
+
+
+
+							state = ar.checkState();
+							if ( state == GameState.PLAYING )
+							{
+								screenshot = ar.doScreenShot();
+								vision = new Vision(screenshot);
+								List<Point> traj = vision.findTrajPoints();
+								tp.adjustTrajectory(traj, sling, releasePoint);
+								//firstShot = false; // don't mark firstShot = false, so that the next shot will still be a high shot on the only pig in the game
+							}
+						}
+					}
+					else
+						System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
+				}
+				else
+					System.out.println("no sling detected, can not execute the shot, will re-segement the image");
+			}
+
+		}
+
+
+			//If there are pigs, we pick up a pig randomly and shoot it.
+			if (!pigs.isEmpty() && dominoStructureDestroyed) {
 				System.out.println("shooting on a pig...");
 				Point releasePoint = null;
 				// random pick up a pig
@@ -440,15 +462,14 @@ public class ClientNaiveAgent implements Runnable {
 						System.err.println("No Release Point Found");
 						return ar.checkState();
 					}
-				
-				
+
+
 				// check whether the slingshot is changed. the change of the slingshot indicates a change in the scale.
 				ar.fullyZoomOut();
 				screenshot = ar.doScreenShot();
 				vision = new Vision(screenshot);
 				Rectangle _sling = vision.findSlingshotMBR();
-				if(_sling != null)
-				{
+				if(_sling != null) {
 					double scale_diff = Math.pow((sling.width - _sling.width),2) +  Math.pow((sling.height - _sling.height),2);
 					if(scale_diff < 25)
 					{
@@ -470,13 +491,20 @@ public class ClientNaiveAgent implements Runnable {
 							}
 						}
 					}
-					else
+					else {
 						System.out.println("Scale is changed, can not execute the shot, will re-segement the image");
+					}
 				}
-				else
+				else {
 					System.out.println("no sling detected, can not execute the shot, will re-segement the image");
+				}
+			} else {
+				if (pigs.isEmpty()){
+					System.out.println("Pigs empty! ERROR!");
+				} else if (!dominoStructureDestroyed) {
+					System.out.println("Domino Structure not destroyed! ERROR!");
+				}
 			}
-		}
 		return state;
 	}
 

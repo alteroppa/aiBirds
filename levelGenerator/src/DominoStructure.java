@@ -13,7 +13,7 @@ public class DominoStructure {
     public ArrayList<JSONObject> createDominoStructure () {
 
         // makes sure the xValueToUse for the blocks is far enough away from the sling
-        startingXValue = ThreadLocalRandom.current().nextInt(14, 99 + 1);
+        startingXValue = ThreadLocalRandom.current().nextInt(35, 110 + 1);
 
         String randomBlock = VERTICALDOMINOBLOCK.randomBlock().toString();
         // String randomBlock = VERTICALDOMINOBLOCK.STONE_BLOCK_8X1.toString();

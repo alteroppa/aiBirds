@@ -78,3 +78,8 @@ destroyed structure in 12
 destroyed structure in 14
 destroyed structure in 15
 destroyed structure in 16
+destroyed structure in 1
+destroyed structure in 1
+destroyed structure in 1
+destroyed structure in 1
+destroyed structure in 8

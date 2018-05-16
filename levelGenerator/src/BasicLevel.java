@@ -174,7 +174,7 @@ public class BasicLevel {
     }
 
     public int getRandomXInt (boolean ignoreUsedXVals, int blockEndXVal) {
-        int min = 25;
+        int min = 45;
         int max = 130;
         System.out.println("blockEndXVal: " + blockEndXVal);
 
