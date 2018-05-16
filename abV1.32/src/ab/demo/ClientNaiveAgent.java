@@ -119,7 +119,7 @@ public class ClientNaiveAgent implements Runnable {
 	public void run() {
 		byte[] info = ar.configure(ClientActionRobot.intToByteArray(id));
 		solved = new int[info[2]];
-		
+
 		//load the initial level (default 1)
 		//Check my score
 		checkMyScore();
@@ -233,18 +233,15 @@ public class ClientNaiveAgent implements Runnable {
 		 // get all the pigs
  		List<ABObject> pigs = vision.findPigsMBR();
 		// get all the blocks
-		List<ABObject> blockList = vision.findBlocksMBR();
-		for (ABObject block : blockList){
+		List<ABObject> allBlocksList = vision.findBlocksMBR();
+		for (ABObject block : allBlocksList){
 			System.out.println(block + "\n");
 			System.out.println("height(): " + block.getHeight());
 			System.out.println("centerY(): " + block.getCenterY());
 			System.out.println("size(): " + block.getSize());
 			System.out.println("class(): " + block.getClass());
 			System.out.println("frame(): " + block.getFrame());
-
-
 		}
-
 
 
 		GameState state = ar.checkState();
@@ -252,69 +249,15 @@ public class ClientNaiveAgent implements Runnable {
 		if (sling != null) {
 			System.out.println("already shot on dominoblocks in this level: " + alreadyShotOnDomino);
 			if (!alreadyShotOnDomino){
-				List<ABObject> dominoBlockList = null;
-				for (int i = 0; i < blockList.size(); i++){
-					ABObject outerLoopBlock = blockList.get(i);
-					int counter = 0;
-					List<ABObject> tempDominoBlockList = new ArrayList<>();
-					for (int j = 0; j < blockList.size(); j++){
-						ABObject innerLoopBlock = blockList.get(j);
+				List<ABObject> dominoBlockList = getDominoBlocks(allBlocksList);
 
-						if ((equalsWithinMargin(innerLoopBlock.getY(), outerLoopBlock.getY(), 1)) && (outerLoopBlock.getType().equals(innerLoopBlock.getType()))) {
-							System.out.println("adding block: " + innerLoopBlock);
-							counter++;
-							tempDominoBlockList.add(innerLoopBlock);
-							if (counter >= 3) {
-								System.out.println("counter > 3");
-								dominoBlockList = tempDominoBlockList;
-							}
-						}
-					}
-				}
-				// remove blocks that look like, but aren't part of the domino structure
-				List<ABObject> realDominoBlocks = new ArrayList<>();
-				System.out.println("dominoblocks before: " + dominoBlockList);
-				for (int i = 0; i < dominoBlockList.size(); i++){
-					ABObject blockToCheck = dominoBlockList.get(i);
-					double distance;
-					if (i == 0){
-						distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(1).getX());
-					} else {
-						distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(i-1).getX());
-					}
-
-
-
-					// hier liegt der Hund begraben
-					if (!(distance >= blockToCheck.getHeight())){
-						realDominoBlocks.add(blockToCheck);
-						System.out.println("adding block " + blockToCheck + " to realDominoBlocks");
-					}
-				}
-				if (realDominoBlocks.size() > 0){
-					dominoBlockList = realDominoBlocks;
-				}
-
-				// sort dominoBlockList ascending
-				Collections.sort(dominoBlockList, new Comparator<ABObject>() {
-					@Override
-					public int compare(ABObject o1, ABObject o2) {
-						int val1 = (int) o1.getX();
-						int val2 = (int) o2.getX();
-						return val1 < val2 ? 1 : val2 > val1 ? -1 : 0;
-					}
-				});
 
 				// fange hier an, auf Dominoblocks zu schießen
 				if ((dominoBlockList.size() > 0) && !alreadyShotOnDomino){
 					Point releasePoint = null;
 					ABObject firstDominoBlock = null;
-					//check if blockList contains three times the same block
+					//check if allBlocksList contains three times the same block
 					ABObject dominoBlock = null;
-
-
-
-
 
 
 					System.out.println("hieraei");
@@ -387,12 +330,10 @@ public class ClientNaiveAgent implements Runnable {
 								System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
 
 								// check if domino structure is destroyed
-								if (!dominoBlockList.isEmpty()){
-									dominoBlockList = removeDestroyedBlocksFromDominoList(dominoBlockList);
-								}
+								dominoBlockList = removeDestroyedBlocksFromDominoList(dominoBlockList);
 								System.out.println("new dominoBlocklist after shot: " + dominoBlockList);
 
-								if (dominoBlockList.size() == 0) {
+								if (dominoBlockList.isEmpty()) {
 									System.out.println("Domino structure destroyed!");
 									try {
 										Files.write(Paths.get("levelsWithDestroyedStructures.txt"), ("destroyed structure in " + currentLevel + "\n").getBytes(), StandardOpenOption.APPEND);
@@ -543,6 +484,62 @@ public class ClientNaiveAgent implements Runnable {
 			}
 		}
 		return state;
+	}
+
+	private List<ABObject> getDominoBlocks(List<ABObject> blockList) {
+		List<ABObject> dominoBlockList = new ArrayList<>();
+		for (int i = 0; i < blockList.size(); i++){
+            ABObject outerLoopBlock = blockList.get(i);
+            int counter = 0;
+            List<ABObject> tempDominoBlockList = new ArrayList<>();
+            for (int j = 0; j < blockList.size(); j++){
+                ABObject innerLoopBlock = blockList.get(j);
+
+                if ((equalsWithinMargin(innerLoopBlock.getY(), outerLoopBlock.getY(), 1)) && (outerLoopBlock.getType().equals(innerLoopBlock.getType()))) {
+                    System.out.println("adding block: " + innerLoopBlock);
+                    counter++;
+                    tempDominoBlockList.add(innerLoopBlock);
+                    if (counter >= 3) {
+                        System.out.println("counter > 3");
+                        dominoBlockList = tempDominoBlockList;
+                    }
+                }
+            }
+        }
+		// remove blocks that look like, but aren't part of the domino structure
+		List<ABObject> realDominoBlocks = new ArrayList<>();
+		System.out.println("dominoblocks before: " + dominoBlockList);
+		for (int i = 0; i < dominoBlockList.size(); i++){
+            ABObject blockToCheck = dominoBlockList.get(i);
+            double distance;
+            if (i == 0){
+                distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(1).getX());
+            } else {
+                distance = Math.abs(blockToCheck.getX() - dominoBlockList.get(i-1).getX());
+            }
+
+
+
+            // hier liegt der Hund begraben
+            if (!(distance >= blockToCheck.getHeight())){
+                realDominoBlocks.add(blockToCheck);
+                System.out.println("adding block " + blockToCheck + " to realDominoBlocks");
+            }
+        }
+		if (realDominoBlocks.size() > 0){
+            dominoBlockList = realDominoBlocks;
+        }
+
+		// sort dominoBlockList ascending
+		Collections.sort(dominoBlockList, new Comparator<ABObject>() {
+            @Override
+            public int compare(ABObject o1, ABObject o2) {
+                int val1 = (int) o1.getX();
+                int val2 = (int) o2.getX();
+                return val1 < val2 ? 1 : val2 > val1 ? -1 : 0;
+            }
+        });
+		return dominoBlockList;
 	}
 
 	private void saveScreenshot(int levelcounter, BufferedImage screenshot) {
