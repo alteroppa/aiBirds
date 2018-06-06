@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<title>Angry Birds Level Editor v0.1b</title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<script type="application/javascript" src="js/blocks.js"></script>
+<script type="application/javascript" src="js/images.js"></script>
+<script type="application/javascript" src="js/able.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<div style="position:relative">
+    <html lang="en">
+
+    <head>
+    </head>
+
+    <body onload="init()" background="background.png" style="background-attachment: fixed">
+        <div id="loading" style="color: white;background-color: brown; border: solid; width: 100%; height: 20%">
+            <h1>
+                Loading images, please wait..</h1>
+        </div>
+        &nbsp;
+        <p>
+            <font size="3" color="#FFFFFF">Please paste complete decompiled </font>
+            <font size="3"> <b style="color:#FFFFFF;background-color:#99ff99">level</b>
+                <font color="#FFFFFF"> lua code here and press "render":</font>
+            </font>
+            <font color="#FFFFFF"><br/>
+
+            </font>
+
+            <textarea id="txt" rows="10" cols="100">
+physicsToWorld = 20
+theme = "theme1"
+joints = {
+}
+birdCameraData = {
+    ipad = {
+        bottom = 122.18199920654,
+        left = -655.24298095703,
+        px = 48.054100036621,
+        py = -369.68798828125,
+        right = 1953.7199707031,
+        screenHeight = 768,
+        screenWidth = 1024,
+        sx = 0.72799998521805,
+        sy = 0.72799998521805,
+        top = -897.16101074219
+    },
+    iphone = {
+        bottom = 58.935001373291,
+        left = -627.74499511719,
+        px = 40.922298431396,
+        py = -355.47198486328,
+        right = 1921.3100585938,
+        screenHeight = 968,
+        screenWidth = 1280,
+        sx = 0.95712798833847,
+        sy = 0.95712798833847,
+        top = -861.15100097656
+    },
+    version = "0.02"
+}
+castleCameraData = {
+    ipad = {
+        bottom = 122.18199920654,
+        left = 547.12298583984,
+        px = 1250.4200439453,
+        py = -405.29098510742,
+        right = 1953.7199707031,
+        screenHeight = 768,
+        screenWidth = 1024,
+        sx = 0.72799998521805,
+        sy = 0.72799998521805,
+        top = -932.76397705078
+    },
+    iphone = {
+        bottom = 47.576000213623,
+        left = 583.97302246094,
+        px = 1245.1300048828,
+        py = -452.42401123047,
+        right = 1906.2900390625,
+        screenHeight = 968,
+        screenWidth = 1280,
+        sx = 0.96799999475479,
+        sy = 0.96799999475479,
+        top = -952.42401123047
+    },
+    version = "0.02"
+}
+counts = {
+    RedBird = 1,
+    YellowBird = 1,
+    WoodBlock9 = 2,
+    KingPiglette = 1
+}
+world = {
+    ground = {
+        angle = 0,
+        definition = "Ground",
+        name = "ground",
+        x = 55.188701629639,
+        y = 5
+    },
+    RedBird_1 = {
+        x = -35.44444444444444,
+        y = -1.3333333333333357,
+        name = "RedBird_1",
+        definition = "RedBird",
+        angle = 0
+    },
+    YellowBird_1 = {
+        x = -32.66666666666667,
+        y = -1.4444444444444429,
+        name = "YellowBird_1",
+        definition = "YellowBird",
+        angle = 0
+    },
+    WoodBlock9_1 = {
+        x = 62.111111111111114,
+        y = -2.1111111111111143,
+        name = "WoodBlock9_1",
+        definition = "WoodBlock9",
+        angle = 0
+    },
+    WoodBlock9_2 = {
+        x = 62.111111111111114,
+        y = -6.111111111111107,
+        name = "WoodBlock9_2",
+        definition = "WoodBlock9",
+        angle = 0
+    },
+    KingPiglette_1 = {
+        x = 62.22222222222222,
+        y = -11.666666666666664,
+        name = "KingPiglette_1",
+        definition = "KingPiglette",
+        angle = 0
+    }
+}
+    </textarea><br/>
+</div>
+<center>
+    <font color="#FFFFFF">Zoom:</font>
+    <input type="button" onclick="chgval('zoom',-1)" value="-">
+    <input id="zoom" type="text" value="6" size="3">
+    <input type="button" onclick="chgval('zoom',1)" value="+">
+    <font color="#FFFFFF">Move canvas:</font>
+    <input type="button" onclick="chgval('delta',-10)" value="<">
+    <input id="delta" type="text" value="330" size="3">
+    <input type="button" onclick="chgval('delta',10)" value=">"><br/>
+    <input type="button" onclick="levelData = parseLevel()" value="render/revert"><input type="button" onclick="saveLevel();" value="save changes"><input type="button" onclick="alert(help());" value="HELP!"><br/>
+    <font color="#FFFFFF">Controls: click to select, right mouse or [q]/[w] to change angle, [d] to duplicate object, arrow keys or mouse leftclick+move to move object. [j]/[r] on 2 selected objs to make/delete joint. ctrl+click to add/remove object to/from selection<br/>
+    </font>
+    <div id="tscontainer" style="width:800px; overflow:scroll; background-color: silver">
+        <canvas id="toolset" width="3800" height="160" style="background-color: silver">oh, I guess you're using oudated browser, or text-only browser like lynx or links, if you're using IE, you need to wait until IE9, because IE&lt;9 just sucks, deal with it.</canvas>
+    </div><br/>
+    <canvas oncontextmenu="return false;" id="canvas" width="800" height="480" style="background-color: white">&nbsp;</canvas><br/>
+    <font color="#FFFFFF">Artwork and data files (c) Rovio Mobile Ltd., </font>
+    <b style="color:#FFFFFF;background-color:#ff9999">Editor</b>
+    <font color="#FFFFFF"> by forcer.
+    </font> <span style="color: #FFFFFF"><strong>Buy 
+	<b style="background-color:#ffff66">Angry</b> 
+	<b style="background-color:#a0ffff">Birds</b> or 
+	<b style="background-color:#ffff66">Angry</b> 
+	<b style="background-color:#a0ffff">Birds</b> 
+	<b style="background-color:#99ff99">level</b> packs if you like this 
+	<b style="background-color:#ff9999">editor</b>!</strong></span>
+    <font color="#FFFFFF"><br />
+    </font>
+    <small><font color="#FFFFFF">problems? suggestions? contact me at forcer (at) vnet.sk or
+	</font> <a href="http://talk.maemo.org/showthread.php?p=472386">
+	<font color="#FFFFFF">forum thread</font></a></small>
+    <font color="#FFFFFF">
+    </font>
+    <p>&nbsp;</p>
+    <p>
+        <font color="#FFFFFF">Level editor page revived and tweaked by Apache Thunder. Original version created by forcer.</font>
+    </p>
+</center>
+</body>
+
+</html>

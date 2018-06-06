@@ -1,0 +1,31 @@
+{
+  "camera": [
+    {
+      "bottom": 14.338,
+      "id": "Slingshot",
+      "left": -39.913,
+      "right": 33.515,
+      "top": -40.733,
+      "x": 29.894,
+      "y": -13.198
+    },
+    {
+      "bottom": 11.728,
+      "id": "Castle",
+      "left": 13.039,
+      "right": 77.257,
+      "top": -36.435,
+      "x": 78.241,
+      "y": -12.354
+    }
+  ],
+  "counts": {
+    "birds": 4,
+    "blocks": 38
+  },
+  "id": "pack1\/Level6.lua",
+  "scoreEagle": 65900,
+  "scoreGold": 64000,
+  "scoreSilver": 51000,
+  "theme": "BACKGROUND_BLUE_GRASS" 
+}

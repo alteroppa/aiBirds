@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="external1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../aiBirds/abV1.32/external" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../aiBirds/abV1.32/external" recursive="false" />
+  </library>
+</component>

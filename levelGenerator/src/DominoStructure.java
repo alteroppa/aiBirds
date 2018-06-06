@@ -1,5 +1,4 @@
 import org.json.simple.JSONObject;
-import sun.jvm.hotspot.runtime.Thread;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,17 +13,15 @@ public class DominoStructure {
     public ArrayList<JSONObject> createDominoStructure () {
 
         // makes sure the xValueToUse for the blocks is far enough away from the sling
-        startingXValue = ThreadLocalRandom.current().nextInt(35, 100 + 1); // 100 is max for the birds still to be able to reach the structure
+        startingXValue = ThreadLocalRandom.current().nextInt(30, 99 + 1);
 
         String randomBlock = VERTICALDOMINOBLOCK.randomBlock().toString();
         // String randomBlock = VERTICALDOMINOBLOCK.STONE_BLOCK_8X1.toString();
 
         // extracts the height of the block (= value on the last char of the enum)
         int blockHeight = 0;
-        if (Character.toString(randomBlock.charAt(randomBlock.length() - 5)).equals("_")) {
-            String blockHeightSubstring = randomBlock.substring(randomBlock.length() - 4, randomBlock.length() - 2);
-            System.out.println(blockHeightSubstring);
-            blockHeight = Integer.parseInt(blockHeightSubstring);
+        if (Character.toString(randomBlock.charAt(randomBlock.length() - 3)).equals("0")) {
+            blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 4)) + Character.toString(randomBlock.charAt(randomBlock.length() - 3)));
         } else {
             blockHeight = Integer.parseInt(Character.toString(randomBlock.charAt(randomBlock.length() - 3)));
         }
@@ -32,8 +29,8 @@ public class DominoStructure {
         // sets the distance between the three blocks randomly, but not further away than (blockHeight - 1)
         // nextInt doesn't go until maxvalue but stops one before
         System.out.println("dominoStructure blockheight: " + blockHeight);
-        int distance = ThreadLocalRandom.current().nextInt(4, blockHeight); // distance should be at least 4
-        endXValue = startingXValue + (distance * 2) + 5;
+        int distance = ThreadLocalRandom.current().nextInt(3, 7); // distance should be at least 3, but no higher than 7
+        endXValue = startingXValue + (distance * 2) + 10; // should actually be * 2 only, but to make some more space behind the structure...
 
         ArrayList<JSONObject> dominoStructureArrayList = new ArrayList<JSONObject>();
 
@@ -41,49 +38,25 @@ public class DominoStructure {
         part1DominoStructure.put("angle", 90);
         part1DominoStructure.put("id", randomBlock);
         part1DominoStructure.put("x", startingXValue);
-        part1DominoStructure.put("y", -4);
+        part1DominoStructure.put("y", -1);
 
         // if (distance < 4) { dominoStructureArrayList.add(createConcreteBlock(xValueToUse)); }
-
-
 
         JSONObject part2DominoStructure = new JSONObject();
         part2DominoStructure.put("angle", 90);
         part2DominoStructure.put("id", randomBlock);
         part2DominoStructure.put("x", startingXValue + distance);
-        part2DominoStructure.put("y", -4);
+        part2DominoStructure.put("y", -1);
 
         JSONObject part3DominoStructure = new JSONObject();
         part3DominoStructure.put("angle", 90);
         part3DominoStructure.put("id", randomBlock);
         part3DominoStructure.put("x", startingXValue + (2 * distance));
-        part3DominoStructure.put("y", -4);
+        part3DominoStructure.put("y", -1);
 
         dominoStructureArrayList.add(part1DominoStructure);
         dominoStructureArrayList.add(part2DominoStructure);
         dominoStructureArrayList.add(part3DominoStructure);
-
-        boolean addTopBar = ThreadLocalRandom.current().nextBoolean();
-        if (addTopBar && (distance < 8)) { // if true, add top bar above structure
-            JSONObject topBar = new JSONObject();
-            topBar.put("angle", 0);
-            topBar.put("id", randomBlock);
-            topBar.put("x", startingXValue + distance);
-            topBar.put("y", -10);
-            dominoStructureArrayList.add(topBar);
-        }
-
-        boolean addFourthBlock1 = ThreadLocalRandom.current().nextBoolean();
-        boolean addFourthBlock2 = ThreadLocalRandom.current().nextBoolean();
-        if (addFourthBlock1 && addFourthBlock2) { // if true, add fourth block in row
-            JSONObject fourthBlock = new JSONObject();
-            fourthBlock.put("angle", 90);
-            fourthBlock.put("id", randomBlock);
-            fourthBlock.put("x", startingXValue + (3 * distance));
-            fourthBlock.put("y", -4);
-            dominoStructureArrayList.add(fourthBlock);
-            endXValue = startingXValue + (distance * 3) + 5;
-        }
 
         return dominoStructureArrayList;
     }
@@ -97,7 +70,7 @@ public class DominoStructure {
     }
 
     public int getStartingXValue() {
-        return startingXValue - 2;
+        return startingXValue;
     }
     public int getEndXValue() {
         return endXValue;

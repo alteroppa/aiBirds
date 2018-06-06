@@ -1,0 +1,99 @@
+{
+  "camera": [
+    {
+      "bottom": 14.338,
+      "id": "Slingshot",
+      "left": -39.913,
+      "right": 33.515,
+      "top": -40.733,
+      "x": 29.894,
+      "y": -13.198
+    },
+    {
+      "bottom": 11.728,
+      "id": "Castle",
+      "left": 13.039,
+      "right": 77.257,
+      "top": -36.435,
+      "x": 78.241,
+      "y": -12.354
+    }
+  ],
+  "counts": {
+    "birds": 2,
+    "blocks": 9
+  },
+  "id": "pack1/Level6.lua",
+  "scoreEagle": 65900,
+  "scoreGold": 64000,
+  "scoreSilver": 51000,
+  "theme": "BACKGROUND_BLUE_GRASS",
+  "world": {
+    "bird_1": {
+      "angle": 0,
+      "x": 0,
+      "y": -1.142,
+      "id": "BIRD_RED"
+    },
+    "bird_2": {
+      "angle": 0,
+      "x": -3,
+      "y": -1.142,
+      "id": "BIRD_YELLOW"
+    },
+    "block_1": {
+      "angle": 0.0,
+      "x": 108.52111111111111,
+      "y": -1.921111111111114,
+      "id": "WOOD_BLOCK_4X4_HOLLOW"
+    },
+    "block_2": {
+      "angle": 0.0,
+      "x": 108.52111111111111,
+      "y": -5.561111111111107,
+      "id": "WOOD_BLOCK_4X4_HOLLOW"
+    },
+    "block_3": {
+      "angle": 0.0,
+      "x": 108.62222222222222,
+      "y": -10.616666666666665,
+      "id": "PIG_KING"
+    },
+    "block_4": {
+      "angle": 89.38141604040848,
+      "x": 57.46,
+      "y": -4.095,
+      "id": "STONE_BLOCK_8X1"
+    },
+    "block_5": {
+      "angle": 89.95437383553931,
+      "x": 65.65,
+      "y": -1.5166666666666646,
+      "id": "STONE_BLOCK_2X1"
+    },
+    "block_6": {
+      "angle": 89.95437383553931,
+      "x": 61.1,
+      "y": -4.853333333333331,
+      "id": "STONE_BLOCK_10X1"
+    },
+    "block_7": {
+      "angle": 0.0,
+      "x": 52.0,
+      "y": -8.341666666666665,
+      "id": "STONE_BLOCK_8X1"
+    },
+    "block_8": {
+      "angle": 0.0,
+      "x": 70.2,
+      "y": -1.2133333333333292,
+      "id": "STONE_BLOCK_1X1"
+    },
+    "block_9": {
+      "angle": 360.0,
+      "x": 38.35,
+      "y": -0.91,
+      "id": "STONE_BLOCK_10X1"
+    }
+  }
+}

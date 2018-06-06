@@ -288,7 +288,7 @@ public class ClientActionRobot {
 	// send a message to score of each level
 	public byte[] getBestScores()
 	{
-		int level = 21;
+		int level = 400;
 		int totalBytes = level * 4;
 		byte[] buffer = new byte[totalBytes];
 		try {
