@@ -12,12 +12,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import org.apache.commons.io.FileUtils;
 
 
 import ab.demo.other.ClientActionRobot;
@@ -27,7 +25,6 @@ import ab.vision.ABObject;
 import ab.vision.ABType;
 import ab.vision.GameStateExtractor.GameState;
 import ab.vision.Vision;
-import javafx.collections.FXCollections;
 
 import javax.imageio.ImageIO;
 //Naive agent (server/client version)
@@ -43,7 +40,7 @@ public class ClientNaiveAgent implements Runnable {
 	TrajectoryPlanner tp; 
 	private int id = 28888;
 	private boolean firstShot;
-	private boolean dominoStructureDestroyed;
+	private boolean tntOrPigDestroyed;
 	private Point prevTarget;
 	private Random randomGenerator;
 	boolean alreadyDoneInThisLevel = false;
@@ -60,7 +57,7 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
-		dominoStructureDestroyed = false;
+		tntOrPigDestroyed = false;
 
 
 	}
@@ -73,7 +70,7 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
-		dominoStructureDestroyed = false;
+		tntOrPigDestroyed = false;
 
 	}
 	public ClientNaiveAgent(String ip, int id)
@@ -83,7 +80,7 @@ public class ClientNaiveAgent implements Runnable {
 		randomGenerator = new Random();
 		prevTarget = null;
 		firstShot = true;
-		dominoStructureDestroyed = false;
+		tntOrPigDestroyed = false;
 		this.id = id;
 	}
 	public int getNextLevel()
@@ -132,6 +129,7 @@ public class ClientNaiveAgent implements Runnable {
 		solved = new int[info[2]];
 		fetchNewLevels(1); //get new levels in the beginning
 		ar.loadLevel((byte) 15); // load random level in the beginning in order to override level cache
+		emptyScreenshotFolders(new File("screenshots"));
 
 		//load the initial level (default 1)
 		//Check my score
@@ -174,17 +172,17 @@ public class ClientNaiveAgent implements Runnable {
 
 		int levelFolderCounter = 2;
 		while (true) {
-			if (continuousLevelCounter > 1998) {
+			if (continuousLevelCounter > 2998) {
 				break;
 			}
 			System.out.println("while true: running level " + currentLevel);
 
-			dominoStructureDestroyed = false;
+			tntOrPigDestroyed = false;
 			state = solve(currentLevel);
 			//If the level is solved , go to the next level
 			if (state == GameState.WON) {
 				alreadyDoneInThisLevel = false;
-				dominoStructureDestroyed = false;
+				tntOrPigDestroyed = false;
 				///System.out.println(" loading the level " + (currentLevel + 1) );
 				//checkMyScore();
 				currentLevel = (byte)getNextLevel();
@@ -212,7 +210,7 @@ public class ClientNaiveAgent implements Runnable {
 			} else
 				//If lost, then restart the level
 				if (state == GameState.LOST) {
-					dominoStructureDestroyed = false;
+					tntOrPigDestroyed = false;
 					alreadyDoneInThisLevel = false;
 
 					failedCounter++;
@@ -228,7 +226,7 @@ public class ClientNaiveAgent implements Runnable {
 				else
 				{
 					alreadyDoneInThisLevel = false;
-					dominoStructureDestroyed = false;
+					tntOrPigDestroyed = false;
 					System.out.println("restart");
 					ar.restartLevel();
 				}
@@ -236,14 +234,14 @@ public class ClientNaiveAgent implements Runnable {
 			} else
 				if (state == GameState.LEVEL_SELECTION) {
 					alreadyDoneInThisLevel = false;
-					dominoStructureDestroyed = false;
+					tntOrPigDestroyed = false;
 
 					System.out.println("unexpected level selection page, go to the last current level : "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.MAIN_MENU) {
 					alreadyDoneInThisLevel = false;
-					dominoStructureDestroyed = false;
+					tntOrPigDestroyed = false;
 
 					System.out
 						.println("unexpected main menu page, reload the level : "
@@ -251,20 +249,19 @@ public class ClientNaiveAgent implements Runnable {
 				ar.loadLevel(currentLevel);
 			} else if (state == GameState.EPISODE_MENU) {
 					alreadyDoneInThisLevel = false;
-					dominoStructureDestroyed = false;
+					tntOrPigDestroyed = false;
 
 					System.out.println("unexpected episode menu page, reload the level: "
 								+ currentLevel);
 				ar.loadLevel(currentLevel);
 			}
-			// if currentlevel > 19, copy new levels to folder and set currentlevel to 1 again
-			if (currentLevel == 20){
-				fetchNewLevels(levelFolderCounter);
-			}
+			// if currentlevel%20 == 0, copy new levels to folder and set currentlevel to 0 again (starts with 0, so %20 and not %21)
 			if (currentLevel == 21){
+				fetchNewLevels(levelFolderCounter);
+				ar.loadLevel((byte) 2); //go into random level after fetching new levels, do nothing there
 				currentLevel = -1;
 				levelFolderCounter++;
-				System.out.println("setting currentLevel to -1");
+				System.out.println("setting currentLevel to 0");
 			}
 
 		}
@@ -275,7 +272,7 @@ public class ClientNaiveAgent implements Runnable {
 	private void fetchNewLevels(int levelFolderCounter) {
 		for (int i = 0; i < 21; i++){
             Path createdLevelPath = Paths.get("/Users/felix/Documents/git/aiBirds/levelGenerator/generatedLevels/dominoLevels/levels" + levelFolderCounter + "/Level1-" + (i+1) + ".json");
-            Path gameLevelPath = Paths.get("/Users/felix/Documents/git/BamBird_2017/game/slingshot/cors/fowl/json/Level1-" + (i+1) + ".json");
+            Path gameLevelPath = Paths.get("/Users/felix/Documents/git/gameBA/slingshot/cors/fowl/json/Level1-" + (i+1) + ".json");
             try {
                 Files.copy(createdLevelPath, gameLevelPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
@@ -293,14 +290,19 @@ public class ClientNaiveAgent implements Runnable {
      */
 	public GameState solve(int levelCounter) {
 		System.out.println("solve()");
+		
 		// capture Image
 		BufferedImage screenshot = ar.doScreenShot();
 		BufferedImage screenShotMintLevel = ar.doScreenShot();
+		saveScreenshot(screenShotMintLevel, "uncertain");
 
 		// process image
 		Vision vision = new Vision(screenshot);
 
 		Rectangle sling = vision.findSlingshotMBR();
+		boolean tntLevel = (vision.findTNTs().size() > 0);
+
+
 
 		//If the level is loaded (in PLAYING　state)but no slingshot detected, then the agent will request to fully zoom out.
 		while (sling == null && ar.checkState() == GameState.PLAYING) {
@@ -346,22 +348,21 @@ public class ClientNaiveAgent implements Runnable {
 		GameState state = ar.checkState();
 		// if there is a sling, then play, otherwise skip.
 		if (sling != null) {
-			System.out.println("domino structure in this level is destroyed: " + dominoStructureDestroyed);
+			System.out.println("pig or tnt in this level is destroyed: " + tntOrPigDestroyed);
 			if (!alreadyDoneInThisLevel) {
 				dominoBlockList = getDominoBlocks(allBlocksList);
 				if (dominoBlockList.isEmpty()){
-					System.out.println("1");
 					saveScreenshot(screenShotMintLevel, "noDominoStructure");
 					return GameState.WON; // exiting level, no pig destruction necessary any more. Can be removed in order to get back to regular behaviour.
 				}
 				alreadyDoneInThisLevel = true;
 			}
 
-			if (dominoBlockList.isEmpty()) {
-				dominoStructureDestroyed = true;
+			if ((tntLevel && vision.findTNTs().size() == 0) || (!tntLevel && vision.findPigsMBR().size() < 2)) {
+				tntOrPigDestroyed = true;
 			}
 
-			if (!dominoStructureDestroyed) {
+			if (!tntOrPigDestroyed) {
 				// fange hier an, auf Dominoblocks zu schießen
 				Point releasePoint = null;
 				//check if allBlocksList contains three times the same block
@@ -443,25 +444,31 @@ public class ClientNaiveAgent implements Runnable {
 						if (dx < 0) {
 							long timer = System.currentTimeMillis();
 							ar.shoot(refPoint.x, refPoint.y, dx, dy, 0, tapTime, false);
-							System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
+							//System.out.println("It takes " + (System.currentTimeMillis() - timer) + " ms to take a shot");
 
 							// check if domino structure is destroyed
 							ArrayList<ABObject> oldDominoBlockList = new ArrayList<>(dominoBlockList);
 							dominoBlockList = removeDestroyedBlocksFromDominoList(oldDominoBlockList);
 							System.out.println("new dominoBlocklist after shot: " + dominoBlockList);
 
-							if (dominoBlockList.isEmpty()) {
+							screenshot = ar.doScreenShot();
+							vision = new Vision(screenshot);
+
+							if ((tntLevel && vision.findTNTs().size() == 0) || (!tntLevel && vision.findPigsMBR().size() < 2)) {
 								System.out.println("3 (Domino structure destroyed!)");
-								dominoStructureDestroyed = true;
+								tntOrPigDestroyed = true;
 								saveScreenshot(screenShotMintLevel, "dominoStructure");
-								BufferedImage screenshotWithX = drawXonScreenshot(screenShotMintLevel, oldDominoBlockList.get(0).getCenterX(), (oldDominoBlockList.get(0).getY() + 10), levelCounter);
+								BufferedImage screenshotWithX = drawXonScreenshot(screenShotMintLevel, oldDominoBlockList.get(0).getCenterX(), (oldDominoBlockList.get(0).getY() + 10));
 								saveScreenshot(screenshotWithX, "screenshotsWithX");
 								writeCoordinatesToFile(("level" + continuousLevelCounter), oldDominoBlockList.get(0).getCenterX(), (oldDominoBlockList.get(0).getY() + 10));
 								return GameState.WON; // exiting level, no pig destruction necessary any more. Can be removed in order to get back to regular behaviour.
 							} else {
+								System.out.println("tntLevel = " + tntLevel);
+								System.out.println("vision.findTNTs().size() = " + vision.findTNTs().size());
+								System.out.println("vision.findPigsMBR().size() = " + vision.findPigsMBR().size());
 								System.out.println("Domino structure NOT destroyed!");
 								saveScreenshot(screenShotMintLevel, "noDominoStructure");
-								dominoStructureDestroyed = false;
+								tntOrPigDestroyed = false;
 								return GameState.WON; // exiting level, no pig destruction necessary any more. Can be removed in order to get back to regular behaviour.
 							}
 
@@ -489,7 +496,7 @@ public class ClientNaiveAgent implements Runnable {
 			pigs = pigsVision.findPigsMBR();
 
 			//If there are pigs, we pick up a pig randomly and shoot it.
-			if (!pigs.isEmpty() && dominoStructureDestroyed) {
+			if (!pigs.isEmpty() && tntOrPigDestroyed) {
 				System.out.println("shooting on a pig...");
 				Point releasePoint = null;
 				// random pick up a pig
@@ -786,6 +793,14 @@ public class ClientNaiveAgent implements Runnable {
 
 	private void writeCoordinatesToFile(String levelName, double x, double y) {
 		try {
+			File file = new File("screenshots/coordinates.txt");
+
+			//Create the file
+			if (file.createNewFile()){
+				System.out.println("File is created!");
+			}else{
+				System.out.println("File already exists.");
+			}
 			Files.write(Paths.get("screenshots/coordinates.txt"), ("\n" + levelName + ";" + x + ";" + y + ";").getBytes(), StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -846,8 +861,25 @@ public class ClientNaiveAgent implements Runnable {
 		return allBlocksAfter;
 	}
 
-	public BufferedImage drawXonScreenshot(BufferedImage screenshot, double xVal, double yVal, int levelCounter){
+	public BufferedImage drawXonScreenshot(BufferedImage screenshot, double xVal, double yVal){
 		System.out.println("drawing X on screenshot with x=" + xVal + " and y=" + yVal + " ...");
+
+		int x = 0;
+		int y = 0;
+		int distance = 0;
+
+		try {
+		ArrayList<String> lines = new ArrayList<String>(Files.readAllLines(Paths.get("../levelGenerator/generatedLevels/dominoCoordinates.txt"), StandardCharsets.UTF_8));
+		String line = lines.get(continuousLevelCounter-1);
+		System.out.println("Getting line " + (continuousLevelCounter-1));
+		String[] singleLineArray = line.split(";");
+			System.out.println("singleLineArray = " + singleLineArray);
+		x = Integer.parseInt(singleLineArray[1]) * 5 + 14 - 15;
+		y = 360;
+		distance = Integer.parseInt(singleLineArray[3]) * 5 + 14 - 17;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// Icon made by twitter from www.flaticon.com
 		BufferedImage cross = null;
@@ -869,15 +901,36 @@ public class ClientNaiveAgent implements Runnable {
 		g.drawImage(screenshot, 0, 0, null);
 
 		/**
+		 * drawing x at center of structure (read from file)
+		g.drawImage(cross, x, y, null);
+		g.drawImage(cross, x-distance, y, null);
+		g.drawImage(cross, x+distance, y, null);
+		 */
+
+
+		/**
 		 * Draw foreground image at location (0,0)
 		 * Change (x,y) value as required.
 		 */
-		int xValue = (int) Math.round(xVal) - 16; // - 16 because we want the center of the cross to be the point
-		int yValue = (int) Math.round(yVal) - 16;
+		int xValue = (int) Math.round(xVal) - 15; // - 16 because we want the center of the cross to be the point
+		int yValue = (int) Math.round(yVal) - 15;
 		System.out.println("rounded x=" + xValue + "\nrounded y=" + yValue);
 		g.drawImage(cross, xValue, yValue, null);
 		g.dispose();
 		return screenshot;
+	}
+
+	public void emptyScreenshotFolders(File folder){
+		File[] files = folder.listFiles();
+		if(files!=null) { //some JVMs return null for empty dirs
+			for(File f: files) {
+				if(f.isDirectory()) {
+					emptyScreenshotFolders(f);
+				} else {
+					f.delete();
+				}
+			}
+		}
 	}
 
 }

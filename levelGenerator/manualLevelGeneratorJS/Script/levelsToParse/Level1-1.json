@@ -61,10 +61,8 @@ counts = {
     YellowBird = 1,
     WoodBlock9 = 2,
     KingPiglette = 1,
-    StoneBlock6 = 2,
-    StoneBlock2 = 1,
-    StoneBlock10 = 2,
-    StoneBlock1 = 1
+    SmallPiglette = 1,
+    StaticBlockTheme07_02 = 1
 }
 world = {
     ground = {
@@ -109,46 +107,18 @@ world = {
         definition = "KingPiglette",
         angle = 0
     },
-    StoneBlock6_1 = {
-        x = 6,
-        y = -4.5,
-        name = "StoneBlock6_1",
-        definition = "StoneBlock6",
-        angle = 1.5600000000000012
-    },
-    StoneBlock2_1 = {
-        x = 15,
-        y = -1.6666666666666643,
-        name = "StoneBlock2_1",
-        definition = "StoneBlock2",
-        angle = 1.5700000000000012
-    },
-    StoneBlock10_1 = {
-        x = 10,
-        y = -5.33333333333333,
-        name = "StoneBlock10_1",
-        definition = "StoneBlock10",
-        angle = 1.5700000000000012
-    },
-    StoneBlock6_2 = {
-        x = 0,
-        y = -9.166666666666664,
-        name = "StoneBlock6_2",
-        definition = "StoneBlock6",
+    SmallPiglette_1 = {
+        x = 0.5,
+        y = -2.000000000000002,
+        name = "SmallPiglette_1",
+        definition = "SmallPiglette",
         angle = 0
     },
-    StoneBlock1_1 = {
-        x = 20,
-        y = -1.3333333333333286,
-        name = "StoneBlock1_1",
-        definition = "StoneBlock1",
+    StaticBlockTheme07_02_1 = {
+        x = -2.8333333333333353,
+        y = -4.333333333333334,
+        name = "StaticBlockTheme07_02_1",
+        definition = "StaticBlockTheme07_02",
         angle = 0
-    },
-    StoneBlock10_2 = {
-        x = -15,
-        y = -1,
-        name = "StoneBlock10_2",
-        definition = "StoneBlock10",
-        angle = -3.122502256758253e-17
     }
 }

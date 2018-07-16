@@ -1,5 +1,8 @@
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 public class main {
     public static void main(String[] args){
         //createFunnelLevels(10);
-        createDominoLevels(2000);
+        createDominoLevels(1001);
         //createSimpleLevels(10);
         //createHouseLevels(10);
     }

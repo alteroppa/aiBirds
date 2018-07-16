@@ -61,7 +61,13 @@ counts = {
     YellowBird = 1,
     WoodBlock9 = 2,
     KingPiglette = 1,
-    StoneBlock5 = 3
+    StaticBlockTheme05_02 = 3,
+    ExtraBlockTNT = 2,
+    MediumPiglette = 2,
+    StaticBlockTheme07_02 = 1,
+    StaticBlockTheme08_02 = 1,
+    StoneBlock7 = 1,
+    StaticBlockTheme06_02 = 1
 }
 world = {
     ground = {
@@ -106,25 +112,81 @@ world = {
         definition = "KingPiglette",
         angle = 0
     },
-    StoneBlock5_1 = {
-        x = -11.000000000000005,
-        y = -2.666666666666671,
-        name = "StoneBlock5_1",
-        definition = "StoneBlock5",
-        angle = 1.5700000000000012
-    },
-    StoneBlock5_2 = {
-        x = -8.000000000000002,
-        y = -1.6666666666666643,
-        name = "StoneBlock5_2",
-        definition = "StoneBlock5",
+    StaticBlockTheme05_02_1 = {
+        x = -5.666666666666666,
+        y = -5.5,
+        name = "StaticBlockTheme05_02_1",
+        definition = "StaticBlockTheme05_02",
         angle = 0
     },
-    StoneBlock5_3 = {
-        x = -5.000000000000002,
+    StaticBlockTheme05_02_2 = {
+        x = -9.5,
+        y = -9.5,
+        name = "StaticBlockTheme05_02_2",
+        definition = "StaticBlockTheme05_02",
+        angle = 1.5700000000000012
+    },
+    StaticBlockTheme05_02_3 = {
+        x = -5.499999999999998,
+        y = -13.5,
+        name = "StaticBlockTheme05_02_3",
+        definition = "StaticBlockTheme05_02",
+        angle = -3.469446951953614e-18
+    },
+    ExtraBlockTNT_1 = {
+        x = -5.333333333333334,
+        y = -2.3333333333333286,
+        name = "ExtraBlockTNT_1",
+        definition = "ExtraBlockTNT",
+        angle = 0
+    },
+    MediumPiglette_1 = {
+        x = -5.166666666666668,
+        y = -8.333333333333329,
+        name = "MediumPiglette_1",
+        definition = "MediumPiglette",
+        angle = 0
+    },
+    StaticBlockTheme07_02_1 = {
+        x = 17.333333333333336,
+        y = -5.166666666666669,
+        name = "StaticBlockTheme07_02_1",
+        definition = "StaticBlockTheme07_02",
+        angle = 1.270000000000001
+    },
+    StaticBlockTheme08_02_1 = {
+        x = 27.83333333333333,
+        y = -5.333333333333329,
+        name = "StaticBlockTheme08_02_1",
+        definition = "StaticBlockTheme08_02",
+        angle = 0
+    },
+    StoneBlock7_1 = {
+        x = 27.666666666666664,
         y = -2.6666666666666643,
-        name = "StoneBlock5_3",
-        definition = "StoneBlock5",
-        angle = 1.5600000000000012
+        name = "StoneBlock7_1",
+        definition = "StoneBlock7",
+        angle = 0
+    },
+    MediumPiglette_2 = {
+        x = 35.666666666666664,
+        y = -2.499999999999998,
+        name = "MediumPiglette_2",
+        definition = "MediumPiglette",
+        angle = 0
+    },
+    ExtraBlockTNT_2 = {
+        x = 21.333333333333332,
+        y = -2.5,
+        name = "ExtraBlockTNT_2",
+        definition = "ExtraBlockTNT",
+        angle = 0
+    },
+    StaticBlockTheme06_02_1 = {
+        x = 37.166666666666664,
+        y = -5.333333333333329,
+        name = "StaticBlockTheme06_02_1",
+        definition = "StaticBlockTheme06_02",
+        angle = 0
     }
 }

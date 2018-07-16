@@ -61,11 +61,16 @@ counts = {
     YellowBird = 1,
     WoodBlock9 = 2,
     KingPiglette = 1,
-    StaticBlockTheme06_02 = 1,
-    StaticBlockTheme07_02 = 1,
+    LightBlock6 = 3,
+    LightBlock4 = 1,
+    MediumPiglette = 1,
+    StaticBlockTheme07_02 = 3,
+    StaticBlockTheme07_01 = 1,
+    LightBlock3 = 1,
+    StoneBlock8 = 1,
+    StaticFragileBlock02 = 2,
     SmallPiglette = 1,
-    StaticBlockTheme08_02 = 1,
-    StaticBlockTheme08_01 = 1
+    StaticBlockTheme08_02 = 1
 }
 world = {
     ground = {
@@ -110,39 +115,109 @@ world = {
         definition = "KingPiglette",
         angle = 0
     },
-    StaticBlockTheme06_02_1 = {
-        x = 1.8333333333333321,
-        y = -5.499999999999995,
-        name = "StaticBlockTheme06_02_1",
-        definition = "StaticBlockTheme06_02",
+    LightBlock6_1 = {
+        x = -4.666666666666666,
+        y = -4.4999999999999964,
+        name = "LightBlock6_1",
+        definition = "LightBlock6",
         angle = 1.5700000000000012
+    },
+    LightBlock6_2 = {
+        x = -5.833333333333333,
+        y = -4.499999999999995,
+        name = "LightBlock6_2",
+        definition = "LightBlock6",
+        angle = 1.5700000000000012
+    },
+    LightBlock4_1 = {
+        x = -5.833333333333332,
+        y = -9.166666666666666,
+        name = "LightBlock4_1",
+        definition = "LightBlock4",
+        angle = 0
+    },
+    MediumPiglette_1 = {
+        x = -5.666666666666665,
+        y = -11.66666666666667,
+        name = "MediumPiglette_1",
+        definition = "MediumPiglette",
+        angle = 0
     },
     StaticBlockTheme07_02_1 = {
-        x = 7,
-        y = -5.333333333333336,
+        x = -8.333333333333332,
+        y = -13.66666666666666,
         name = "StaticBlockTheme07_02_1",
         definition = "StaticBlockTheme07_02",
-        angle = 1.5700000000000012
+        angle = 2.209999999999997
+    },
+    StaticBlockTheme07_02_2 = {
+        x = 52.83333333333333,
+        y = -13.333333333333325,
+        name = "StaticBlockTheme07_02_2",
+        definition = "StaticBlockTheme07_02",
+        angle = -0.6000000000000003
+    },
+    StaticBlockTheme07_01_1 = {
+        x = 54.49999999999999,
+        y = -14.333333333333329,
+        name = "StaticBlockTheme07_01_1",
+        definition = "StaticBlockTheme07_01",
+        angle = 0
+    },
+    LightBlock3_1 = {
+        x = 53.166666666666664,
+        y = -16.166666666666664,
+        name = "LightBlock3_1",
+        definition = "LightBlock3",
+        angle = 0
+    },
+    StaticBlockTheme07_02_3 = {
+        x = 59.99999999999999,
+        y = -18.33333333333333,
+        name = "StaticBlockTheme07_02_3",
+        definition = "StaticBlockTheme07_02",
+        angle = -0.6100000000000003
+    },
+    StoneBlock8_1 = {
+        x = 55.166666666666664,
+        y = -16.999999999999993,
+        name = "StoneBlock8_1",
+        definition = "StoneBlock8",
+        angle = 0
+    },
+    StaticFragileBlock02_1 = {
+        x = 45.5,
+        y = -8.333333333333336,
+        name = "StaticFragileBlock02_1",
+        definition = "StaticFragileBlock02",
+        angle = -0.6000000000000003
+    },
+    StaticFragileBlock02_2 = {
+        x = 38,
+        y = -3.1666666666666643,
+        name = "StaticFragileBlock02_2",
+        definition = "StaticFragileBlock02",
+        angle = -0.5900000000000003
     },
     SmallPiglette_1 = {
-        x = 4.333333333333332,
-        y = -2.1666666666666643,
+        x = 32.5,
+        y = -1.8333333333333286,
         name = "SmallPiglette_1",
         definition = "SmallPiglette",
         angle = 0
     },
     StaticBlockTheme08_02_1 = {
-        x = 8.5,
-        y = -5.333333333333329,
+        x = 30.5,
+        y = -3.833333333333334,
         name = "StaticBlockTheme08_02_1",
         definition = "StaticBlockTheme08_02",
-        angle = 1.5600000000000012
+        angle = -0.5800000000000003
     },
-    StaticBlockTheme08_01_1 = {
-        x = 5.333333333333334,
-        y = -12.999999999999996,
-        name = "StaticBlockTheme08_01_1",
-        definition = "StaticBlockTheme08_01",
-        angle = 0.7700000000000005
+    LightBlock6_3 = {
+        x = -6.999999999999998,
+        y = -4.5,
+        name = "LightBlock6_3",
+        definition = "LightBlock6",
+        angle = 1.5600000000000012
     }
 }

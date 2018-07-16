@@ -22,7 +22,7 @@ public class LevelCreator {
 		ArrayList<JSONObject> dominoLevelList = new ArrayList<JSONObject>();
 		for (int i = 0; i < numberOfLevels; i++){
 			DominoStructure dominoStructure = new DominoStructure();
-			ArrayList<JSONObject> dominoStructureList = dominoStructure.createDominoStructure();
+			ArrayList<JSONObject> dominoStructureList = dominoStructure.createDominoStructure(i+1,true);
 			BasicLevel basicLevel = new BasicLevel(dominoStructureList);
 
 			// if domino structure is to be created, only one pig should be added.
@@ -31,6 +31,7 @@ public class LevelCreator {
 
 			// adds the xValues of the created dominoStructure to the list
 			basicLevel.addToUsedXValues(dominoStructure.getStartingXValue(), (dominoStructure.getEndXValue() - dominoStructure.getStartingXValue()));
+			basicLevel.additionalStructureStartingXValue = dominoStructure.getStartingXValue();
 			basicLevel.createSingleLevel(10, 1, 1, false);
 			dominoLevelList.add(basicLevel.getLevel());
 			System.out.println("domino level "+ i + " created!");

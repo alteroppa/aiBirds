@@ -20,6 +20,7 @@ public class BasicLevel {
     int numberOfTerrainBlocks = 0;
     ArrayList<JSONObject> additionalStructureList = new ArrayList<>();
     boolean additionalStructureIsDominoStructure = false;
+    public int additionalStructureStartingXValue;
 
     public BasicLevel(ArrayList<JSONObject> additionalStructureList, ArrayList<Integer> pigXValues){
         this.additionalStructureList = additionalStructureList;
@@ -141,6 +142,8 @@ public class BasicLevel {
             JSONObject randomBlock = new JSONObject();
             int angle = getRandomAngle();
             randomBlock.put("angle", angle);
+
+
             String randomBlockString = BLOCK.randomBlock().toString();
             int endingXVal = 0;
             int secondVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") + 1).charAt(0)));
@@ -151,11 +154,27 @@ public class BasicLevel {
             } else {
                 endingXVal = secondVal;
             }
+            int randomXval = getRandomXInt(false, endingXVal + 2);
+
+            // make sure the first block of the domino structure is reachable
+            if (randomXval < additionalStructureStartingXValue) {
+                randomBlockString = SMALLBLOCK.randomBlock().toString();
+                endingXVal = 0;
+                secondVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") + 1).charAt(0)));
+                firstVal = Integer.parseInt(Character.toString(randomBlockString.substring(randomBlockString.lastIndexOf("X") - 1).charAt(0)));
+
+                if (angle == 0 || angle == 180) {
+                    endingXVal = firstVal;
+                } else {
+                    endingXVal = secondVal;
+                }
+                randomXval = getRandomXInt(false, endingXVal + 2);
+            }
+
             randomBlock.put("id", randomBlockString);
-            int randomXval = getRandomXInt(false, endingXVal);
             randomBlock.put("x", randomXval);
             randomBlock.put("y", -1); // y should always be -1 or -2 (for terrain), else blocks will be created in mid air
-            System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
+            //System.out.println("randomXVal: " + randomXval + "\n" + "endingXVal: " + (endingXVal + randomXval));
             addToUsedXValues(randomXval, endingXVal);
             world.put("block_"+(i+1), randomBlock);
             System.out.println(randomBlock);
@@ -235,7 +254,7 @@ public class BasicLevel {
             }
             valueAlreadyInUse = false;
             randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
-            System.out.println("randomxVal: " + randomXvalue);
+            //System.out.println("randomxVal: " + randomXvalue);
             for (int i = randomXvalue; i <= randomXvalue + blockEndXVal; i++) {
                 if (usedXvalues.contains(i)) {
                     valueAlreadyInUse = true;
@@ -250,7 +269,7 @@ public class BasicLevel {
             }
             valueAlreadyInUse = false;
             randomXvalue = ThreadLocalRandom.current().nextInt(min, max + 1);
-            System.out.println("randomxVal: " + randomXvalue);
+            //System.out.println("randomxVal: " + randomXvalue);
             for (int i = randomXvalue; i <= randomXvalue + blockEndXVal; i++) {
                 if (pigXValues.contains(i)) {
                     valueAlreadyInUse = true;
