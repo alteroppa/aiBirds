@@ -10,6 +10,10 @@ import org.apache.commons.io.FileUtils;
 
 import org.json.simple.JSONObject;
 
+/**
+ * This is the main level creation class. It combines several parts of the actual level to one and
+ * saves the level into a JSON file.
+ */
 public class LevelCreator {
 
 	//private ArrayList<JSONObject> dominoLevelList = new ArrayList<JSONObject>();

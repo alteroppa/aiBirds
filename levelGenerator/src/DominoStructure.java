@@ -1,21 +1,19 @@
 import org.json.simple.JSONObject;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by felix on 10.04.18.
+ * This class creates the domino structure. It also makes sure there are no random blocks at the location of
+ * the domino structure.
  */
 public class DominoStructure {
     private int startingXValue = 0;
     private int endXValue = 0;
 
-    private int yValue = -1;
+    private double yValue = -1;
 
     public ArrayList<JSONObject> createDominoStructure (int levelCount, boolean saveCoordinates) {
 
@@ -32,13 +30,13 @@ public class DominoStructure {
             firstBlockBelow.put("id", TERRAIN.TERRAIN_TEXTURED_HILLS_32X2.toString());
             firstBlockBelow.put("x", startingXValue + 10);
             firstBlockBelow.put("y", yValue);
-            yValue = -2;
+            yValue = -2.5;
             if (secondTerrainBlockBelow){
                 secondBlockBelow.put("angle", 0);
                 secondBlockBelow.put("id", TERRAIN.TERRAIN_TEXTURED_HILLS_32X2.toString());
                 secondBlockBelow.put("x", startingXValue + 10);
                 secondBlockBelow.put("y", yValue);
-                yValue = -4;
+                yValue = -4.5;
             }
         }
 
@@ -90,7 +88,7 @@ public class DominoStructure {
         topBlock.put("x", startingXValue + distance);
         topBlock.put("y", yValue + 5);
 
-        boolean blockInBetweenBool = ThreadLocalRandom.current().nextBoolean();
+        boolean blockInBetweenBool = ThreadLocalRandom.current().nextInt(100) < 25;
         JSONObject blockInBetween = new JSONObject();
         blockInBetween.put("angle", 90);
         blockInBetween.put("id", TERRAIN.TERRAIN_TEXTURED_HILLS_10X2.toString());
@@ -127,7 +125,7 @@ public class DominoStructure {
             dominoStructureArrayList.add(secondBlockBelow);
         if (blockInBetweenBool) // randomly add block in between or leave out
             dominoStructureArrayList.add(blockInBetween);
-        if (ThreadLocalRandom.current().nextBoolean()) // randomly skip last structure part to see if it still works
+        if (ThreadLocalRandom.current().nextInt(100) < 80) // randomly skip last structure part to see if it still works
             dominoStructureArrayList.add(part3DominoStructure);
         dominoStructureArrayList.add(pigOrTNTAtEnd);
 
@@ -138,9 +136,13 @@ public class DominoStructure {
         return dominoStructureArrayList;
     }
 
-    public void saveCoordinates(int levelCount, int yValueMiddleBlock, int xValueMiddleBlock, int distance){
+    public void saveCoordinates(int levelCount, double yValueMiddleBlock, int xValueMiddleBlock, int distance){
         Writer output = null;  //clears file every time
         try {
+            File coordinatesFile = new File("generatedLevels/dominoCoordinates.txt");
+            if (coordinatesFile.createNewFile()) {
+                coordinatesFile.delete();
+            }
             output = new BufferedWriter(new FileWriter("generatedLevels/dominoCoordinates.txt", true));
             String line = levelCount+";"+xValueMiddleBlock+";"+yValueMiddleBlock+";"+distance+";\n";
             output.append(line);
@@ -162,7 +164,7 @@ public class DominoStructure {
 
 
     public void setStartingXValue(int startingXValue) {this.startingXValue = startingXValue;}
-    public int getyValue() { return yValue; }
+    public double getyValue() { return yValue; }
     public void setyValue(int yValue) { this.yValue = yValue; }
     public int getStartingXValue() { return startingXValue; }
     public int getEndXValue() { return endXValue; }

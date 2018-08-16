@@ -6,12 +6,14 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
- * Created by felix on 09.04.18.
+ * This is the entry method. Uncomment the function calls to create n new levels.
+ * SimpleLevels and DominoLevels are certain to work. FunnelLevels hasn't been
+ * made sure to work, though. HouseLevel will not work.
  */
 public class main {
     public static void main(String[] args){
         //createFunnelLevels(10);
-        createDominoLevels(1001);
+        createDominoLevels(2001);
         //createSimpleLevels(10);
         //createHouseLevels(10);
     }

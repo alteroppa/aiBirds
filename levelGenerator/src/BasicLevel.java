@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @author Felix Schweinfest
+ * This class represents the basic structure of a level. It contains the foundations: birds, pigs, random objects.
  */
 public class BasicLevel {
     JSONObject level = new JSONObject();
@@ -277,7 +277,6 @@ public class BasicLevel {
             }
         }
 
-        //System.out.println("usedValues: " + usedXvalues);
         return randomXvalue;
     }
 

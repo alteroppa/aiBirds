@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by felix on 10.04.18.
@@ -16,7 +17,6 @@ public enum VERTICALDOMINOBLOCK {
     WOOD_BLOCK_10X1,
 
     //ICE_BLOCK_4X1,
-    ICE_BLOCK_8X1,
     ICE_BLOCK_10X1;
 
 
@@ -26,7 +26,10 @@ public enum VERTICALDOMINOBLOCK {
     private static final Random RANDOM = new Random();
 
     public static VERTICALDOMINOBLOCK randomBlock()  {
-        return ALLBLOCKS.get(RANDOM.nextInt(SIZE));
+        if (ThreadLocalRandom.current().nextInt(100) < 10)
+            return ICE_BLOCK_10X1; // return ice block less likely than others
+
+        return ALLBLOCKS.get(RANDOM.nextInt(4)); // else go only until wood 10x1
     }
 
 
